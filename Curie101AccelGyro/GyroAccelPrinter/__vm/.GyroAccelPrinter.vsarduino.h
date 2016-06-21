@@ -94,6 +94,5 @@ extern "C" void __cxa_pure_virtual() {;}
 #undef cli
 #define cli()
 #include <GyroAccelPrinter.ino>
-#include <CPUTMath.h>
 #include <GyroAccelPrinter.h>
 #endif

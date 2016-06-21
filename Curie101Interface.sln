@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2015
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Curie101Interface.CSharp", "Curie101Interface.CSharp.csproj", "{9B65B3C5-7D1C-97E0-B7B3-8968700E35D6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GyroAccelPrinter", "..\Arduino\VR Hand Tracking\GyroAccelPrinter\GyroAccelPrinter.vcxproj", "{D3FDF444-58A8-4937-96BC-0C9654F6457F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GyroAccelPrinter", "Curie101AccelGyro\GyroAccelPrinter\GyroAccelPrinter.vcxproj", "{D3FDF444-58A8-4937-96BC-0C9654F6457F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

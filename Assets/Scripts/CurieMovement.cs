@@ -20,6 +20,9 @@ public class CurieMovement : MonoBehaviour, IDisposable
         );
         port.Open();
         movement = new MovementTracker(gameObject, port);
+        // Allow time for object to be constructed.
+        // If this is not done, the coroutine *could* start before the object is constructed.
+        Thread.Sleep(100);
         Assert.AreNotEqual(movement, null);
     }
 
