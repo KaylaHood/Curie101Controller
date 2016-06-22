@@ -32,7 +32,6 @@ public class CurieMovement : MonoBehaviour, IDisposable
         if (!movementIsCalibrated && !didStartCoroutine)
         {
             didStartCoroutine = true;
-            Debug.Log("Make sure that Curie is held flat for calibration. Hold y when ready.");
             StartCoroutine(CoroutineCalibrate());
         }
         else if(movementIsCalibrated)

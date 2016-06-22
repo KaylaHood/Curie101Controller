@@ -17,24 +17,18 @@ public class MovementTracker
         myGameObject = g;
         monitor = new CurieSerialReader(SerialPort.GetPortNames()[0]);
         Assert.AreNotEqual(monitor, null);
-        //calibrate Curie
-        monitor.Calibrate();
         //initialize acceleration and rotation vectors
         acc = Vector3.zero;
         rot = Quaternion.identity;
-        monitor.UpdateValues();
     }
     public MovementTracker(GameObject g, SerialPort port)
     {
         myGameObject = g;
         monitor = new CurieSerialReader(port);
         Assert.AreNotEqual(monitor, null);
-        //calibrate Curie
-        monitor.Calibrate();
         //initialize acceleration and rotation vectors
         acc = Vector3.zero;
         rot = Quaternion.identity;
-        monitor.UpdateValues();
     }
 
     // Update is called once per frame
@@ -43,8 +37,8 @@ public class MovementTracker
         // update Serial Monitor, put new values from Curie into Serial Monitor
         monitor.UpdateValues();
         // check for zero motion signal, if not then do movement operation
-        if (!monitor.isZeroMotion)
-        {
+        //if (!monitor.isZeroMotion)
+        //{
             // get acceleration from Curie
             acc = monitor.acc;
             // round raw acceleration to 0.0 if abs. val. is < .1
@@ -69,14 +63,14 @@ public class MovementTracker
             // by using "MoveRotation," the physics engine should
             // calculate a smooth rotation transition.
             (myGameObject.GetComponent<Rigidbody>()).MoveRotation(rot);
-        }
-        else
-        {
+        //}
+        //else
+        //{
             // zero motion is detected
             // command rigidbody component to sleep
             // this should make the object stop moving
-            (myGameObject.GetComponent<Rigidbody>()).Sleep();
-        }
+            //(myGameObject.GetComponent<Rigidbody>()).Sleep();
+        //}
     }
 
     // this just calls the SerialReader's Calibrate() function

@@ -105,6 +105,25 @@ class CurieSerialReader
         int opcode = int.Parse(values[0]);
         long timestamp = long.Parse(values[1]);
 
+        // set boolean for zero motion detection
+        isZeroMotion = (opcode == (int)opcodes.zeromotion);
+        
+        // if opcode signals calibration event, then grab gyro x-value for Accelerometer Range
+        // and grab gyro y-value for Gyroscope Range
+        // (this functionality is described in the Curie Sketch)
+        if(opcode == (int)opcodes.calibrate)
+        {
+            // get range values from Curie (printed only just after calibration)
+            // these are needed *before* conversion is done
+            CurieAccelerometerRange = rawGyro.x;
+            CurieGyroscopeRange = rawGyro.y;
+            // set the rawGyro values to 0 now that we've taken the information
+            // this makes the operations later on in this function which use the 
+            // raw gyro values not produce incorrect results
+            rawGyro.x = 0.0f;
+            rawGyro.y = 0.0f;
+        }
+
         // convert raw values into G's
         convAcc.Set(
             convertRawAcceleration(rawAcc.x),
@@ -118,26 +137,14 @@ class CurieSerialReader
             convertRawGyro(rawGyro.z)
             );
 
-        // set boolean for zero motion detection
-        isZeroMotion = (opcode == (int)opcodes.zeromotion);
-        
-        // if opcode signals calibration event, then grab gyro x-value for Accelerometer Range
-        // and grab gyro y-value for Gyroscope Range
-        // (this functionality is described in the Curie Sketch)
         if(opcode == (int)opcodes.calibrate)
         {
-            CurieAccelerometerRange = rawGyro.x;
-            CurieGyroscopeRange = rawGyro.y;
-            // set the rawGyro values to 0 now that we've taken the information
-            // this makes the operations later on in this function which use the 
-            // raw gyro values not produce incorrect results
-            rawGyro.x = 0.0f;
-            rawGyro.y = 0.0f;
-            // set gravity vector
+            // set gravity vector (after conversion)
             // this is done because whatever forces are felt by the curie
             // at calibration (when it is flat and stationary) will
             // coorespond to the force of gravity in its frame of reference
             originalGravity = convAcc;
+            Debug.Log("accRange: " + CurieAccelerometerRange + "\ngyroRange: " + CurieGyroscopeRange + "\noriginalGravity: " + originalGravity);
         }
 
         // estimate rotation angles based on accelerometer values
@@ -210,7 +217,7 @@ class CurieSerialReader
         string opcode = statement[0] + "";
         // Wait until an opcode of "0" is recieved (this is the calibration opcode)
         // The opcode is a 1-byte
-        while((int.Parse(opcode) != (int)opcodes.calibrate) && (loops < 10000))
+        while((int.Parse(opcode) != (int)opcodes.calibrate) && (loops < 1000000))
         {
             // read next statement from Curie
             statement = serial.ReadTo(";");
