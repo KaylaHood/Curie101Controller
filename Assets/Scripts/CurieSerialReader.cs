@@ -144,7 +144,6 @@ class CurieSerialReader
             // at calibration (when it is flat and stationary) will
             // coorespond to the force of gravity in its frame of reference
             originalGravity = convAcc;
-            Debug.Log("accRange: " + CurieAccelerometerRange + "\ngyroRange: " + CurieGyroscopeRange + "\noriginalGravity: " + originalGravity);
         }
 
         // estimate rotation angles based on accelerometer values
@@ -191,6 +190,9 @@ class CurieSerialReader
         rot.y = kalmanY.getAngle(estRot.y, convGyro.y, dt);
         rot.z = kalmanZ.getAngle(estRot.z, convGyro.z, dt);
 
+        // correct angle for orientation
+        rot = angleCorrection(getOrientation(rawAcc), rot, Vector3.zero);
+
         // use modified version of rotation vector to align gravity with
         // our particular frame of reference.
         Vector3 modRot = new Vector3(-rot.x, rot.y, rot.z);
@@ -217,7 +219,7 @@ class CurieSerialReader
         string opcode = statement[0] + "";
         // Wait until an opcode of "0" is recieved (this is the calibration opcode)
         // The opcode is a 1-byte
-        while((int.Parse(opcode) != (int)opcodes.calibrate) && (loops < 1000000))
+        while((int.Parse(opcode) != (int)opcodes.calibrate) && (loops < 10000000))
         {
             // read next statement from Curie
             statement = serial.ReadTo(";");
@@ -325,7 +327,7 @@ class CurieSerialReader
             // modifier is the hypotenuse length between the two "accurate" angles
             // max rotation magnitude is 180, so the modifier will be between 0 and 255
             float modifier = Mathf.Sqrt((rot.y * rot.y) + (rot.x * rot.x));
-            Debug.Log("modifier: " + modifier);
+            //Debug.Log("modifier: " + modifier);
             if (modifier >= 1)
             {
                 // calculate difference between unmodified rotation and the base rotation
@@ -344,6 +346,19 @@ class CurieSerialReader
             else
             {
                 newRot.z = baseRot.z;
+            }
+            //CHEAT
+            if (rot.z > 90)
+            {
+                newRot.z = 180.0f;
+            }
+            else if(rot.z < -90)
+            {
+                newRot.z = -180.0f;
+            }
+            else
+            {
+                newRot.z = 0.0f;
             }
         }
         else if(orientation == 2 || orientation == 3)
@@ -366,6 +381,19 @@ class CurieSerialReader
             {
                 newRot.y = baseRot.y;
             }
+            //CHEAT
+            if (rot.y > 90)
+            {
+                newRot.y = 180.0f;
+            }
+            else if(rot.y < -90)
+            {
+                newRot.y = -180.0f;
+            }
+            else
+            {
+                newRot.y = 0.0f;
+            }
         }
         else if(orientation == 4 || orientation == 5) 
         {
@@ -386,6 +414,19 @@ class CurieSerialReader
             else
             {
                 newRot.x = baseRot.x;
+            }
+            //CHEAT
+            if (rot.x > 90)
+            {
+                newRot.x = 180.0f;
+            }
+            else if(rot.x < -90)
+            {
+                newRot.x = -180.0f;
+            }
+            else
+            {
+                newRot.x = 0.0f;
             }
         }
         Debug.Log("new rotation (angleCorrection):\n" + newRot);
