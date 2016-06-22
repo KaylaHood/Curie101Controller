@@ -39,7 +39,7 @@ class CurieSerialReader
         // Set additional parameters.    
         serial.DtrEnable = true;
         serial.RtsEnable = true;
-        serial.ReadTimeout = 1000;
+        serial.ReadTimeout = 5000;
 
         // allow time for setup. Unity has issues without this.
         Thread.Sleep(100);
@@ -63,7 +63,7 @@ class CurieSerialReader
         // Set additional parameters.    
         serial.DtrEnable = true;
         serial.RtsEnable = true;
-        serial.ReadTimeout = 1000;
+        serial.ReadTimeout = 5000;
 
         // allow time for setup. Unity has issues without this.
         Thread.Sleep(100);
@@ -149,17 +149,9 @@ class CurieSerialReader
         // estimate rotation angles based on accelerometer values
         // roll = x, pitch = y, yaw = z
         Vector3 estRot = Vector3.zero;
-        estRot.x = Mathf.Atan2(rawAcc.y, rawAcc.z) * Mathf.Rad2Deg;
-        estRot.y = Mathf.Atan2(rawAcc.x, rawAcc.z) * Mathf.Rad2Deg;
-        estRot.z = Mathf.Atan2(rawAcc.y, rawAcc.x) * Mathf.Rad2Deg;
-
-        if(opcode == (int)opcodes.calibrate)
-        {
-            // set base estRot offset
-            estRotOffset = estRot;
-        }
-        // subtract offset from estRot
-        estRot -= estRotOffset;
+        estRot.x = Mathf.Atan2(convAcc.y, convAcc.z) * Mathf.Rad2Deg;
+        estRot.y = Mathf.Atan2(convAcc.x, convAcc.z) * Mathf.Rad2Deg;
+        estRot.z = Mathf.Atan2(convAcc.y, convAcc.x) * Mathf.Rad2Deg;
 
         // set Kalman filters for both corrected and non-corrected rotations
         kalmanX.setAngle(estRot.x);
@@ -219,7 +211,7 @@ class CurieSerialReader
         string opcode = statement[0] + "";
         // Wait until an opcode of "0" is recieved (this is the calibration opcode)
         // The opcode is a 1-byte
-        while((int.Parse(opcode) != (int)opcodes.calibrate) && (loops < 10000000))
+        while((int.Parse(opcode) != (int)opcodes.calibrate) && (loops < 1000000))
         {
             // read next statement from Curie
             statement = serial.ReadTo(";");
