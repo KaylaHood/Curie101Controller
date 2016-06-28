@@ -37,6 +37,7 @@ int accelRange = 2;
 // the sample rate in Hz of gyroscope and accelerometer
 int sampleRate = 500;
 // the sensitivity of the gyroscope (divisor of raw gyroscope values)
+// larger number = less sensitive reading
 int gyroSensitivity = 1;
 
 // program time in microseconds of previous update

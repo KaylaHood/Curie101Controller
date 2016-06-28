@@ -11,22 +11,42 @@ public class CurieSerialReader
     //private string logFileName = "logfile.txt";
     //private System.IO.FileStream logFile;
     private SerialPort serial;
+
+    // enums for easy access of special integer values
     private enum Opcodes { calibrate, normal, zeromotion };
     private enum Orientations { FaceUp, FaceDown, DigitalUp, AnalogUp, ACDown, ACUp }
+
+    // range constants (received from Curie after calibration)
     private float CurieAccelerometerRange;
     private float CurieGyroscopeRange;
+
+    // time keeping variable (for calculating dt)
     private long previousTime;
+
+    // storage variables for angle correction
+    private float lastAccurateZ;
+    private float lastAccurateY;
+    private float lastAccurateX;
+    private int lastOrientation;
+
+    // private location data (not needed by any other operation outside of this class)
     private Vector3 estRotOffset;
     private Vector3 originalGravity;
+    private Vector3 gravity;
+
+    // public location data (used for moving object within scene)
     public Vector3 acc;
     public Quaternion kalmanCorrectedRot;
     public Quaternion madgwickRot;
-    public Vector3 gravity;
+
+    // zero motion boolean (implementing classes can decide to use this or not)
     public bool isZeroMotion;
+
     // Single-Dimensional Kalman Filters
     Kalman kalmanX;
     Kalman kalmanY;
     Kalman kalmanZ;
+    
     // Three-Dimensional Madgwick Filter
     AHRS.MadgwickAHRS madgwick;
 
@@ -203,12 +223,10 @@ public class CurieSerialReader
         // do Kalman filtering for rotation
         kalmanRot.x = kalmanX.getAngle(estRot.x, convGyro.x, dt);
         kalmanRot.y = kalmanY.getAngle(estRot.y, convGyro.y, dt);
-        //kalmanRot.z = kalmanZ.getAngle(estRot.z, convGyro.z, dt);
-        kalmanRot.z = 0.0f;
+        kalmanRot.z = kalmanZ.getAngle(estRot.z, convGyro.z, dt);
 
         // correct angle according to board's orientation
-        //kalmanCorrectedRot = Quaternion.Euler(angleCorrection(getOrientation(rawAcc), kalmanRot));
-        kalmanCorrectedRot = Quaternion.Euler(kalmanRot);
+        kalmanCorrectedRot = Quaternion.Euler(angleCorrection(getOrientation(rawAcc), kalmanRot));
 
         // do Madgwick filtering, set sample period each time because our sample rate 
         // is somewhat inconsistent
@@ -368,39 +386,39 @@ public class CurieSerialReader
         float modifier;
         if (orientation == (int)Orientations.FaceUp)
         {
-            // flat is (90,90,?)
-            modifier = Mathf.Abs(diffEulerAngles(rot.x, 90.0f)) + Mathf.Abs(diffEulerAngles(rot.y, 90.0f));
-            info += ("Difference of " + rot + " from (90,90,?): " + modifier + "\n");
+            // flat is (0,0,?)
+            modifier = Mathf.Abs(diffEulerAngles(rot.x, 0.0f)) + Mathf.Abs(diffEulerAngles(rot.y, 0.0f));
+            info += ("Difference of " + rot + " from (0,0,?): " + modifier + "\n");
         }
         else if (orientation == (int)Orientations.FaceDown)
         {
-            // flat is (-90,-90,?)
-            modifier = Mathf.Abs(diffEulerAngles(rot.x, -90.0f)) + Mathf.Abs(diffEulerAngles(rot.y, -90.0f));
-            info += ("Difference of " + rot + " from (-90,-90,?): " + modifier + "\n");
+            // flat is (180,180,?)
+            modifier = Mathf.Abs(diffEulerAngles(rot.x, 180.0f)) + Mathf.Abs(diffEulerAngles(rot.y, 180.0f));
+            info += ("Difference of " + rot + " from (180,180,?): " + modifier + "\n");
         }
         else if (orientation == (int)Orientations.DigitalUp)
         {
-            // flat is (0,?,90)
-            modifier = Mathf.Abs(diffEulerAngles(rot.x, 0.0f)) + Mathf.Abs(diffEulerAngles(rot.z, 90.0f));
-            info += ("Difference of " + rot + " from (0,?,90): " + modifier + "\n");
+            // flat is (90,?,0)
+            modifier = Mathf.Abs(diffEulerAngles(rot.x, 90.0f)) + Mathf.Abs(diffEulerAngles(rot.z, 0.0f));
+            info += ("Difference of " + rot + " from (90,?,0): " + modifier + "\n");
         }
         else if (orientation == (int)Orientations.AnalogUp)
         {
-            // flat is (180,?,-90)
-            modifier = Mathf.Abs(diffEulerAngles(rot.x, 180.0f)) + Mathf.Abs(diffEulerAngles(rot.z, -90.0f));
-            info += ("Difference of " + rot + " from (180,?,-90): " + modifier + "\n");
+            // flat is (-90,?,180)
+            modifier = Mathf.Abs(diffEulerAngles(rot.x, -90.0f)) + Mathf.Abs(diffEulerAngles(rot.z, 180.0f));
+            info += ("Difference of " + rot + " from (-90,?,180): " + modifier + "\n");
         }
         else if(orientation == (int)Orientations.ACDown)
         {
-            // flat is (?,0,0)
-            modifier = Mathf.Abs(diffEulerAngles(rot.y, 0.0f)) + Mathf.Abs(diffEulerAngles(rot.z, 0.0f));
-            info += ("Difference of " + rot + " from (?,0,0): " + modifier + "\n");
+            // flat is (?,90,90)
+            modifier = Mathf.Abs(diffEulerAngles(rot.y, 90.0f)) + Mathf.Abs(diffEulerAngles(rot.z, 90.0f));
+            info += ("Difference of " + rot + " from (?,90,90): " + modifier + "\n");
         }
         else
         {
-            // flat is (?,180,180)
-            modifier = Mathf.Abs(diffEulerAngles(rot.y, 180.0f)) + Mathf.Abs(diffEulerAngles(rot.z, 180.0f));
-            info += ("Difference of " + rot + " from (?,180,180): " + modifier + "\n");
+            // flat is (?,-90,-90)
+            modifier = Mathf.Abs(diffEulerAngles(rot.y, -90.0f)) + Mathf.Abs(diffEulerAngles(rot.z, -90.0f));
+            info += ("Difference of " + rot + " from (?,-90,-90): " + modifier + "\n");
         }
         return modifier;
     }
@@ -417,7 +435,7 @@ public class CurieSerialReader
         //
         // "rot" is the rotation vector being corrected for inaccuracies
         //
-        // "baseRot" holds the value which the inaccurate axis will approach as it becomes
+        // "lastAccurate_" holds the value which the inaccurate axis will approach as it becomes
         // less accurate (either the x, y, or z value depending on which is the inaccurate axis).
         //
         Vector3 newRot = rot;
@@ -430,87 +448,70 @@ public class CurieSerialReader
         {
             // board face up or face down (z-axis is inaccurate)
             info += ("z-axis is inaccurate\n");
-            // find base rotation (nearest angle that is "flat")
-            if (rot.z > 90)
+            // set last accurate angle if orientation has changed
+            if(lastOrientation != orientation)
             {
-                baseRot = 180.0f;
+                // use "kalmanCorrectedRot" because it *should* contain previous update's rotation value
+                lastAccurateZ = kalmanCorrectedRot.eulerAngles.z;
             }
-            else if (rot.z < -90)
-            {
-                baseRot = -180.0f;
-            }
-            else
-            {
-                baseRot = 0.0f;
-            }
-            // if modifier is less than 1, the correction will overshoot the "base rotation"
+            info += ("last accurate z: " + lastAccurateZ + "\n");
+            // if modifier is less than 1, the correction will overshoot the "last accurate Z"
             // so only do the gradual correction when the modifier is greater than one
             if (modifier >= 1)
             {
-                // calculate difference between unmodified rotation and the base rotation
-                float diff = diffEulerAngles(rot.z,baseRot);
-                float newZ = rot.z - (diff / Mathf.Log(modifier,1.3f)); // reduce magnitude of rotation value
+                // calculate difference between unmodified rotation and the "last accurate Z"
+                float diff = diffEulerAngles(rot.z,lastAccurateZ);
+                // reduce magnitude of rotation value
+                // (use log base 1.3 because it provides best logarithmic scale for data -- base can be tweaked)
+                float newZ = rot.z - (diff / Mathf.Log(modifier,1.3f));
                 newRot.z = newZ;
             }
             else
             {
-                newRot.z = baseRot;
+                newRot.z = lastAccurateZ;
             }
         }
         else if(orientation == (int)Orientations.DigitalUp || orientation == (int)Orientations.AnalogUp)
         {
             // digital pins up or analog pins up (y-axis is inaccurate)
             info += ("y-axis is inaccurate\n");
-            if (rot.y > 90)
+            if(lastOrientation != orientation)
             {
-                baseRot = 180.0f;
+                lastAccurateY = kalmanCorrectedRot.y;
             }
-            else if (rot.y < -90)
-            {
-                baseRot = -180.0f;
-            }
-            else
-            {
-                baseRot = 0.0f;
-            }
+            info += ("last accurate y: " + lastAccurateY + "\n");
             if (modifier >= 1)
             {
-                float diff = diffEulerAngles(rot.y, baseRot);
+                float diff = diffEulerAngles(rot.y, lastAccurateY);
                 float newY = rot.y - (diff / Mathf.Log(modifier,1.3f));
                 newRot.y = newY;
             }
             else
             {
-                newRot.y = baseRot;
+                newRot.y = lastAccurateY;
             }
         }
         else if(orientation == (int)Orientations.ACDown || orientation == (int)Orientations.ACUp) 
         {
             // AUX facing down or facing up (x-axis is inaccurate)
             info += ("x-axis is inaccurate\n");
-            if (rot.x > 90)
+            if(lastOrientation != orientation)
             {
-                baseRot = 180.0f;
+                lastAccurateX = kalmanCorrectedRot.x;
             }
-            else if (rot.x < -90)
-            {
-                baseRot = -180.0f;
-            }
-            else
-            {
-                baseRot = 0.0f;
-            }
+            info += ("last accurate x: " + lastAccurateX + "\n");
             if (modifier >= 1)
             {
-                float diff = diffEulerAngles(rot.x, baseRot);
+                float diff = diffEulerAngles(rot.x, lastAccurateX);
                 float newX = rot.x - (diff / Mathf.Log(modifier,1.3f));
                 newRot.x = newX;
             }
             else
             {
-                newRot.x = baseRot;
+                newRot.x = lastAccurateX;
             }
         }
+        lastOrientation = orientation;
         return newRot;
     }
 }
