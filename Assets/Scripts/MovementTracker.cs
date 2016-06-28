@@ -6,10 +6,12 @@ using System;
 
 public class MovementTracker
 {
-    CurieSerialReader monitor;
+    public CurieSerialReader monitor;
+    // myGameObject is an empty game object that is a parent to
+    // all of the board model objects
     GameObject myGameObject;
-    Vector3 acc;
-    Quaternion rot;
+    // contains rigidbody components of all board models
+    Rigidbody[] boardRB;
 
     // Use this for initialization
     public MovementTracker(GameObject g)
@@ -17,18 +19,14 @@ public class MovementTracker
         myGameObject = g;
         monitor = new CurieSerialReader(SerialPort.GetPortNames()[0]);
         Assert.AreNotEqual(monitor, null);
-        //initialize acceleration and rotation vectors
-        acc = Vector3.zero;
-        rot = Quaternion.identity;
+        boardRB = myGameObject.GetComponentsInChildren<Rigidbody>();
     }
     public MovementTracker(GameObject g, SerialPort port)
     {
         myGameObject = g;
         monitor = new CurieSerialReader(port);
         Assert.AreNotEqual(monitor, null);
-        //initialize acceleration and rotation vectors
-        acc = Vector3.zero;
-        rot = Quaternion.identity;
+        boardRB = myGameObject.GetComponentsInChildren<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -39,37 +37,30 @@ public class MovementTracker
         // check for zero motion signal, if not then do movement operation
         //if (!monitor.isZeroMotion)
         //{
-            // get acceleration from Curie
-            acc = monitor.acc;
-            // round raw acceleration to 0.0 if abs. val. is < .1
-            acc.Set
-                (
-                Utilities.roundf(acc.x),
-                Utilities.roundf(acc.y),
-                Utilities.roundf(acc.z)
-                );
-            // multiply by gravity (converting G's -> Newtons)
-            // don't multiply by mass because "AddRelativeForce" does that
-            acc *= 9.8f;
-            // wake up the object by force, in case it refuses to wake up otherwise
-            (myGameObject.GetComponent<Rigidbody>()).WakeUp();
+            // wake up the objects by force, in case they refuse to wake up otherwise
+            foreach (Rigidbody rb in boardRB)
+            {
+                rb.WakeUp();
+            }
             // apply acceleration to the rigidbody component of the object
             // since the curie reports only relative acceleration,
             // we must apply a relative force to the rigidbody.
-            (myGameObject.GetComponent<Rigidbody>()).AddRelativeForce(acc,ForceMode.Impulse);
-            // update rotation
-            rot = Quaternion.Euler(monitor.rot);
+            //boardRB[0].AddRelativeForce((monitor.acc * 9.8f),ForceMode.Impulse);
+            //boardRB[1].AddRelativeForce((monitor.acc * 9.8f),ForceMode.Impulse);
             // send new rotation to the rigidbody component of the object
             // by using "MoveRotation," the physics engine should
-            // calculate a smooth rotation transition.
-            (myGameObject.GetComponent<Rigidbody>()).MoveRotation(rot);
+            // calculate a smooth rotation transition. (if "Is Kinematic" is true)
+            boardRB[0].MoveRotation(monitor.madgwickRot);
+            boardRB[1].MoveRotation(monitor.kalmanCorrectedRot);
         //}
         //else
         //{
-            // zero motion is detected
-            // command rigidbody component to sleep
-            // this should make the object stop moving
-            //(myGameObject.GetComponent<Rigidbody>()).Sleep();
+            // --zero motion is detected--
+            // command all rigidbody components to sleep
+            //foreach (Rigidbody rb in boardRB)
+            //{
+            //  rb.Sleep();
+            //}
         //}
     }
 

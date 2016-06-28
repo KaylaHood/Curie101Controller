@@ -1,9 +1,21 @@
 #include <CurieIMU.h>
+#include <CurieBLE.h>
 #include <math.h>
 #include <limits.h>
 #include <cstdint>
 #include "GyroAccelPrinter.h"
 
+// -----------------------------------
+// BLE variables
+// -----------------------------------
+BLEPeripheral blePeripheral;
+BLEService IMUService("19B10010-E8F2-537E-4F6C-D104768A1214");
+BLECharacteristic IMUCharacteristic("19B10011-E8F2-537E-4F6C-D104768A1214", BLENotify | BLERead | BLEWrite , 17);
+bool bleIsConnected = false;
+
+// -----------------------------------
+// Gyroscope / Accelerometer variables
+// -----------------------------------
 // program time in microseconds of last "update" call
 unsigned long microsNow;
 // program time in microseconds of last zero motion interrupt
@@ -23,9 +35,9 @@ int gyroRange = 500;
 // the range in Gs of the accelerometer
 int accelRange = 2;
 // the sample rate in Hz of gyroscope and accelerometer
-int sampleRate = 25;
+int sampleRate = 500;
 // the sensitivity of the gyroscope (divisor of raw gyroscope values)
-int gyroSensitivity = 80;
+int gyroSensitivity = 1;
 
 // program time in microseconds of previous update
 unsigned long microsPrevious;
@@ -60,15 +72,42 @@ void setup() {
 	CurieIMU.setAccelerometerRange(accelRange);
 	CurieIMU.setAccelerometerRate(sampleRate);
 
-	// note - do not calibrate yet
-	// the Curie board might not be flat and might not be stationary
-	// and the user may not want to calibrate immediately
+	// Set the local name that the peripheral advertises
+	blePeripheral.setLocalName("CurieIMU");
+	blePeripheral.setAdvertisedServiceUuid(IMUService.uuid());
+
+	// add service and characteristics
+	blePeripheral.addAttribute(IMUService);
+	blePeripheral.addAttribute(IMUCharacteristic);
+
+	unsigned char initialValue[17] = { '0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0' };
+	IMUCharacteristic.setValue(initialValue ,17);
+
+	// advertise the service
+	blePeripheral.begin();
+
 }
 
 void loop() {
-	if (Serial.available() > 0) {
+	// listen for BLE peripherals to connect
+	BLECentral bleCentral = blePeripheral.central();
+
+	// set toggle for BLE connection
+	if (bleCentral) {
+		bleIsConnected = true;
+	}
+	else {
+		bleIsConnected = false;
+	}
+
+	// detect request for calibration from serial port or BLE central
+	if (Serial.available() > 0 || IMUCharacteristic.written()) {
+		// Serial is only written to when Curie is asked to calibrate. 
+		// Check to see if the command is 'c' to prevent accidental calibration
 		char command = char(Serial.read());
-		if (command == 'c') {
+		// BLEcommand is the opcode - if the opcode (first char of "value") is the char '3', then calibrate
+		unsigned char BLEcommand = IMUCharacteristic.value()[0];
+		if (command == 'c' || BLEcommand == '3') {
 			microsNow = micros();
 			calibrate();
 		}
@@ -142,6 +181,9 @@ void updateValues(int opcode) {
 		rawGy, 
 		rawGz
 	);
+	rawGx /= gyroSensitivity;
+	rawGy /= gyroSensitivity;
+	rawGz /= gyroSensitivity;
 
 	// if zero motion event is occurring and the opcode is not 0
 	// (meaning this is not a calibration update), then set opcode
@@ -168,15 +210,44 @@ void updateValues(int opcode) {
 		values += String(CurieIMU.getGyroRange());
 	}
 	else {
-		values += String(rawGx / gyroSensitivity);
+		values += String(rawGx);
 		values += ",";
-		values += String(rawGy / gyroSensitivity);
+		values += String(rawGy);
 	}
 	values += ",";
-	values += String(rawGz / gyroSensitivity);
+	values += String(rawGz);
 	values += ";";
 
 	Serial.print(values);
+
+	// check to see if a central is connected to peripheral
+	if (bleIsConnected) {
+		// construct BLE string to fit into 17 bytes
+		unsigned char BLEvalues[17];
+		BLEvalues[0] = (unsigned char)opcode;
+		// convert timestamp (4 byte unsigned long) into 4 chars with identical bit structure
+		BLEvalues[1] = (unsigned char)(microsNow >> 24);
+		BLEvalues[2] = (unsigned char)((microsNow << 8) >> 24);
+		BLEvalues[3] = (unsigned char)((microsNow << 16) >> 24);
+		BLEvalues[4] = (unsigned char)((microsNow << 24) >> 24);
+		// convert accelerometer values to chars
+		BLEvalues[5] = (unsigned char)(rawAx >> 8);
+		BLEvalues[6] = (unsigned char)((rawAx << 8) >> 8);
+		BLEvalues[7] = (unsigned char)(rawAy >> 8);
+		BLEvalues[8] = (unsigned char)((rawAy << 8) >> 8);
+		BLEvalues[9] = (unsigned char)(rawAz >> 8);
+		BLEvalues[10] = (unsigned char)((rawAz << 8) >> 8);
+		// convert gyroscope values to chars
+		BLEvalues[11] = (unsigned char)(rawGx >> 8);
+		BLEvalues[12] = (unsigned char)((rawGx << 8) >> 8);
+		BLEvalues[13] = (unsigned char)(rawGy >> 8);
+		BLEvalues[14] = (unsigned char)((rawGy << 8) >> 8);
+		BLEvalues[15] = (unsigned char)(rawGz >> 8);
+		BLEvalues[16] = (unsigned char)((rawGz << 8) >> 8);
+
+		// update characteristic value
+		IMUCharacteristic.setValue(BLEvalues, 17);
+	}
 
 	// update the time keeping variable
 	microsPrevious = microsNow;

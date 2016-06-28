@@ -12,6 +12,9 @@ public class CurieMovement : MonoBehaviour, IDisposable
     SerialPort port;
     bool movementIsCalibrated = false;
     bool didStartCoroutine = false;
+    // UI text components for demo (not vital to operation)
+    public UnityEngine.UI.Text trackingInfo;
+
     // Use this for initialization
     void Start()
     {
@@ -24,6 +27,9 @@ public class CurieMovement : MonoBehaviour, IDisposable
         // If this is not done, the coroutine *could* start before the object is constructed.
         Thread.Sleep(100);
         Assert.AreNotEqual(movement, null);
+
+        // set text component variables of monitor in the movement tracker
+        movement.monitor.trackingInfo = trackingInfo;
     }
 
     // Update is called once per frame
