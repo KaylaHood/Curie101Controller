@@ -439,7 +439,6 @@ public class CurieSerialReader
         // less accurate (either the x, y, or z value depending on which is the inaccurate axis).
         //
         Vector3 newRot = rot;
-        float baseRot;
         // calculate modifier, which is the difference between the "accurate" angles and
         // either 0, 90, 180, -90, or -180, depending on which value the angle is closest to.
         // **this logic is done in function "diffFromFlat"
@@ -457,7 +456,7 @@ public class CurieSerialReader
             info += ("last accurate z: " + lastAccurateZ + "\n");
             // if modifier is less than 1, the correction will overshoot the "last accurate Z"
             // so only do the gradual correction when the modifier is greater than one
-            if (modifier >= 1)
+            /*if (modifier >= 1)
             {
                 // calculate difference between unmodified rotation and the "last accurate Z"
                 float diff = diffEulerAngles(rot.z,lastAccurateZ);
@@ -467,9 +466,10 @@ public class CurieSerialReader
                 newRot.z = newZ;
             }
             else
-            {
-                newRot.z = lastAccurateZ;
-            }
+            {*/
+                //newRot.z = lastAccurateZ;
+                newRot.z = 0.0f; // Kayla Debug
+            //}
         }
         else if(orientation == (int)Orientations.DigitalUp || orientation == (int)Orientations.AnalogUp)
         {
@@ -480,16 +480,17 @@ public class CurieSerialReader
                 lastAccurateY = kalmanCorrectedRot.y;
             }
             info += ("last accurate y: " + lastAccurateY + "\n");
-            if (modifier >= 1)
+            /*if (modifier >= 1)
             {
                 float diff = diffEulerAngles(rot.y, lastAccurateY);
                 float newY = rot.y - (diff / Mathf.Log(modifier,1.3f));
                 newRot.y = newY;
             }
             else
-            {
-                newRot.y = lastAccurateY;
-            }
+            {*/
+                //newRot.y = lastAccurateY;
+                newRot.y = 0.0f; // Kayla Debug
+            //}
         }
         else if(orientation == (int)Orientations.ACDown || orientation == (int)Orientations.ACUp) 
         {
@@ -500,16 +501,17 @@ public class CurieSerialReader
                 lastAccurateX = kalmanCorrectedRot.x;
             }
             info += ("last accurate x: " + lastAccurateX + "\n");
-            if (modifier >= 1)
+            /*if (modifier >= 1)
             {
                 float diff = diffEulerAngles(rot.x, lastAccurateX);
                 float newX = rot.x - (diff / Mathf.Log(modifier,1.3f));
                 newRot.x = newX;
             }
             else
-            {
-                newRot.x = lastAccurateX;
-            }
+            {*/
+                //newRot.x = lastAccurateX;
+                newRot.x = 0.0f; // Kayla Debug
+            //}
         }
         lastOrientation = orientation;
         return newRot;
