@@ -1,175 +1,60 @@
 #pragma once
-#include <math.h>
 
-// from Intel CPUT library (CPUTMath.h)
-struct float3
-{
-    union
-    {
-        struct
-        {
-            float x;
-            float y;
-            float z;
-        };
-        float f[3];
-    };
+// Serial / BLE toggle macro
+// *** both cannot be enabled at once
+#define SERIAL_ENABLED
+#ifndef SERIAL_ENABLED
+#define BLE_ENABLED
+#endif
 
-    /***************************************\
-    |   Constructors                        |
-    \***************************************/
-    float3() {}
-    explicit float3(float f) : x(f), y(f), z(f) { }
-    explicit float3(float _x, float _y, float _z) : x(_x), y(_y), z(_z) { }
-    explicit float3(float* f) : x(f[0]), y(f[1]), z(f[2]) { }
-    float3(const float3 &v) : x(v.x), y(v.y), z(v.z) { }
-    const float3 &operator=(const float3 &v)
-    {
-        x = v.x;
-        y = v.y;
-        z = v.z;
-        return *this;
-    }
+// define debug macros (comment out to turn off debug printing)
+#ifdef SERIAL_ENABLED
+//#define CURIE_SERIAL_DEBUG 
+//#define CURIE_INTERRUPT_DEBUG
+//#define CURIE_NOMO_DEBUG
+//#define CURIE_CALIBRATION_DEBUG
+//#define CURIE_SPEED_DEBUG
+#endif
 
-    /***************************************\
-    |   Basic math operations               |
-    \***************************************/
-    float3 operator+(const float3 &r) const
-    {
-        return float3(x+r.x, y+r.y, z+r.z);
-    }
-    const float3 &operator+=(const float3 &r)
-    {
-        x += r.x;
-        y += r.y;
-        z += r.z;
-        return *this;
-    }
-    float3 operator-(const float3 &r) const
-    {
-        return float3(x-r.x, y-r.y, z-r.z);
-    }
-    const float3 &operator-=(const float3 &r)
-    {
-        x -= r.x;
-        y -= r.y;
-        z -= r.z;
-        return *this;
-    }
-    float3 operator*(const float3 &r) const
-    {
-        return float3(x*r.x, y*r.y, z*r.z);
-    }
-    const float3 &operator*=(const float3 &r)
-    {
-        x *= r.x;
-        y *= r.y;
-        z *= r.z;
-        return *this;
-    }
-    float3 operator/(const float3 &r) const
-    {
-        return float3(x/r.x, y/r.y, z/r.z);
-    }
-    const float3 &operator/=(const float3 &r)
-    {
-        x /= r.x;
-        y /= r.y;
-        z /= r.z;
-        return *this;
-    }
+// struct to manage formatted message
+struct Message {
+	uint8_t* message; // pointer to array of bytes
+	int16_t size; // size of byte array
 
-    /***************************************\
-    |   Basic math operations with scalars  |
-    \***************************************/
-    float3 operator+(float f) const
-    {
-        return float3(x+f, y+f, z+f);
-    }
-    const float3 &operator+=(float f)
-    {
-        x += f;
-        y += f;
-        z += f;
-        return *this;
-    }
-    float3 operator-(float f) const
-    {
-        return float3(x-f, y-f, z-f);
-    }
-    const float3 &operator-=(float f)
-    {
-        x -= f;
-        y -= f;
-        z -= f;
-        return *this;
-    }
-    float3 operator*(float f) const
-    {
-        return float3(x*f, y*f, z*f);
-    }
-    const float3 &operator*=(float f)
-    {
-        x *= f;
-        y *= f;
-        z *= f;
-        return *this;
-    }
-    float3 operator/(float f) const
-    {
-        return float3(x/f, y/f, z/f);
-    }
-    const float3 &operator/=(float f)
-    {
-        x /= f;
-        y /= f;
-        z /= f;
-        return *this;
-    }
+	// default constructor
+	Message();
 
-    /***************************************\
-    |   Other math                          |
-    \***************************************/
-    // Equality
-    bool operator==(const float3 &r) const
-    {
-        return x==r.x &&y == r.y &&z == r.z;
-    }
-    bool operator!=(const float3 &r) const
-    {
-        return !(*this == r);
-    }
+	// constructor with size argument
+	Message(int16_t s);
 
-    // Hadd
-    float hadd(void) const
-    {
-        return x + y + z;
-    }
+	Message& operator=(const Message& sm);
 
-    // Length
-    float lengthSq(void) const
-    {
-        return x*x + y*y + z*z;
-    }
-    float length(void) const
-    {
-        return sqrtf(lengthSq());
-    }
-    float3 normalize(void)
-    {
-        return (*this /= length());
-    }
+	// destructor
+	~Message();
+
+	// byte setting functions
+	template <typename T>
+	void setValue(const T& val, int pos);
+
+	// retrieval functions
+	template <typename T>
+	T getValue(int pos);
+
+	// write values to serial port
+	void send();
+
+	// debug print function
+	void debugPrint();
 };
 
+void setup();
 
-void updateValues(int opcode);
+void loop();
+
+void updateValues(int16_t opcode);
 
 void calibrate();
 
 static void eventCallback(void);
 
-bool isZeroMotion(unsigned long time);
-
-float convertRawAcceleration(int aRaw);
-
-float convertRawGyro(int gRaw);
+bool isZeroMotion(uint64_t time, uint64_t zeroMotionTime);

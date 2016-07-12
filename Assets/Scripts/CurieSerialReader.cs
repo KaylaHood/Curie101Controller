@@ -4,16 +4,20 @@ using System.IO.Ports;
 using System.Threading;
 using System;
 
-//Create a new SerialPort property in your class.
-
 public class CurieSerialReader
 {
+    // -----------------------------
+    // Private Variable Declarations
+    // -----------------------------
+
     //private string logFileName = "logfile.txt";
     //private System.IO.FileStream logFile;
     private SerialPort serial;
+    // size, in bytes, of message sent to serial port by Curie
+    private int serialMessageSize = 22;
 
     // enums for easy access of special integer values
-    private enum Opcodes { calibrate, normal, zeromotion };
+    private enum Opcodes { calibrate, normal, zeromotion};
     private enum Orientations { FaceUp, FaceDown, DigitalUp, AnalogUp, ACDown, ACUp }
 
     // range constants (received from Curie after calibration)
@@ -21,7 +25,7 @@ public class CurieSerialReader
     private float CurieGyroscopeRange;
 
     // time keeping variable (for calculating dt)
-    private long previousTime;
+    private ulong previousTime;
 
     // storage variables for angle correction
     private float lastAccurateZ;
@@ -34,6 +38,13 @@ public class CurieSerialReader
     private Vector3 originalGravity;
     private Vector3 gravity;
 
+    // ----------------------------
+    // Public Variable Declarations
+    // ----------------------------
+
+    // serial message object for serial port management
+    public SerialMessage serialMsg;
+
     // public location data (used for moving object within scene)
     public Vector3 acc;
     public Quaternion kalmanCorrectedRot;
@@ -43,37 +54,169 @@ public class CurieSerialReader
     public bool isZeroMotion;
 
     // Single-Dimensional Kalman Filters
-    Kalman kalmanX;
-    Kalman kalmanY;
-    Kalman kalmanZ;
+    public Kalman kalmanX;
+    public Kalman kalmanY;
+    public Kalman kalmanZ;
     
     // Three-Dimensional Madgwick Filter
-    AHRS.MadgwickAHRS madgwick;
+    public AHRS.MadgwickAHRS madgwick;
 
     // UI text components for display of demo data
     public UnityEngine.UI.Text trackingInfo = null;
     // string to put in "trackingInfo"
     string info;
 
+    // --------------------------
+    // Interior Class Definitions
+    // --------------------------
+
+    // Message Class for easy management of data from Curie
+
+    public class SerialMessage
+    {
+        private SerialPort serial;
+        private int messageLength;
+        private byte[] message;
+        private string calibrationMsg = "c";
+        private string beginMsg = "y";
+        private string disconnectionMsg = "d";
+        public string msgString;
+        public short opcode;
+        public ulong timestamp;
+        public Vector3 rawAcc;
+        public Vector3 rawGyro;
+
+        public SerialMessage(SerialPort s, int msgLen)
+        {
+            // Set up variables
+            serial = s;
+            messageLength = msgLen;
+            message = new byte[msgLen];
+            rawAcc = Vector3.zero;
+            rawGyro = Vector3.zero;
+        }
+
+        public void RequestCalibration()
+        {
+            serial.Write(calibrationMsg);
+        }
+        public void Begin()
+        {
+            serial.Write(beginMsg);
+        }
+        public void Disconnect()
+        {
+            serial.Write(disconnectionMsg);
+        }
+
+        public void sendMessageToSerial()
+        {
+            // send message back to serial port
+            serial.Write(message, 0, messageLength);
+        }
+
+        public void ReadAndUpdate()
+        {
+            // Read new data from serial port and divide into values
+            readBytesFromSerial();
+            updateOpcode();
+            updateTimestamp();
+            updateAcc();
+            updateGyro();
+            Debug.Log(updateString());
+        }
+
+        public void readBytesFromSerial()
+        {
+            for (int i = 0; i < messageLength; i++)
+            {
+                message[i] = (byte)serial.ReadByte();
+            }
+        }
+
+        public short updateOpcode()
+        {
+            opcode = BitConverter.ToInt16(message, 0);
+            return opcode;
+        }
+
+        public ulong updateTimestamp()
+        {
+            timestamp = BitConverter.ToUInt64(message, 2);
+            return timestamp;
+        }
+
+        public Vector3 updateAcc()
+        {
+            rawAcc.x = (float)BitConverter.ToInt16(message, 10);
+            rawAcc.y = (float)BitConverter.ToInt16(message, 12);
+            rawAcc.z = (float)BitConverter.ToInt16(message, 14);
+            return rawAcc;
+        }
+
+        public Vector3 updateGyro()
+        {
+            rawGyro.x = (float)BitConverter.ToInt16(message, 16);
+            rawGyro.y = (float)BitConverter.ToInt16(message, 18);
+            rawGyro.z = (float)BitConverter.ToInt16(message, 20);
+            return rawGyro;
+        }
+
+        public string updateString()
+        {
+            msgString = BitConverter.ToString(message);
+            return msgString;
+        }
+
+    }
+
+    public class BLEMessage
+    {
+        //~~~~**************~~~~
+        //~~~~****_TODO_****~~~~
+        //~~~~**************~~~~
+        public byte[] message;
+        short opcode;
+        ulong timestamp;
+        Vector3 rawAcc;
+        Vector3 rawGyro;
+
+        public BLEMessage(byte[] m,short op)
+        {
+            message = m;
+            opcode = op;
+            // do work to set other variables
+        }
+    }
+
+    // --------------------------------------------
+    // CurieSerialReader Class Function Definitions
+    // --------------------------------------------
+        
     public CurieSerialReader(string port)
     {
-        // Setup your port object.
+        // Setup serial port
         serial = new SerialPort(
         port, 9600, Parity.None, 8, StopBits.One
-        );
-        // Setup your acceleration and rotation vectors
-        acc = Vector3.zero;
-        kalmanCorrectedRot = Quaternion.identity;
-        madgwickRot = Quaternion.identity;
-  
-        // Set additional parameters.    
+        );    
         serial.DtrEnable = true;
         serial.RtsEnable = true;
-        serial.ReadTimeout = 1000;
+        serial.ReadTimeout = 10000;
 
         // allow time for setup. Unity has issues without this.
         Thread.Sleep(100);
 
+        // Setup serial port managing object
+        serialMsg = new SerialMessage(serial, serialMessageSize);
+
+        // send opening message to serial port
+        serialMsg.Begin();
+
+        // Initialize your global acceleration and rotation variables
+        acc = Vector3.zero;
+        kalmanCorrectedRot = Quaternion.identity;
+        madgwickRot = Quaternion.identity;
+  
         // initialize Kalman filters
         kalmanX = new Kalman();
         kalmanY = new Kalman();
@@ -82,26 +225,28 @@ public class CurieSerialReader
         // initialize Madgwick filter (samplePeriod is in seconds, our sample periods vary so we must set the
         // sample period each time we update the madgwick filter)
         madgwick = new AHRS.MadgwickAHRS(1.0f);
-
-        // set up log file
-        //logFile = System.IO.File.Open(logFileName, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write);
     }
     public CurieSerialReader(SerialPort port)
     {
         // Setup your port object.
         serial = port;
+        serial.DtrEnable = true;
+        serial.RtsEnable = true;
+        serial.ReadTimeout = 5000;
+
+        // allow time for setup. Unity has issues without this.
+        Thread.Sleep(100);
+
+        // Setup serial port managing object
+        serialMsg = new SerialMessage(serial, serialMessageSize);
+
+        // send opening message to serial port
+        serialMsg.Begin();
+
         // Setup your acceleration and rotation vectors
         acc = Vector3.zero;
         kalmanCorrectedRot = Quaternion.identity;
         madgwickRot = Quaternion.identity;
-
-        // Set additional parameters.    
-        serial.DtrEnable = true;
-        serial.RtsEnable = true;
-        serial.ReadTimeout = 50000;
-
-        // allow time for setup. Unity has issues without this.
-        Thread.Sleep(100);
 
         // initialize Kalman filters
         kalmanX = new Kalman();
@@ -111,174 +256,154 @@ public class CurieSerialReader
         // initialize Madgwick filter (samplePeriod is in seconds, our sample periods vary so we must set the
         // sample period each time we update the madgwick filter)
         madgwick = new AHRS.MadgwickAHRS(1.0f);
-
-        // set up log file
-        //logFile = System.IO.File.Open(logFileName, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write);
     }
 
-    public void UpdateValues(string statement = "")
+    public void UpdateValues()
     {
-        // You may pass-in a pre-read statement, for special uses.
-        // For example, this code uses this argument for passing in the
-        // calibration statement after requesting calibration.
-        //
-        // empty info string
-        info = "";
         // use these later for converted acc and gyro values
         Vector3 convAcc = Vector3.zero;
         Vector3 convGyro = Vector3.zero;
         Vector3 kalmanRot = Vector3.zero;
-        if (statement == "")
-        {
-            statement = serial.ReadTo(";");
-        }
-        string[] values = statement.Split(',');
-        // parse separated raw values into separate variables
-        Vector3 rawAcc = new Vector3(
-            int.Parse(values[2]), 
-            int.Parse(values[3]), 
-            int.Parse(values[4])
-            );
-        Vector3 rawGyro = new Vector3(
-            int.Parse(values[5]),
-            int.Parse(values[6]),
-            int.Parse(values[7])
-            );
-        int opcode = int.Parse(values[0]);
-        long timestamp = long.Parse(values[1]);
+
+        // update serial port object
+        serialMsg.ReadAndUpdate();
+
+        // set the UI "info" string to the received statement 
+        // (using assignment operator to clear previous values)
+        info = "Received this statement: " + serialMsg.msgString + "\n";
+
+        info += ("Values interpreted: " + serialMsg.opcode + " | " + serialMsg.timestamp + " | " + serialMsg.rawAcc 
+            + " | " + serialMsg.rawGyro + "\n");
 
         // set boolean for zero motion detection
-        isZeroMotion = (opcode == (int)Opcodes.zeromotion);
-        
+        isZeroMotion = (serialMsg.opcode == (int)Opcodes.zeromotion);
+
         // if opcode signals calibration event, then grab gyro x-value for Accelerometer Range
         // and grab gyro y-value for Gyroscope Range
         // (this functionality is described in the Curie Sketch)
-        if(opcode == (int)Opcodes.calibrate)
+        if (serialMsg.opcode == (int)Opcodes.calibrate)
         {
             // get range values from Curie (printed only just after calibration)
-            // these are needed *before* conversion is done
-            CurieAccelerometerRange = rawGyro.x;
-            CurieGyroscopeRange = rawGyro.y;
-            // set the rawGyro values to 0 now that we've taken the information
-            // this makes the operations later on in this function which use the 
-            // raw gyro values not produce incorrect results
-            rawGyro.x = 0.0f;
-            rawGyro.y = 0.0f;
-        }
-
-        // convert raw values into G's
-        convAcc.Set(
-            convertRawAcceleration(rawAcc.x),
-            convertRawAcceleration(rawAcc.y),
-            convertRawAcceleration(rawAcc.z)
-            );
-        // convert raw values into radians/time
-        convGyro.Set(
-            convertRawGyroRad(rawGyro.x),
-            convertRawGyroRad(rawGyro.y),
-            convertRawGyroRad(rawGyro.z)
-            );
-
-        if(opcode == (int)Opcodes.calibrate)
-        {
-            // set gravity vector (after conversion)
-            // this is done because whatever forces are felt by the curie
-            // at calibration (when it is flat and stationary) will
-            // coorespond to the force of gravity in its frame of reference
-            originalGravity = convAcc;
-        }
-
-        // estimate rotation angles based on accelerometer values
-        // roll = x, pitch = y, yaw = z
-        Vector3 estRot = Vector3.zero;
-        estRot.x = Mathf.Atan2(convAcc.y, convAcc.z) * Mathf.Rad2Deg;
-        estRot.y = Mathf.Atan2(convAcc.x, convAcc.z) * Mathf.Rad2Deg;
-        estRot.z = Mathf.Atan2(convAcc.x, convAcc.y) * Mathf.Rad2Deg;
-
-        // set Kalman filters for rotations
-        kalmanX.setAngle(estRot.x);
-        kalmanY.setAngle(estRot.y);
-        kalmanZ.setAngle(estRot.z);
-
-        // calculate delta time from last update
-        float dt;
-        if (previousTime > timestamp)
-        {
-            // the timer has overflowed back to zero 
-            // (unsigned 32-bit value overflows at 4294967295, which is about 70 minutes
-            // since the timer is in microseconds)
-            float tmp = previousTime;
-            tmp -= uint.MaxValue;
-            dt = timestamp - tmp;
+            CurieAccelerometerRange = serialMsg.rawGyro.x;
+            CurieGyroscopeRange = serialMsg.rawGyro.y;
+            // during a calibration update, no data filtering needs to be done
         }
         else
         {
-            dt = timestamp - previousTime;
+            // convert raw values into G's
+            convAcc.Set(
+                convertRawAcceleration(serialMsg.rawAcc.x),
+                convertRawAcceleration(serialMsg.rawAcc.y),
+                convertRawAcceleration(serialMsg.rawAcc.z)
+                );
+            // convert raw values into radians/time
+            convGyro.Set(
+                convertRawGyroRad(serialMsg.rawGyro.x),
+                convertRawGyroRad(serialMsg.rawGyro.y),
+                convertRawGyroRad(serialMsg.rawGyro.z)
+                );
+
+            if (serialMsg.opcode == (int)Opcodes.calibrate)
+            {
+                // set gravity vector (after conversion)
+                // this is done because whatever forces are felt by the curie
+                // at calibration (when it is flat and stationary) will
+                // coorespond to the force of gravity in its frame of reference
+                originalGravity = convAcc;
+            }
+
+            // estimate rotation angles based on accelerometer values
+            // roll = x, pitch = y, yaw = z
+            Vector3 estRot = Vector3.zero;
+            estRot.x = Mathf.Atan2(convAcc.y, convAcc.z) * Mathf.Rad2Deg;
+            estRot.y = Mathf.Atan2(convAcc.x, convAcc.z) * Mathf.Rad2Deg;
+            estRot.z = Mathf.Atan2(convAcc.x, convAcc.y) * Mathf.Rad2Deg;
+
+            // set Kalman filters for rotations
+            kalmanX.setAngle(estRot.x);
+            kalmanY.setAngle(estRot.y);
+            kalmanZ.setAngle(estRot.z);
+
+            // calculate delta time from last update
+            float dt;
+            if (previousTime > serialMsg.timestamp)
+            {
+                // the timer has overflowed back to zero 
+                // (unsigned 32-bit value overflows at 4294967295, which is about 70 minutes
+                // since the timer is in microseconds)
+                float tmp = previousTime;
+                tmp -= uint.MaxValue;
+                dt = serialMsg.timestamp - tmp;
+            }
+            else
+            {
+                dt = serialMsg.timestamp - previousTime;
+            }
+            // set previous time now that the dt has been calculated
+            previousTime = serialMsg.timestamp;
+            // change dt to seconds from microseconds
+            dt = dt / 10000000.0f;
+
+            // do Kalman filtering for rotation
+            kalmanRot.x = kalmanX.getAngle(estRot.x, convGyro.x, dt);
+            kalmanRot.y = kalmanY.getAngle(estRot.y, convGyro.y, dt);
+            kalmanRot.z = kalmanZ.getAngle(estRot.z, convGyro.z, dt);
+
+            // correct angle according to board's orientation
+            kalmanCorrectedRot = Quaternion.Euler(angleCorrection(getOrientation(serialMsg.rawAcc), kalmanRot));
+
+            // do Madgwick filtering, set sample period each time because our sample rate 
+            // is somewhat inconsistent
+            madgwick.SamplePeriod = dt;
+            madgwick.Update(convGyro.x, convGyro.y, convGyro.z, convAcc.x, convAcc.y, convAcc.z);
+
+            // get Quaternion from Madgwick filter
+            madgwickRot.Set(madgwick.Quaternion[0], madgwick.Quaternion[1], madgwick.Quaternion[2], madgwick.Quaternion[3]);
+
+            // rotate gravity vector using madgwick filter rotation
+            gravity = madgwickRot * originalGravity;
+
+            // set acc to be the translational acceleration
+            acc = convAcc - gravity;
+
+            // write data to UI text elements
+            info += ("timestep: " + dt + "\nestimated rotation :" + estRot + "\nkalman rotation: " + kalmanRot + "\ncorrected kalman rotation: " +
+                kalmanCorrectedRot.eulerAngles + "\nmadgwick rotation: " + madgwickRot.eulerAngles + "\nconverted acceleration: " + convAcc +
+                "\nmadgwick gravity: " + gravity + "\nacc after gravity is subtracted: " + acc);
+            trackingInfo.text = info;
         }
-        // set previous time now that the dt has been calculated
-        previousTime = timestamp;
-        // change dt to seconds from microseconds
-        dt = dt / 1000000.0f;
-
-        // do Kalman filtering for rotation
-        kalmanRot.x = kalmanX.getAngle(estRot.x, convGyro.x, dt);
-        kalmanRot.y = kalmanY.getAngle(estRot.y, convGyro.y, dt);
-        kalmanRot.z = kalmanZ.getAngle(estRot.z, convGyro.z, dt);
-
-        // correct angle according to board's orientation
-        kalmanCorrectedRot = Quaternion.Euler(angleCorrection(getOrientation(rawAcc), kalmanRot));
-
-        // do Madgwick filtering, set sample period each time because our sample rate 
-        // is somewhat inconsistent
-        madgwick.SamplePeriod = dt;
-        madgwick.Update(convGyro.x, convGyro.y, convGyro.z, convAcc.x, convAcc.y, convAcc.z);
-
-        // get Quaternion from Madgwick filter
-        madgwickRot.Set(madgwick.Quaternion[0], madgwick.Quaternion[1], madgwick.Quaternion[2], madgwick.Quaternion[3]);
-
-        // rotate gravity vector using madgwick filter rotation
-        gravity = madgwickRot * originalGravity;
-
-        // set acc to be the translational acceleration
-        acc = convAcc - gravity;
-
-        // write data to UI text elements
-        info += ("timestep: " + dt + "\nestimated rotation :" + estRot + "\nkalman rotation: " + kalmanRot + "\ncorrected kalman rotation: " + 
-            kalmanCorrectedRot.eulerAngles + "\nmadgwick rotation: " + madgwickRot.eulerAngles + "\nconverted acceleration: " + convAcc + 
-            "\nmadgwick gravity: " + gravity + "\nacc after gravity is subtracted: " + acc);
-        trackingInfo.text = info;
    }
 
-    // Don't forget to run a coroutine to initialize calibration
-    // without coroutine there is no easy way to verify that the
-    // user has oriented the Curie before calibration
     // **Calibration should only need to be run once per Curie unit
     public bool Calibrate()
     {
-        // start calbration
-        serial.Write("c");
-        // Curie will block until zero motion is detected, and then calibrate.
+        // ~~~ Request Calibration ~~~
+
+        serialMsg.RequestCalibration();
+
+        // Wait for a certain number of loops to receive a calibration opcode back from the Curie
         int loops = 0;
-        string statement = serial.ReadTo(";");
-        string opcode = statement[0] + "";
-        // Wait until an opcode of "0" is recieved (this is the calibration opcode)
-        // The opcode is a 1-byte
-        while((int.Parse(opcode) != (int)Opcodes.calibrate) && (loops < 1000000))
+
+        // Wait until the "calibration complete" opcode is received
+        while((serialMsg.opcode != (int)Opcodes.calibrate) && (loops < 1000000))
         {
-            // read next statement from Curie
-            statement = serial.ReadTo(";");
-            opcode = statement[0] + "";
+            serialMsg.ReadAndUpdate();
             loops += 1;
         }
-        if (int.Parse(opcode) != (int)Opcodes.calibrate)
+        if (serialMsg.opcode != (int)Opcodes.calibrate)
         {
             return false;
         }
         else
         {
-            UpdateValues(statement);
             return true;
         }
+    }
+
+    public void Disconnect()
+    {
+        // send exit message to serial port
+        serialMsg.Disconnect();
     }
 
     float convertRawAcceleration(float aRaw) {
