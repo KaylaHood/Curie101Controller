@@ -3550,7 +3550,7 @@ OUTPUT(C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_in
  .debug_ranges  0x00002028      0x120 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(fp-bit.o)
  .debug_ranges  0x00002148      0x138 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(dp-bit.o)
 
-.debug_line     0x00000000     0x87a8
+.debug_line     0x00000000     0x87a7
  .debug_line    0x00000000      0x148 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(c_init.o)
  .debug_line    0x00000148      0x17b C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(interrupt.o)
  .debug_line    0x000002c3       0xf7 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(version.o)
@@ -3578,26 +3578,26 @@ OUTPUT(C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_in
  .debug_line    0x000033ec       0x93 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_millicodethunk_st.o)
  .debug_line    0x0000347f       0x93 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_millicodethunk_ld.o)
  .debug_line    0x00003512       0x95 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_millicodethunk_ret.o)
- .debug_line    0x000035a7      0x902 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101\GyroAccelPrinter.cpp.o
- .debug_line    0x00003ea9     0x10ba C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
- .debug_line    0x00004f63      0xc76 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
- .debug_line    0x00005bd9      0x2ff C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101\CurieIMU\internal\ss_spi.c.o
- .debug_line    0x00005ed8      0x328 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101/core.a(wiring.c.o)
- .debug_line    0x00006200       0xa1 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101/core.a(abi.cpp.o)
- .debug_line    0x000062a1      0x52f C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
- .debug_line    0x000067d0      0x1c6 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101/core.a(main.cpp.o)
- .debug_line    0x00006996      0x1d2 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101/core.a(new.cpp.o)
- .debug_line    0x00006b68      0x602 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101/core.a(Print.cpp.o)
- .debug_line    0x0000716a      0x520 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
- .debug_line    0x0000768a       0xb1 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101/core.a(hooks.c.o)
- .debug_line    0x0000773b      0x1d2 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101/core.a(RingBuffer.cpp.o)
- .debug_line    0x0000790d      0x486 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
- .debug_line    0x00007d93       0x8d c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_divsi3.o)
- .debug_line    0x00007e20      0x391 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(fp-bit.o)
- .debug_line    0x000081b1      0x43b c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(dp-bit.o)
- .debug_line    0x000085ec       0x94 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_clzsi2.o)
- .debug_line    0x00008680       0x95 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_lshrdi3.o)
- .debug_line    0x00008715       0x93 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_ashldi3.o)
+ .debug_line    0x000035a7      0x901 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101\GyroAccelPrinter.cpp.o
+ .debug_line    0x00003ea8     0x10ba C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+ .debug_line    0x00004f62      0xc76 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+ .debug_line    0x00005bd8      0x2ff C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101\CurieIMU\internal\ss_spi.c.o
+ .debug_line    0x00005ed7      0x328 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101/core.a(wiring.c.o)
+ .debug_line    0x000061ff       0xa1 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101/core.a(abi.cpp.o)
+ .debug_line    0x000062a0      0x52f C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
+ .debug_line    0x000067cf      0x1c6 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101/core.a(main.cpp.o)
+ .debug_line    0x00006995      0x1d2 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101/core.a(new.cpp.o)
+ .debug_line    0x00006b67      0x602 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101/core.a(Print.cpp.o)
+ .debug_line    0x00007169      0x520 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
+ .debug_line    0x00007689       0xb1 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101/core.a(hooks.c.o)
+ .debug_line    0x0000773a      0x1d2 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101/core.a(RingBuffer.cpp.o)
+ .debug_line    0x0000790c      0x486 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\GyroAccelPrinter\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
+ .debug_line    0x00007d92       0x8d c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_divsi3.o)
+ .debug_line    0x00007e1f      0x391 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(fp-bit.o)
+ .debug_line    0x000081b0      0x43b c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(dp-bit.o)
+ .debug_line    0x000085eb       0x94 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_clzsi2.o)
+ .debug_line    0x0000867f       0x95 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_lshrdi3.o)
+ .debug_line    0x00008714       0x93 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_ashldi3.o)
 
 .debug_str      0x00000000     0x98be
  .debug_str     0x00000000      0x276 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(c_init.o)

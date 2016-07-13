@@ -9,7 +9,7 @@
 // -----------------------------------
 // Opcode Enum for Serial Port Opcodes
 // -----------------------------------
-enum Opcodes {Calibration, Normal, ZeroMotion};
+enum Opcodes {Normal, ZeroMotion, Calibration};
 
 // boolean for indicating computer's presence on SerialPort
 bool serialIsConnected = false;
@@ -194,7 +194,6 @@ void loop() {
 			char cmd = Serial.read();
 			//
 			// The Serial Port is written to when Curie is asked to calibrate. 
-			// If the opcode is the int 3, then calibrate (prevent accidental trigger)
 			//
 			if (cmd == 'c') {
 				// Curie is requesting calibration
@@ -239,7 +238,7 @@ void updateValues(int16_t opcode) {
 	// The timestamp is the time (microsNow) in microseconds. This will overflow and
 	// go back to zero after about 18000 years. We will not manage overflows.
 	//
-	// If the opcode is 0 (calibration), then the gyro x-value will be the Accelerometer Range,
+	// If the opcode is for calibration, then the gyro x-value will be the Accelerometer Range,
 	// and the gyro y-value will be the Gyroscope Range. This is used to tell the receiving program
 	// what values to use when converting the raw values into useful units.
 	//
@@ -322,9 +321,9 @@ void updateValues(int16_t opcode) {
 	// [2 bytes for opcode][8 bytes for 8-byte timestamp][six bytes for each 2-byte accelerometer value][six bytes for each 2-byte gyroscope value]
 	// -----
 	// "opcode" = binary representation of either '0','1', or '2'
-	//     '0' = calibration values
-	//     '1' = normal values
-	//     '2' = zero motion detected
+	//     '0' = normal values
+	//     '1' = zero motion detected
+	//     '2' = calibration
 	// "timestamp" is a 8-byte "uint64_t" type, and the bytes have the same binary
 	//     representation as the original value.
 	// the sets of data for the accelerometer and gyroscope have the same binary

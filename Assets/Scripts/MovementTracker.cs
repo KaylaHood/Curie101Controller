@@ -20,6 +20,6 @@ public class MovementTracker
     public void UpdateValues(Vector3 acc, Quaternion rot)
     {
         rigidbody.MoveRotation(rot);
-        rigidbody.AddForce(acc, ForceMode.Impulse);
+        //rigidbody.AddForce(acc, ForceMode.Impulse);
     }
 }

@@ -80,7 +80,7 @@ public class CurieMovement : MonoBehaviour, IDisposable
                 // update all movement tracking scripts
                 for (int i = 0; i < movementTrackers.Length; i++)
                 {
-                    if (i != 1)
+                    if (i != 0)
                     {
                         movementTrackers[i].UpdateValues(monitor.acc, monitor.kalmanCorrectedRot);
                     }
@@ -106,11 +106,13 @@ public class CurieMovement : MonoBehaviour, IDisposable
         OnCalibrationFailed += (CurieMovement a) => {
             Debug.Log("Calibration failed");
         };
+        trackingInfo.text = "Make sure that Curie is held flat for calibration. Hold y when ready.";
         Debug.Log("Make sure that Curie is held flat for calibration. Hold y when ready.");
         while(true)
         {
             if(Input.GetKeyDown("y"))
             {
+                trackingInfo.text = "Now Calibrating... hold Curie still";
                 Debug.Log("Now Calibrating... hold Curie still");
                 Calibrate();
                 break;
