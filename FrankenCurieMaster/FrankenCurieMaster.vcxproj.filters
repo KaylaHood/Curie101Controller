@@ -15,13 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="GyroAccelPrinter.ino" />
+    <None Include="FrankenCurieMaster.ino" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="__vm\.GyroAccelPrinter.vsarduino.h">
+    <ClInclude Include="__vm\.FrankenCurieMaster.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GyroAccelPrinter.h">
+    <ClInclude Include="Communication.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

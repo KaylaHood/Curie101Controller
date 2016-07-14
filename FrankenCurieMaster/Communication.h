@@ -9,11 +9,11 @@
 
 // define debug macros (comment out to turn off debug printing)
 #ifdef SERIAL_ENABLED
-//#define CURIE_SERIAL_DEBUG 
-//#define CURIE_INTERRUPT_DEBUG
+#define CURIE_SERIAL_DEBUG 
+#define CURIE_INTERRUPT_DEBUG
 //#define CURIE_NOMO_DEBUG
-//#define CURIE_CALIBRATION_DEBUG
-//#define CURIE_SPEED_DEBUG
+#define CURIE_CALIBRATION_DEBUG
+#define CURIE_SPEED_DEBUG
 #endif
 
 // struct to manage formatted message

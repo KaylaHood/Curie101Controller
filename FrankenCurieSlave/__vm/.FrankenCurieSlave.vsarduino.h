@@ -93,6 +93,6 @@ extern "C" void __cxa_pure_virtual() {;}
 #include <variant.h> 
 #undef cli
 #define cli()
-#include <GyroAccelPrinter.ino>
-#include <GyroAccelPrinter.h>
+#include <FrankenCurieSlave.ino>
+#include <Communication.h>
 #endif
