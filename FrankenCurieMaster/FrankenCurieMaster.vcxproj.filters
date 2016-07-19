@@ -18,10 +18,10 @@
     <None Include="FrankenCurieMaster.ino" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="__vm\.FrankenCurieMaster.vsarduino.h">
+    <ClInclude Include="FrankenCurieMaster.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Communication.h">
+    <ClInclude Include="__vm\.FrankenCurieMaster.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

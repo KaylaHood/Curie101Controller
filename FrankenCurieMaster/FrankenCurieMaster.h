@@ -1,23 +1,20 @@
 #pragma once
 
-// Serial / BLE toggle macro
+// Serial / BLE toggle macro (0 = off)
 // *** both cannot be enabled at once
-#define SERIAL_ENABLED
-#ifndef SERIAL_ENABLED
-#define BLE_ENABLED
-#endif
+#define SERIAL_ENABLED 1
+#define BLE_ENABLED 0
 
-// define debug macros (comment out to turn off debug printing)
-#ifdef SERIAL_ENABLED
-#define CURIE_SERIAL_DEBUG 
-#define CURIE_INTERRUPT_DEBUG
-//#define CURIE_NOMO_DEBUG
-#define CURIE_CALIBRATION_DEBUG
-#define CURIE_SPEED_DEBUG
-#endif
+// define debug macros (0 = off)
+#define CURIE_SERIAL_DEBUG 1
+#define CURIE_INTERRUPT_DEBUG 0
+#define CURIE_NOMO_DEBUG 0
+#define CURIE_CALIBRATION_DEBUG 1
+#define CURIE_SPEED_DEBUG 1
+#define CURIE_MASTER_DEBUG 1
 
-// struct to manage formatted message
-struct Message {
+class Message {
+public:
 	uint8_t* message; // pointer to array of bytes
 	int16_t size; // size of byte array
 
@@ -38,13 +35,19 @@ struct Message {
 
 	// retrieval functions
 	template <typename T>
-	T getValue(int pos);
+	T getValue(int pos) const;
 
 	// write values to serial port
-	void send();
+	void send() const;
 
-	// debug print function
-	void debugPrint();
+	// debug print function for master message
+	void debugPrintMaster() const;
+
+	// debug print function for BLE message
+	void debugPrintBLE() const;
+
+	// debug print function for slave message
+	void debugPrintSlave() const;
 };
 
 void setup();

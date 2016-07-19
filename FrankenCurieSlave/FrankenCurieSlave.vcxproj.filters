@@ -18,7 +18,7 @@
     <None Include="FrankenCurieSlave.ino" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Communication.h">
+    <ClInclude Include="FrankenCurieSlave.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="__vm\.FrankenCurieSlave.vsarduino.h">

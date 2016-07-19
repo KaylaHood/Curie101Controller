@@ -94,5 +94,5 @@ extern "C" void __cxa_pure_virtual() {;}
 #undef cli
 #define cli()
 #include <FrankenCurieSlave.ino>
-#include <Communication.h>
+#include <FrankenCurieSlave.h>
 #endif

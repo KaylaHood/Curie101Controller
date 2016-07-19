@@ -4,9 +4,9 @@
 #include <math.h>
 #include <limits.h>
 #include <cstdint>
-#include "Communication.h"
+#include "FrankenCurieMaster.h"
 
-#ifdef SERIAL_ENABLED
+#if SERIAL_ENABLED
 // -----------------------------------
 // Opcode Enum for Serial Port Opcodes
 // -----------------------------------
@@ -20,9 +20,11 @@ Message masterMsg = Message(34);
 // slave message holders
 Message slave1Msg = Message(8);
 Message slave2Msg = Message(8);
+
+char calibrationMsg = 'c';
 #endif
 
-#ifdef BLE_ENABLED
+#if BLE_ENABLED
 // -----------------------------------
 // BLE variables
 // -----------------------------------
@@ -47,8 +49,8 @@ Message slaveMsg = Message(20);
 // -----------------------------------------------------------
 // Software Serial Objects for Communication over Digitial I/O
 // -----------------------------------------------------------
-SoftwareSerial Slave1(3,2);
-SoftwareSerial Slave2(5,4);
+SoftwareSerial Slave1(3,2); // 3 = INPUT, 2 = OUTPUT
+SoftwareSerial Slave2(5,4); // 5 = INPUT, 4 = OUTPUT
 
 // -----------------------------------
 // Gyroscope / Accelerometer variables
@@ -100,10 +102,10 @@ uint64_t microsPerUpdate = 1000000 / (sampleRate / 4);
 bool calibrateAgain = false;
 
 void setup() {
-	#ifdef SERIAL_ENABLED
-	Serial.begin(9600); // initialize Serial communication
+#if SERIAL_ENABLED
+	Serial.begin(38400); // initialize Serial communication
 	while (!Serial);    // wait for the serial port to open
-	#endif
+#endif
 
 	// initialize device
 	CurieIMU.begin();
@@ -129,10 +131,14 @@ void setup() {
 	CurieIMU.BMI160Class::setAccelDLPFMode(BMI160_DLPF_MODE_OSR4);
 
 	// Set up the SoftwareSerial objects for slave communication
-	Slave1.begin(14400);
-	Slave2.begin(14400);
+	pinMode(2, OUTPUT);
+	pinMode(3, INPUT);
+	pinMode(4, OUTPUT);
+	pinMode(5, INPUT);
+	Slave1.begin(38400);
+	Slave2.begin(38400);
 
-#ifdef BLE_ENABLED
+#if BLE_ENABLED
 	// -----------------------------------
 	// BLE set-up
 	// -----------------------------------
@@ -164,23 +170,23 @@ void setup() {
 }
 
 void loop() {
-#ifdef CURIE_SPEED_DEBUG
+#if CURIE_SPEED_DEBUG
 	Serial.print("starting loop time: ");
 	Serial.print(micros());
 	Serial.println();
 #endif
 
-#ifdef BLE_ENABLED
+#if BLE_ENABLED
 	// listen for BLE peripherals to connect
 	BLECentral bleCentral = blePeripheral.central();
 	// set toggle for BLE connection
 	if (bleCentral) {
 		bleIsConnected = true;
 		if (CalibMaster.written()) {
-			#if defined CURIE_CALIBRATION_DEBUG || defined CURIE_BLE_DEBUG
+#if CURIE_CALIBRATION_DEBUG || CURIE_BLE_DEBUG
 			Serial.print("BLE recieved request.");
 			Serial.println();
-			#endif	
+#endif	
 			// save last zero motion time before setting "microsNow"
 			zMT = zeroMotionDetectedMicros;
 			microsNow = micros();
@@ -198,20 +204,26 @@ void loop() {
 	else {
 		bleIsConnected = false;
 	}
-	#endif
+#endif
 
-	#ifdef SERIAL_ENABLED
+#if SERIAL_ENABLED
 	if (Serial.available() > 0) {
 		// read request from the serial port
 		char cmd = Serial.read();
 		if (serialIsConnected) {
-			#if defined CURIE_CALIBRATION_DEBUG || defined CURIE_SERIAL_DEBUG
+#if CURIE_CALIBRATION_DEBUG || CURIE_SERIAL_DEBUG
 			Serial.print("Serial port was written to externally.");
 			Serial.println();
-			#endif	
-			if (cmd == 'c') {
+#endif	
+			if (cmd == calibrationMsg) {
 				// Computer is requesting calibration
 				// save last zero motion time before setting "microsNow"
+#if CURIE_CALIBRATION_DEBUG
+				Serial.print("Received \"");
+				Serial.print(calibrationMsg);
+				Serial.print("\".");
+				Serial.println();
+#endif
 				zMT = zeroMotionDetectedMicros;
 				microsNow = micros();
 				calibrate();
@@ -219,15 +231,22 @@ void loop() {
 			else if (cmd == 'd') {
 				// Computer has disconnected
 				// send same command to slaves
-				Slave1.print('d');
-				Slave2.print('d');
+#if CURIE_MASTER_DEBUG
+				Serial.print("Received \"d\". Sending to slaves.");
+				Serial.println();
+#endif
+				Slave1.write('d');
+				Slave2.write('d');
 				// set connection boolean to false
 				serialIsConnected = false;
 			}
-			// --------------------------
-			// Command was not recognized
-			// --------------------------
 			else if (calibrateAgain) {
+#if CURIE_CALIBRATION_DEBUG
+				Serial.print("calibrateAgain");
+				Serial.println();
+#endif
+				calibrateAgain = false;
+				// save last zero motion time before setting "microsNow"
 				zMT = zeroMotionDetectedMicros;
 				microsNow = micros();
 				calibrate();
@@ -239,31 +258,44 @@ void loop() {
 		else if (cmd == 'y') {
 			// Computer has requested communication to begin
 			// Send same command to slaves
-			Slave1.print('y');
-			Slave2.print('y');
+#if CURIE_MASTER_DEBUG
+			Serial.print("Received \"y\". Sending to slaves.");
+			Serial.println();
+#endif
+			Slave1.write('y');
+			Slave2.write('y');
 			// set connection boolean to true
 			serialIsConnected = true;
 		}
 	}
 	else if (serialIsConnected) {
 		if (calibrateAgain) {
+#if CURIE_CALIBRATION_DEBUG
+			Serial.print("calibrateAgain");
+			Serial.println();
+#endif
+			calibrateAgain = false;
 			// save last zero motion time before setting "microsNow"
 			zMT = zeroMotionDetectedMicros;
 			microsNow = micros();
 			calibrate();
 		}
 		else {
+#if CURIE_MASTER_DEBUG
+			Serial.print("updateValues normally");
+			Serial.println();
+#endif
 			// no commands are being received, update normally
 			updateValues(Normal);
 		}
 	}
-	#endif
+#endif
 
-	#ifdef CURIE_SPEED_DEBUG
+#if CURIE_SPEED_DEBUG
 	Serial.print("ending loop time: ");
 	Serial.print(micros());
 	Serial.println();
-	#endif
+#endif
 }
 
 void updateValues(int16_t opcode) {
@@ -276,11 +308,11 @@ void updateValues(int16_t opcode) {
 	// and the gyro y-value will be the Gyroscope Range. This is used to tell the receiving program
 	// what values to use when converting the raw values into useful units.
 	//
-	#ifdef CURIE_SPEED_DEBUG
+#if CURIE_SPEED_DEBUG
 	Serial.print("update start time: ");
 	Serial.print(micros());
 	Serial.println();
-	#endif
+#endif
 	int rawAx32, rawAy32, rawAz32;
 	int rawGx32, rawGy32, rawGz32;
 	int16_t rawAx16 = 0, rawAy16 = 0, rawAz16 = 0;
@@ -288,11 +320,12 @@ void updateValues(int16_t opcode) {
 
 	// block until correct time
 	while ((micros() - microsPrevious) < microsPerUpdate) {
-	#ifdef CURIE_SPEED_DEBUG
+#if CURIE_SPEED_DEBUG
 		Serial.print("waiting...");
 		Serial.println();
-	#endif
+#endif
 	}
+
 	// save most recent zero motion detected time, because the zero motion interrupt *could*
 	// fire inbetween setting "microsNow" and testing for zero motion, which would result
 	// in the function "isZeroMotion" returning false when zero motion is happening.
@@ -301,6 +334,10 @@ void updateValues(int16_t opcode) {
 
 	// update values to sensor readings if opcode is not for calibration
 	if (opcode != Calibration) {
+		// ask first slave for data, then do work while slave sends data
+		Slave1.listen();
+		Slave1.write('u');
+
 		// read raw measurements from device 
 		// *** (IMU library returns 32-bit ints for IMU data, even though hardware data is 16-bit ints)
 		CurieIMU.readMotionSensor(
@@ -311,6 +348,28 @@ void updateValues(int16_t opcode) {
 			rawGy32,
 			rawGz32
 		);
+		
+#if CURIE_MASTER_DEBUG
+		Serial.print("Getting data from Slave 1.");
+		Serial.println();
+#endif
+		// gather first slave's data (wait for transmission to complete first)
+		while (Slave1.available() < slave1Msg.size) {
+#if CURIE_MASTER_DEBUG
+			Serial.print("Waiting for full message. Available now: ");
+			Serial.print(Slave1.available());
+			Serial.println();
+#endif
+		}
+		for (int i = 0; i < slave1Msg.size; i++) {
+			slave1Msg.setValue<uint8_t>((uint8_t)Slave1.read(), i);
+		}
+
+		// request data from second slave
+		Slave2.listen();
+		Slave2.write('u');
+
+		// divide gyro data by sensitivity constant
 		rawGx32 /= gyroSensitivity;
 		rawGy32 /= gyroSensitivity;
 		rawGz32 /= gyroSensitivity;
@@ -323,12 +382,28 @@ void updateValues(int16_t opcode) {
 		rawGx16 = rawGx32;
 		rawGy16 = rawGy32;
 		rawGz16 = rawGz32;
+
+#if CURIE_MASTER_DEBUG
+		Serial.print("Getting data from Slave 2.");
+		Serial.println();
+#endif
+		// get data from second slave
+		while (Slave2.available() < slave2Msg.size) {
+#if CURIE_MASTER_DEBUG
+			Serial.print("Waiting for full message. Available now: ");
+			Serial.print(Slave2.available());
+			Serial.println();
+#endif
+		}
+		for (int i = 0; i < slave2Msg.size; i++) {
+			slave2Msg.setValue<uint8_t>((uint8_t)Slave2.read(), i);
+		}
 	}
 
 	// if zero motion event is occurring and the opcode is not 0
 	// (meaning this is not a calibration update), then set opcode
 	// to 2, which is the zero-motion opcode.
-	if (isZeroMotion(microsNow, zMT) && opcode != Calibration) {
+	if ((isZeroMotion(microsNow, zMT) || slave1Msg.getValue<int16_t>(0) == ZeroMotion || slave2Msg.getValue<int16_t>(0) == ZeroMotion) && opcode != Calibration) {
 		opcode = ZeroMotion;
 	}
 
@@ -344,9 +419,15 @@ void updateValues(int16_t opcode) {
 	masterMsg.setValue<int16_t>(rawAx16, 10);
 	masterMsg.setValue<int16_t>(rawAy16, 12);
 	masterMsg.setValue<int16_t>(rawAz16, 14);
-	masterMsg.setValue<int16_t>(rawGx16, 16);
-	masterMsg.setValue<int16_t>(rawGy16, 18);
-	masterMsg.setValue<int16_t>(rawGz16, 20);
+	masterMsg.setValue<int16_t>(slave1Msg.getValue<int16_t>(2), 16);
+	masterMsg.setValue<int16_t>(slave1Msg.getValue<int16_t>(4), 18);
+	masterMsg.setValue<int16_t>(slave1Msg.getValue<int16_t>(6), 20);
+	masterMsg.setValue<int16_t>(slave2Msg.getValue<int16_t>(2), 22);
+	masterMsg.setValue<int16_t>(slave2Msg.getValue<int16_t>(4), 24);
+	masterMsg.setValue<int16_t>(slave2Msg.getValue<int16_t>(6), 26);
+	masterMsg.setValue<int16_t>(rawGx16, 28);
+	masterMsg.setValue<int16_t>(rawGy16, 30);
+	masterMsg.setValue<int16_t>(rawGz16, 32);
 
 	// -----------------------------------
 	// BLE Characteristic and Serial Port Update
@@ -362,7 +443,7 @@ void updateValues(int16_t opcode) {
 	// -----                         (three 16-bit ints)              (three 16-bit ints)
 	// -----
 
-	#ifdef BLE_ENABLED
+#if BLE_ENABLED
 	// check for connected central
 	if (bleIsConnected) {
 		// construct unsigned char array of values because the BLE "setValue" function 
@@ -394,18 +475,19 @@ void updateValues(int16_t opcode) {
 			*/
 		}
 	}
-	#endif
+#endif
 
-	#ifndef CURIE_SERIAL_DEBUG
+#if CURIE_SERIAL_DEBUG == 0
 	// before sending data, check for calibration request
-	if (Serial.peek() == 'c') {
+	// *** only stop updating if not already calibrating
+	if (Serial.peek() == calibrationMsg && opcode != Calibration) {
 		// calibration request received! Abort update
 		Serial.flush();
 		return;
 	}
 	// write byte values to Serial Port
 	masterMsg.send();
-	#else
+#else
 	Serial.print("Actual values (decimal): ");
 	Serial.print(opcode);
 	Serial.print("|");
@@ -417,26 +499,37 @@ void updateValues(int16_t opcode) {
 	Serial.print("|");
 	Serial.print(rawAz16);
 	Serial.print("|");
+	Serial.print(slave1Msg.getValue<int16_t>(2));
+	Serial.print("|");
+	Serial.print(slave1Msg.getValue<int16_t>(4));
+	Serial.print("|");
+	Serial.print(slave1Msg.getValue<int16_t>(6));
+	Serial.print("|");
+	Serial.print(slave2Msg.getValue<int16_t>(2));
+	Serial.print("|");
+	Serial.print(slave2Msg.getValue<int16_t>(4));
+	Serial.print("|");
+	Serial.print(slave2Msg.getValue<int16_t>(6));
+	Serial.print("|");
 	Serial.print(rawGx16);
 	Serial.print("|");
 	Serial.print(rawGy16);
 	Serial.print("|");
 	Serial.print(rawGz16);
 	Serial.println();
-	// set-up serial port statement
-	masterMsg.debugPrint();
-	#endif
+	masterMsg.debugPrintMaster();
+#endif
 
 	// update the time keeping variable
 	microsPrevious = microsNow;
-	#ifdef CURIE_SPEED_DEBUG
+#if CURIE_SPEED_DEBUG
 	Serial.print("update end time: ");
 	Serial.print(micros());
 	Serial.println();
-	#endif
-	#ifdef SERIAL_ENABLED
+#endif
+#if SERIAL_ENABLED
 	Serial.flush();
-	#endif
+#endif
 }
 
 void calibrate() {
@@ -451,18 +544,48 @@ void calibrate() {
 
 		// calibrate slaves individually (to prevent simultaneous digital i/o writes)
 		Slave1.listen();
-		Slave1.print('c');
+		Slave1.write((uint8_t)calibrationMsg);
 		while (Slave1.available() < slave1Msg.size); // wait for slave to send calibration message
+		int tries = 0;
 		for (int i = 0; i < slave1Msg.size; i++) {
-			slave1Msg.setValue(Slave1.read(), i);
+			slave1Msg.setValue<uint8_t>((uint8_t)Slave1.read(), i);
 		}
+		while ((slave1Msg.getValue<int16_t>(0) != Calibration) && tries < 10) {
+			Slave1.flush();
+			Slave1.print(calibrationMsg);
+			while (Slave1.available() < slave1Msg.size);
+			for (int i = 0; i < slave1Msg.size; i++) {
+				slave1Msg.setValue<uint8_t>((uint8_t)Slave1.read(), i);
+			}
+			tries += 1;
+		}
+
 		Slave2.listen();
-		Slave2.print('c');
+		Slave2.write((uint8_t)calibrationMsg);
 		while (Slave2.available() < slave2Msg.size); // wait for slave to send calibration message
+		tries = 0;
 		for (int i = 0; i < slave2Msg.size; i++) {
-			slave2Msg.setValue(Slave2.read(), i);
+			slave2Msg.setValue<uint8_t>((uint8_t)Slave2.read(), i);
 		}
-		updateValues(Calibration);
+		
+		while ((slave2Msg.getValue<int16_t>(0) != Calibration) && tries < 10) {
+			Slave2.flush();
+			Slave2.print(calibrationMsg);
+			while (Slave2.available() < slave2Msg.size);
+			for (int i = 0; i < slave2Msg.size; i++) {
+				slave2Msg.setValue<uint8_t>((uint8_t)Slave2.read(), i);
+			}
+			tries += 1;
+		}
+		
+		if (tries >= 10) {
+			// one or more slaves failed to calibrate
+			calibrateAgain = true;
+		}
+		else {
+			// finish calibrating by updating sensor values
+			updateValues(Calibration);
+		}
 	}
 	else {
 		// zero motion not detected, try again on next loop
@@ -473,11 +596,11 @@ void calibrate() {
 static void eventCallback(void) {
 	if (CurieIMU.getInterruptStatus(CURIE_IMU_ZERO_MOTION)) {
 		zeroMotionDetectedMicros = micros();
-	#ifdef CURIE_INTERRUPT_DEBUG
+#if CURIE_INTERRUPT_DEBUG
 		Serial.println();
 		Serial.print("Zero motion interrupt fired.");
 		Serial.println();
-	#endif
+#endif
 	}
 }
 
@@ -485,19 +608,15 @@ bool isZeroMotion(uint64_t time, uint64_t zeroMotionTime) {
 	// return true if zero motion was detected within
 	// [interval] microseconds from the supplied time
 	// return false otherwise
-	#ifdef CURIE_NOMO_DEBUG
+#if CURIE_NOMO_DEBUG
 	Serial.print("Update time: ");
 	Serial.print(time);
 	Serial.print(", zMT: ");
 	Serial.print(zeroMotionTime);
 	Serial.println();
-	#endif	
+#endif	
 	return ((time - zeroMotionTime) < interval);
 }
-
-// -----------------------------------------
-// Message struct function definitions
-// -----------------------------------------
 
 Message::Message() {
 	this->message = nullptr;
@@ -529,7 +648,7 @@ void Message::setValue(const T& val, int pos) {
 
 // retrieval functions
 template <typename T>
-T Message::getValue(int pos) {
+T Message::getValue(int pos) const {
 	// get a pointer to type T (use reinterpret_cast to force the type)
 	if ((pos + sizeof(T)) <= this->size) {
 		T value{};
@@ -540,64 +659,88 @@ T Message::getValue(int pos) {
 }
 
 // write values to serial port
-void Message::send() {
+void Message::send() const {
 	for (int i = 0; i < this->size; i++) {
 		Serial.write(*(this->message + i));
 	}
 }
 
-// debug print function
-void Message::debugPrint() {
-	// construct debug strings and print statements
+// debug print function for master message
+void Message::debugPrintMaster() const {
+	// construct debug strings and print to serial port
 	// copy array of bytes to tmp array to avoid unintentional memory corruption
-	uint8_t msgTmp[this->size];
-	memcpy(msgTmp, this->message, this->size);
+	uint8_t mp[this->size];
+	memcpy(mp, this->message, this->size);
 
 	Serial.print("Bytes in array (hex): ");
 	String dbgStr = "";
-	dbgStr += String(msgTmp[0], HEX);
+	dbgStr += String(mp[0], HEX);
 	dbgStr += ",";
-	dbgStr += String(msgTmp[1], HEX);
+	dbgStr += String(mp[1], HEX);
 	dbgStr += "|";
-	dbgStr += String(msgTmp[2], HEX);
+	dbgStr += String(mp[2], HEX);
 	dbgStr += ",";
-	dbgStr += String(msgTmp[3], HEX);
+	dbgStr += String(mp[3], HEX);
 	dbgStr += ",";
-	dbgStr += String(msgTmp[4], HEX);
+	dbgStr += String(mp[4], HEX);
 	dbgStr += ",";
-	dbgStr += String(msgTmp[5], HEX);
+	dbgStr += String(mp[5], HEX);
 	dbgStr += ",";
-	dbgStr += String(msgTmp[6], HEX);
+	dbgStr += String(mp[6], HEX);
 	dbgStr += ",";
-	dbgStr += String(msgTmp[7], HEX);
+	dbgStr += String(mp[7], HEX);
 	dbgStr += ",";
-	dbgStr += String(msgTmp[8], HEX);
+	dbgStr += String(mp[8], HEX);
 	dbgStr += ",";
-	dbgStr += String(msgTmp[9], HEX);
+	dbgStr += String(mp[9], HEX);
 	dbgStr += "|";
-	dbgStr += String(msgTmp[10], HEX);
+	dbgStr += String(mp[10], HEX);
 	dbgStr += ",";
-	dbgStr += String(msgTmp[11], HEX);
+	dbgStr += String(mp[11], HEX);
 	dbgStr += "|";
-	dbgStr += String(msgTmp[12], HEX);
+	dbgStr += String(mp[12], HEX);
 	dbgStr += ",";
-	dbgStr += String(msgTmp[13], HEX);
+	dbgStr += String(mp[13], HEX);
 	dbgStr += "|";
-	dbgStr += String(msgTmp[14], HEX);
+	dbgStr += String(mp[14], HEX);
 	dbgStr += ",";
-	dbgStr += String(msgTmp[15], HEX);
+	dbgStr += String(mp[15], HEX);
 	dbgStr += "|";
-	dbgStr += String(msgTmp[16], HEX);
+	dbgStr += String(mp[16], HEX);
 	dbgStr += ",";
-	dbgStr += String(msgTmp[17], HEX);
+	dbgStr += String(mp[17], HEX);
 	dbgStr += "|";
-	dbgStr += String(msgTmp[18], HEX);
+	dbgStr += String(mp[18], HEX);
 	dbgStr += ",";
-	dbgStr += String(msgTmp[19], HEX);
+	dbgStr += String(mp[19], HEX);
 	dbgStr += "|";
-	dbgStr += String(msgTmp[20], HEX);
+	dbgStr += String(mp[20], HEX);
 	dbgStr += ",";
-	dbgStr += String(msgTmp[21], HEX);
+	dbgStr += String(mp[21], HEX);
+	dbgStr += "|";
+	dbgStr += String(mp[22], HEX);
+	dbgStr += ",";
+	dbgStr += String(mp[23], HEX);
+	dbgStr += "|";
+	dbgStr += String(mp[24], HEX);
+	dbgStr += ",";
+	dbgStr += String(mp[25], HEX);
+	dbgStr += "|";
+	dbgStr += String(mp[26], HEX);
+	dbgStr += ",";
+	dbgStr += String(mp[27], HEX);
+	dbgStr += "|";
+	dbgStr += String(mp[28], HEX);
+	dbgStr += ",";
+	dbgStr += String(mp[29], HEX);
+	dbgStr += "|";
+	dbgStr += String(mp[30], HEX);
+	dbgStr += ",";
+	dbgStr += String(mp[31], HEX);
+	dbgStr += "|";
+	dbgStr += String(mp[32], HEX);
+	dbgStr += ",";
+	dbgStr += String(mp[33], HEX);
 	Serial.print(dbgStr);
 
 	Serial.println();
@@ -617,5 +760,124 @@ void Message::debugPrint() {
 	Serial.print(this->getValue<int16_t>(18));
 	Serial.print("|");
 	Serial.print(this->getValue<int16_t>(20));
+	Serial.print("|");
+	Serial.print(this->getValue<int16_t>(22));
+	Serial.print("|");
+	Serial.print(this->getValue<int16_t>(24));
+	Serial.print("|");
+	Serial.print(this->getValue<int16_t>(26));
+	Serial.print("|");
+	Serial.print(this->getValue<int16_t>(28));
+	Serial.print("|");
+	Serial.print(this->getValue<int16_t>(30));
+	Serial.print("|");
+	Serial.print(this->getValue<int16_t>(32));
+	Serial.println();
+}
+
+// debug print function for slave message
+void Message::debugPrintSlave() const {
+	// construct debug strings and print to serial port
+	// copy array of bytes to tmp array to avoid unintentional memory corruption
+	uint8_t mp[this->size];
+	memcpy(mp, this->message, this->size);
+
+	Serial.print("Bytes in array (hex): ");
+	String dbgStr = "";
+	dbgStr += String(mp[0], HEX);
+	dbgStr += ",";
+	dbgStr += String(mp[1], HEX);
+	dbgStr += "|";
+	dbgStr += String(mp[2], HEX);
+	dbgStr += ",";
+	dbgStr += String(mp[3], HEX);
+	dbgStr += "|";
+	dbgStr += String(mp[4], HEX);
+	dbgStr += ",";
+	dbgStr += String(mp[5], HEX);
+	dbgStr += "|";
+	dbgStr += String(mp[6], HEX);
+	dbgStr += ",";
+	dbgStr += String(mp[7], HEX);
+	Serial.print(dbgStr);
+
+	Serial.println();
+	Serial.print("Re-interpreted values (decimal): ");
+	Serial.print(this->getValue<int16_t>(0));
+	Serial.print("|");
+	Serial.print(this->getValue<int16_t>(2));
+	Serial.print("|");
+	Serial.print(this->getValue<int16_t>(4));
+	Serial.print("|");
+	Serial.print(this->getValue<int16_t>(6));
+	Serial.println();
+}
+
+// debug print function for BLE message
+// *** be sure to have the serial port open and set up before running this
+void Message::debugPrintBLE() const {
+	// construct debug strings and print to serial port
+	// copy array of bytes to tmp array to avoid unintentional memory corruption
+	uint8_t mp[this->size];
+	memcpy(mp, this->message, this->size);
+
+	Serial.print("Bytes in array (hex): ");
+	String dbgStr = "";
+	dbgStr += String(mp[0], HEX);
+	dbgStr += ",";
+	dbgStr += String(mp[1], HEX);
+	dbgStr += ",";
+	dbgStr += String(mp[2], HEX);
+	dbgStr += ",";
+	dbgStr += String(mp[3], HEX);
+	dbgStr += ",";
+	dbgStr += String(mp[4], HEX);
+	dbgStr += ",";
+	dbgStr += String(mp[5], HEX);
+	dbgStr += ",";
+	dbgStr += String(mp[6], HEX);
+	dbgStr += ",";
+	dbgStr += String(mp[7], HEX);
+	dbgStr += "|";
+	dbgStr += String(mp[8], HEX);
+	dbgStr += ",";
+	dbgStr += String(mp[9], HEX);
+	dbgStr += "|";
+	dbgStr += String(mp[10], HEX);
+	dbgStr += ",";
+	dbgStr += String(mp[11], HEX);
+	dbgStr += "|";
+	dbgStr += String(mp[12], HEX);
+	dbgStr += ",";
+	dbgStr += String(mp[13], HEX);
+	dbgStr += "|";
+	dbgStr += String(mp[14], HEX);
+	dbgStr += ",";
+	dbgStr += String(mp[15], HEX);
+	dbgStr += "|";
+	dbgStr += String(mp[16], HEX);
+	dbgStr += ",";
+	dbgStr += String(mp[17], HEX);
+	dbgStr += "|";
+	dbgStr += String(mp[18], HEX);
+	dbgStr += ",";
+	dbgStr += String(mp[19], HEX);
+	Serial.print(dbgStr);
+
+	Serial.println();
+	Serial.print("Re-interpreted values (decimal): ");
+	Serial.print(this->getValue<uint64_t>(0));
+	Serial.print("|");
+	Serial.print(this->getValue<int16_t>(8));
+	Serial.print("|");
+	Serial.print(this->getValue<int16_t>(10));
+	Serial.print("|");
+	Serial.print(this->getValue<int16_t>(12));
+	Serial.print("|");
+	Serial.print(this->getValue<int16_t>(14));
+	Serial.print("|");
+	Serial.print(this->getValue<int16_t>(16));
+	Serial.print("|");
+	Serial.print(this->getValue<int16_t>(18));
 	Serial.println();
 }

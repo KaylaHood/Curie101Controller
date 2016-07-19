@@ -94,5 +94,7 @@ extern "C" void __cxa_pure_virtual() {;}
 #undef cli
 #define cli()
 #include <FrankenCurieMaster.ino>
-#include <Communication.h>
+#include <FrankenCurieMaster.h>
+#include <SoftSerial.cpp>
+#include <SoftSerial.h>
 #endif
