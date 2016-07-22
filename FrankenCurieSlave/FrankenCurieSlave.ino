@@ -140,18 +140,15 @@ void updateValues(int16_t opcode) {
 	int rawAx32, rawAy32, rawAz32;
 	int16_t rawAx16 = 0, rawAy16 = 0, rawAz16 = 0;
 
-	// update values to sensor readings if opcode is not for calibration
-	if (opcode != Calibration) {
-		// read raw measurements from device 
-		// *** (IMU library returns 32-bit ints for IMU data, even though hardware data is 16-bit ints)
-		CurieIMU.readAccelerometer(rawAx32, rawAy32, rawAz32);
+	// read raw measurements from device 
+	// *** (IMU library returns 32-bit ints for IMU data, even though hardware data is 16-bit ints)
+	CurieIMU.readAccelerometer(rawAx32, rawAy32, rawAz32);
 
-		// do conversion to 16 bits 
-		// *** (Curie's hardware IMU device returns 16-bit values for data, no information is lost here)
-		rawAx16 = rawAx32;
-		rawAy16 = rawAy32;
-		rawAz16 = rawAz32;
-	}
+	// do conversion to 16 bits 
+	// *** (Curie's hardware IMU device returns 16-bit values for data, no information is lost here)
+	rawAx16 = rawAx32;
+	rawAy16 = rawAy32;
+	rawAz16 = rawAz32;
 
 	// if zero motion event is occurring and the opcode is not 0
 	// (meaning this is not a calibration update), then set opcode

@@ -6,12 +6,12 @@
 #define BLE_ENABLED 0
 
 // define debug macros (0 = off)
-#define CURIE_SERIAL_DEBUG 1
+#define CURIE_SERIAL_DEBUG 0
 #define CURIE_INTERRUPT_DEBUG 0
 #define CURIE_NOMO_DEBUG 0
-#define CURIE_CALIBRATION_DEBUG 1
-#define CURIE_SPEED_DEBUG 1
-#define CURIE_MASTER_DEBUG 1
+#define CURIE_CALIBRATION_DEBUG 0
+#define CURIE_SPEED_DEBUG 0
+#define CURIE_MASTER_DEBUG 0
 
 class Message {
 public:

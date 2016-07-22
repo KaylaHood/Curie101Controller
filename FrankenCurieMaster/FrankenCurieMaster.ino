@@ -97,7 +97,9 @@ uint64_t microsPrevious;
 //     of updates to match the interval defined by this variable
 // *** microsPerUpdate must be greater than or equal to :
 //     (microsPerSecond) / (sampleRate / DLPF Sample Rate)
-uint64_t microsPerUpdate = 1000000 / (sampleRate / 4);
+// *** also cannot be less than 16,667 (no faster than 60 Hz)
+//     This value is raised to 16,667 in setup() if it is less than that.
+uint64_t microsPerUpdate = (1000000 / (sampleRate / 4));
 // if calibration fails, set this to true so that next loop knows to attempt calibration again
 bool calibrateAgain = false;
 
@@ -118,6 +120,11 @@ void setup() {
 
 	// initialize time
 	microsPrevious = micros();
+	// set microsPerUpdate to minimum value if it is less than that (16,667 microseconds)
+	// *** this makes sure updates happen no faster than 60 hz
+	if (microsPerUpdate < 16667) {
+		microsPerUpdate = 16667;
+	}
 
 	// Set the accelerometer range
 	CurieIMU.setGyroRange(gyroRange);
@@ -332,72 +339,69 @@ void updateValues(int16_t opcode) {
 	zMT = zeroMotionDetectedMicros;
 	microsNow = micros();
 
-	// update values to sensor readings if opcode is not for calibration
-	if (opcode != Calibration) {
-		// ask first slave for data, then do work while slave sends data
-		Slave1.listen();
-		Slave1.write('u');
+	// ask first slave for data, then do work while slave sends data
+	Slave1.listen();
+	Slave1.write('u');
 
-		// read raw measurements from device 
-		// *** (IMU library returns 32-bit ints for IMU data, even though hardware data is 16-bit ints)
-		CurieIMU.readMotionSensor(
-			rawAx32,
-			rawAy32,
-			rawAz32,
-			rawGx32,
-			rawGy32,
-			rawGz32
-		);
-		
+	// read raw measurements from device 
+	// *** (IMU library returns 32-bit ints for IMU data, even though hardware data is 16-bit ints)
+	CurieIMU.readMotionSensor(
+		rawAx32,
+		rawAy32,
+		rawAz32,
+		rawGx32,
+		rawGy32,
+		rawGz32
+	);
+	
 #if CURIE_MASTER_DEBUG
-		Serial.print("Getting data from Slave 1.");
+	Serial.print("Getting data from Slave 1.");
+	Serial.println();
+#endif
+	// gather first slave's data (wait for transmission to complete first)
+	while (Slave1.available() < slave1Msg.size) {
+#if CURIE_MASTER_DEBUG
+		Serial.print("Waiting for full message. Available now: ");
+		Serial.print(Slave1.available());
 		Serial.println();
 #endif
-		// gather first slave's data (wait for transmission to complete first)
-		while (Slave1.available() < slave1Msg.size) {
+	}
+	for (int i = 0; i < slave1Msg.size; i++) {
+		slave1Msg.setValue<uint8_t>((uint8_t)Slave1.read(), i);
+	}
+
+	// request data from second slave
+	Slave2.listen();
+	Slave2.write('u');
+
+	// divide gyro data by sensitivity constant
+	rawGx32 /= gyroSensitivity;
+	rawGy32 /= gyroSensitivity;
+	rawGz32 /= gyroSensitivity;
+
+	// do conversion to 16 bits 
+	// *** (Curie's hardware IMU device returns 16-bit values for data, no information is lost here)
+	rawAx16 = rawAx32;
+	rawAy16 = rawAy32;
+	rawAz16 = rawAz32;
+	rawGx16 = rawGx32;
+	rawGy16 = rawGy32;
+	rawGz16 = rawGz32;
+
 #if CURIE_MASTER_DEBUG
-			Serial.print("Waiting for full message. Available now: ");
-			Serial.print(Slave1.available());
-			Serial.println();
+	Serial.print("Getting data from Slave 2.");
+	Serial.println();
 #endif
-		}
-		for (int i = 0; i < slave1Msg.size; i++) {
-			slave1Msg.setValue<uint8_t>((uint8_t)Slave1.read(), i);
-		}
-
-		// request data from second slave
-		Slave2.listen();
-		Slave2.write('u');
-
-		// divide gyro data by sensitivity constant
-		rawGx32 /= gyroSensitivity;
-		rawGy32 /= gyroSensitivity;
-		rawGz32 /= gyroSensitivity;
-
-		// do conversion to 16 bits 
-		// *** (Curie's hardware IMU device returns 16-bit values for data, no information is lost here)
-		rawAx16 = rawAx32;
-		rawAy16 = rawAy32;
-		rawAz16 = rawAz32;
-		rawGx16 = rawGx32;
-		rawGy16 = rawGy32;
-		rawGz16 = rawGz32;
-
+	// get data from second slave
+	while (Slave2.available() < slave2Msg.size) {
 #if CURIE_MASTER_DEBUG
-		Serial.print("Getting data from Slave 2.");
+		Serial.print("Waiting for full message. Available now: ");
+		Serial.print(Slave2.available());
 		Serial.println();
 #endif
-		// get data from second slave
-		while (Slave2.available() < slave2Msg.size) {
-#if CURIE_MASTER_DEBUG
-			Serial.print("Waiting for full message. Available now: ");
-			Serial.print(Slave2.available());
-			Serial.println();
-#endif
-		}
-		for (int i = 0; i < slave2Msg.size; i++) {
-			slave2Msg.setValue<uint8_t>((uint8_t)Slave2.read(), i);
-		}
+	}
+	for (int i = 0; i < slave2Msg.size; i++) {
+		slave2Msg.setValue<uint8_t>((uint8_t)Slave2.read(), i);
 	}
 
 	// if zero motion event is occurring and the opcode is not 0

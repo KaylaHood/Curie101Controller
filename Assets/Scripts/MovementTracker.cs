@@ -8,7 +8,7 @@ public class MovementTracker
 {
     // myGameObject is an empty game object that is a parent to
     // all of the board model objects
-    Rigidbody rigidbody;
+    private Rigidbody rigidbody;
 
     // Use this for initialization
     public MovementTracker(Rigidbody rb)
