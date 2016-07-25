@@ -9,7 +9,7 @@ public class CurieMovement : MonoBehaviour, IDisposable
 {
 
     // contains rigidbody components of all board models
-    private Rigidbody[] boardRBs;
+    private Rigidbody[] boardRigidBodies;
     // all movement trackers for the objects controlled by this Curie
     private MovementTracker[] movementTrackers;
     // class for managing Curie data
@@ -22,9 +22,14 @@ public class CurieMovement : MonoBehaviour, IDisposable
     private bool didStartCoroutine = false;
     // boolean value to block updates until setup is finished
     private bool setupCompleted = false;
+    private float timeCalibrated;
 
     // UI text components for demo (not vital to operation)
-    public UnityEngine.UI.Text trackingInfo;
+    public UnityEngine.UI.Text calibrationMessage;
+    public UnityEngine.UI.Text frankenCurieInfo;
+    public UnityEngine.UI.Text masterInfo;
+    public UnityEngine.UI.Text slave1Info;
+    public UnityEngine.UI.Text slave2Info;
 
     // Action events for calibration coroutine
     public event Action<CurieMovement> OnCalibrationComplete;
@@ -38,13 +43,13 @@ public class CurieMovement : MonoBehaviour, IDisposable
         port.Open();
 
         // get all rigidbody components of objects
-        boardRBs = gameObject.GetComponentsInChildren<Rigidbody>();
+        boardRigidBodies = gameObject.GetComponentsInChildren<Rigidbody>();
 
         // construct movement trackers
-        movementTrackers = new MovementTracker[boardRBs.Length];
-        for (int i = 0;i < boardRBs.Length;i++)
+        movementTrackers = new MovementTracker[boardRigidBodies.Length];
+        for (int i = 0;i < boardRigidBodies.Length;i++)
         {
-            movementTrackers[i] = new MovementTracker(boardRBs[i]);
+            movementTrackers[i] = new MovementTracker(boardRigidBodies[i]);
             Assert.AreNotEqual(movementTrackers[i], null);
         }
         // Allow time for objects to be constructed.
@@ -53,11 +58,6 @@ public class CurieMovement : MonoBehaviour, IDisposable
 
         monitor = new FrankenCurieSerialReader(port);
         Assert.AreNotEqual(monitor, null);
-
-        // set UI text component variable of monitor in the movement tracker
-        // this allows the movement tracker to update the UI text box with
-        // important debug information
-        monitor.trackingInfo = trackingInfo;
 
         // set boolean to indicate that setup has completed
         setupCompleted = true;
@@ -83,10 +83,38 @@ public class CurieMovement : MonoBehaviour, IDisposable
                 //    movementTrackers[i].UpdateValues(monitor.finalAccel, monitor.finalRot);
                 //}
                 movementTrackers[0].UpdateValues(monitor.curieData.frankenAccel, monitor.curieData.frankenFilteredRotation);
-                movementTrackers[1].UpdateValues(monitor.curieData.convertedAccelArray[0], monitor.curieData.filteredRotationArray[0]);
-                movementTrackers[2].UpdateValues(monitor.curieData.slave1RotatedAccel, monitor.curieData.filteredRotationArray[1]);
-                movementTrackers[3].UpdateValues(monitor.curieData.slave2RotatedAccel, monitor.curieData.filteredRotationArray[2]);
-                trackingInfo.text += "\nOverall Update Time: " + Time.time;
+                movementTrackers[1].UpdateValues(monitor.curieData.translationalAccels[0], monitor.curieData.filteredRotations[0]);
+                movementTrackers[2].UpdateValues(monitor.curieData.translationalAccels[1], monitor.curieData.filteredRotations[1]);
+                movementTrackers[3].UpdateValues(monitor.curieData.translationalAccels[2], monitor.curieData.filteredRotations[2]);
+                frankenCurieInfo.text = "Unfiltered Euler Rotation:\n " + monitor.curieData.frankenEstRotation.eulerAngles + 
+                    "\nFiltered Euler Rotation:\n " + monitor.curieData.frankenFilteredRotation.eulerAngles +
+                    "\nAcceleration Vector With Gravity:\n " + monitor.curieData.frankenAccel +
+                    "\nGravity Non-Rotated:\n" + monitor.curieData.frankenOriginalGravity +
+                    "\nGravity Rotated:\n" + monitor.curieData.frankenGravity +
+                    "\nAcceleration Vector W/O Gravity:\n " + monitor.curieData.frankenTranslationalAccel;
+                masterInfo.text = "Unfiltered Euler Rotation:\n " + monitor.curieData.estRotations[0].eulerAngles + 
+                    "\nFiltered Euler Rotation:\n " + monitor.curieData.filteredRotations[0].eulerAngles +
+                    "\nAcceleration Vector:\n " + monitor.curieData.convertedAccels[0] +
+                    "\nGravity Non-Rotated:\n" + monitor.curieData.convertedAccelsAtCalibration[0] +
+                    "\nGravity Rotated:\n" + monitor.curieData.rotatedGravities[0] +
+                    "\nAcceleration Vector W/O Gravity:\n " + monitor.curieData.translationalAccels[0];
+                slave1Info.text = "Unfiltered Euler Rotation:\n " + monitor.curieData.estRotations[1].eulerAngles +
+                    "\nFiltered Euler Rotation:\n " + monitor.curieData.filteredRotations[1].eulerAngles +
+                    "\nNon-Rotated Acceleration Vector:\n" + monitor.curieData.convertedAccels[1] +
+                    "\nRotation from Master:\n" + monitor.curieData.slave1RotationFromMaster.eulerAngles +
+                    "\nRotated Acceleration Vector:\n " + monitor.curieData.slave1RotatedAccel +
+                    "\nGravity Non-Rotated:\n" + monitor.curieData.convertedAccelsAtCalibration[1] +
+                    "\nGravity Rotated:\n" + monitor.curieData.rotatedGravities[1] +
+                    "\nAcceleration Vector W/O Gravity:\n " + monitor.curieData.translationalAccels[1];
+                slave2Info.text = "Unfiltered Euler Rotation:\n " + monitor.curieData.estRotations[2].eulerAngles + 
+                    "\nFiltered Euler Rotation:\n " + monitor.curieData.filteredRotations[2].eulerAngles +
+                    "\nNon-Rotated Acceleration Vector:\n" + monitor.curieData.convertedAccels[2] +
+                    "\nRotation from Master:\n" + monitor.curieData.slave2RotationFromMaster.eulerAngles +
+                    "\nRotated Acceleration Vector:\n " + monitor.curieData.slave2RotatedAccel +
+                    "\nGravity Non-Rotated:\n" + monitor.curieData.convertedAccelsAtCalibration[2] +
+                    "\nGravity Rotated:\n" + monitor.curieData.rotatedGravities[2] +
+                    "\nAcceleration Vector W/O Gravity:\n " + monitor.curieData.translationalAccels[2];
+                calibrationMessage.text = "Sample Run Time: " + (Time.time - timeCalibrated);
             }
         }
         else
@@ -99,18 +127,20 @@ public class CurieMovement : MonoBehaviour, IDisposable
     {
         OnCalibrationComplete += (CurieMovement a) => {
             Debug.Log("Calibration finished sucessfully");
+            timeCalibrated = Time.time;
+            calibrationMessage.text = "Sample Run Time: " + (Time.time - timeCalibrated);
             curieIsCalibrated = true;
         };
         OnCalibrationFailed += (CurieMovement a) => {
             Debug.Log("Calibration failed");
         };
-        trackingInfo.text = "Make sure that Curie is held flat for calibration. Hold y when ready.";
+        calibrationMessage.text = "Make sure that Curie is held flat for calibration. Hold y when ready.";
         Debug.Log("Make sure that Curie is held flat for calibration. Hold y when ready.");
         while(true)
         {
             if(Input.GetKeyDown("y"))
             {
-                trackingInfo.text = "Now Calibrating... hold Curie still";
+                calibrationMessage.text = "Now Calibrating... hold Curie still";
                 Debug.Log("Now Calibrating... hold Curie still");
                 Calibrate();
                 break;

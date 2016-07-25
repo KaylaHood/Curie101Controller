@@ -29,14 +29,12 @@ public class FrankenCurieSerialReader
 
     public bool isZeroMotion;
 
-    public UnityEngine.UI.Text trackingInfo = null;
-    string info;
-
     // -------------------------------------------------------------------------------------------------------
     // Interior Class Definitions
     // -------------------------------------------------------------------------------------------------------
 
     // CurieDataManager Class for easy management of data from Curie
+    // ALL manipulation of data from Curie happens inside this class.
 
     public class CurieDataManager
     {
@@ -67,13 +65,14 @@ public class FrankenCurieSerialReader
         public short opcode;
         public ulong timestamp;
         public float dt;
-        public Vector3[] rawAccelArray;
-        public Vector3[] convertedAccelArray;
-        public Vector3[] originalGravityArray;
-        public Vector3[] rotatedGravityArray;
-        public Vector3[] translationalAccelArray;
-        public Quaternion[] estimatedRotationArray;
-        public Quaternion[] filteredRotationArray;
+        public Vector3[] rawAccels;
+        public Vector3[] convertedAccels;
+        public Vector3[] rotatedGravities;
+        public Vector3[] translationalAccels;
+        public Vector3[] convertedAccelsAtCalibration;
+        public Quaternion[] estRotations;
+        public Quaternion[] filteredRotations;
+        public Quaternion[] estRotationsAtCalibration;
         public Quaternion slave1RotationFromMaster;
         public Quaternion slave2RotationFromMaster;
         public Vector3 slave1RotatedAccel;
@@ -87,8 +86,8 @@ public class FrankenCurieSerialReader
 
         private ulong previousTime;
 
-        private Vector3 frankenOriginalGravity;
-        private Vector3 frankenGravity;
+        public Vector3 frankenOriginalGravity;
+        public Vector3 frankenGravity;
         public Vector3 frankenAccel;
         public Vector3 frankenTranslationalAccel;
         public Quaternion frankenEstRotation;
@@ -107,13 +106,14 @@ public class FrankenCurieSerialReader
             kalmanY = new Kalman();
             kalmanZ = new Kalman();
 
-            rawAccelArray = new Vector3[3];
-            convertedAccelArray = new Vector3[3];
-            originalGravityArray = new Vector3[3];
-            rotatedGravityArray = new Vector3[3];
-            translationalAccelArray = new Vector3[3];
-            estimatedRotationArray = new Quaternion[3];
-            filteredRotationArray = new Quaternion[3];
+            rawAccels = new Vector3[3];
+            convertedAccels = new Vector3[3];
+            rotatedGravities = new Vector3[3];
+            translationalAccels = new Vector3[3];
+            convertedAccelsAtCalibration = new Vector3[3];
+            estRotations = new Quaternion[3];
+            filteredRotations = new Quaternion[3];
+            estRotationsAtCalibration = new Quaternion[3];
 
             slave1RotationFromMaster = Quaternion.identity;
             slave2RotationFromMaster = Quaternion.identity;
@@ -134,6 +134,7 @@ public class FrankenCurieSerialReader
         public void RequestCalibration()
         {
             serial.Write(calibrationMsg);
+            serial.DiscardOutBuffer();
         }
         public void Begin()
         {
@@ -151,7 +152,7 @@ public class FrankenCurieSerialReader
                 readBytesFromSerial();
                 opcode = getOpcode();
                 timestamp = getTimestamp();
-                rawAccelArray = getAcc();
+                rawAccels = getAcc();
                 rawGyro = getGyro();
             }
         }
@@ -163,7 +164,7 @@ public class FrankenCurieSerialReader
                 readBytesFromSerial();
                 opcode = getOpcode();
                 timestamp = getTimestamp();
-                rawAccelArray = getAcc();
+                rawAccels = getAcc();
                 rawGyro = getGyro();
             }
             if (opcode == calibration)
@@ -172,20 +173,20 @@ public class FrankenCurieSerialReader
                 CurieGyroscopeRange = rawGyro.y;
             }
 
-            convertedAccelArray[0].Set(
-                convertRawAcceleration(rawAccelArray[0].x),
-                convertRawAcceleration(rawAccelArray[0].y),
-                convertRawAcceleration(rawAccelArray[0].z)
+            convertedAccels[0].Set(
+                convertRawAcceleration(rawAccels[0].x),
+                convertRawAcceleration(rawAccels[0].y),
+                convertRawAcceleration(rawAccels[0].z)
                 );
-            convertedAccelArray[1].Set(
-                convertRawAcceleration(rawAccelArray[1].x),
-                convertRawAcceleration(rawAccelArray[1].y),
-                convertRawAcceleration(rawAccelArray[1].z)
+            convertedAccels[1].Set(
+                convertRawAcceleration(rawAccels[1].x),
+                convertRawAcceleration(rawAccels[1].y),
+                convertRawAcceleration(rawAccels[1].z)
                 );
-            convertedAccelArray[2].Set(
-                convertRawAcceleration(rawAccelArray[2].x),
-                convertRawAcceleration(rawAccelArray[2].y),
-                convertRawAcceleration(rawAccelArray[2].z)
+            convertedAccels[2].Set(
+                convertRawAcceleration(rawAccels[2].x),
+                convertRawAcceleration(rawAccels[2].y),
+                convertRawAcceleration(rawAccels[2].z)
                 );
             convertedGyro.Set(
                 convertRawGyroRad(rawGyro.x),
@@ -193,26 +194,30 @@ public class FrankenCurieSerialReader
                 convertRawGyroRad(rawGyro.z)
                 );
 
-            estimatedRotationArray = new Quaternion[] {
-                Quaternion.LookRotation(convertedAccelArray[0]),
-                Quaternion.LookRotation(convertedAccelArray[1]),
-                Quaternion.LookRotation(convertedAccelArray[2])
+            estRotations = new Quaternion[] {
+                Quaternion.LookRotation(convertedAccels[0]),
+                Quaternion.LookRotation(convertedAccels[1]),
+                Quaternion.LookRotation(convertedAccels[2])
                 };
 
-            slave1RotationFromMaster = Math3d.SubtractRotation(estimatedRotationArray[1],estimatedRotationArray[0]);
-            slave2RotationFromMaster = Math3d.SubtractRotation(estimatedRotationArray[2],estimatedRotationArray[0]);
+            if (opcode == calibration)
+            {
+                estRotationsAtCalibration = estRotations;
+                convertedAccelsAtCalibration = convertedAccels;
+            }
+            slave1RotationFromMaster = estRotationsAtCalibration[1] * (Quaternion.FromToRotation(convertedAccelsAtCalibration[0],convertedAccels[0]));
+            slave2RotationFromMaster = estRotationsAtCalibration[2] * (Quaternion.FromToRotation(convertedAccelsAtCalibration[0],convertedAccels[0]));
 
-            slave1RotatedAccel = slave1RotationFromMaster * convertedAccelArray[1];
-            slave2RotatedAccel = slave2RotationFromMaster * convertedAccelArray[2];
-            frankenAccel = (convertedAccelArray[0] + slave1RotatedAccel + slave2RotatedAccel) / 3;
+            slave1RotatedAccel = slave1RotationFromMaster * convertedAccels[1];
+            slave2RotatedAccel = slave2RotationFromMaster * convertedAccels[2];
+            estRotations[1] = Quaternion.LookRotation(slave1RotatedAccel);
+            estRotations[2] = Quaternion.LookRotation(slave2RotatedAccel);
+
+            frankenAccel = (convertedAccels[0] + slave1RotatedAccel + slave2RotatedAccel) / 3;
 
             if(opcode == calibration)
             {
                 frankenOriginalGravity = frankenAccel;
-
-                originalGravityArray[0] = convertedAccelArray[0];
-                originalGravityArray[1] = slave1RotatedAccel;
-                originalGravityArray[2] = slave2RotatedAccel;
             }
 
             // ---------------------------------------------------------------------------------------------------
@@ -222,15 +227,9 @@ public class FrankenCurieSerialReader
             // TODO
             frankenEstRotation = Quaternion.LookRotation(frankenAccel);
 
-            // ---------------------------------------------------------------------------------------------------
-            // Calculate Time Difference From Previous Update
-            // ---------------------------------------------------------------------------------------------------
             dt = (timestamp - previousTime) / 1000000.0f;
             previousTime = timestamp;
 
-            // ---------------------------------------------------------------------------------------------------
-            // Use Kalman Filter to Filter Rotation Value
-            // ---------------------------------------------------------------------------------------------------
             Vector3 eulerFrankenRotation = frankenEstRotation.eulerAngles;
             kalmanX.setAngle(eulerFrankenRotation.x);
             kalmanY.setAngle(eulerFrankenRotation.y);
@@ -243,7 +242,7 @@ public class FrankenCurieSerialReader
 
             frankenFilteredRotation = Quaternion.Euler(frankenKalmanRot);
 
-            Vector3 eulerMasterRotation = estimatedRotationArray[0].eulerAngles;
+            Vector3 eulerMasterRotation = estRotations[0].eulerAngles;
             kalmanX.setAngle(eulerMasterRotation.x);
             kalmanY.setAngle(eulerMasterRotation.y);
             kalmanZ.setAngle(eulerMasterRotation.z);
@@ -253,9 +252,9 @@ public class FrankenCurieSerialReader
             masterKalmanRot.y = kalmanY.getAngle(eulerMasterRotation.y, convertedGyro.y, dt);
             masterKalmanRot.z = kalmanZ.getAngle(eulerMasterRotation.z, convertedGyro.z, dt);
 
-            filteredRotationArray[0] = Quaternion.Euler(masterKalmanRot);
+            filteredRotations[0] = Quaternion.Euler(masterKalmanRot);
 
-            Vector3 eulerSlave1Rotation = estimatedRotationArray[1].eulerAngles;
+            Vector3 eulerSlave1Rotation = estRotations[1].eulerAngles;
             kalmanX.setAngle(eulerSlave1Rotation.x);
             kalmanY.setAngle(eulerSlave1Rotation.y);
             kalmanZ.setAngle(eulerSlave1Rotation.z);
@@ -265,9 +264,9 @@ public class FrankenCurieSerialReader
             slave1KalmanRot.y = kalmanY.getAngle(eulerSlave1Rotation.y, convertedGyro.y, dt);
             slave1KalmanRot.z = kalmanZ.getAngle(eulerSlave1Rotation.z, convertedGyro.z, dt);
 
-            filteredRotationArray[1] = Quaternion.Euler(slave1KalmanRot);
+            filteredRotations[1] = Quaternion.Euler(slave1KalmanRot);
 
-            Vector3 eulerSlave2Rotation = estimatedRotationArray[2].eulerAngles;
+            Vector3 eulerSlave2Rotation = estRotations[2].eulerAngles;
             kalmanX.setAngle(eulerSlave2Rotation.x);
             kalmanY.setAngle(eulerSlave2Rotation.y);
             kalmanZ.setAngle(eulerSlave2Rotation.z);
@@ -277,24 +276,22 @@ public class FrankenCurieSerialReader
             slave2KalmanRot.y = kalmanY.getAngle(eulerSlave2Rotation.y, convertedGyro.y, dt);
             slave2KalmanRot.z = kalmanZ.getAngle(eulerSlave2Rotation.z, convertedGyro.z, dt);
 
-            filteredRotationArray[2] = Quaternion.Euler(slave2KalmanRot);
+            filteredRotations[2] = Quaternion.Euler(slave2KalmanRot);
 
-            // ---------------------------------------------------------------------------------------------------
-            // Final Conversions and Setting of Global Variables
-            // ---------------------------------------------------------------------------------------------------
             frankenFilteredRotation = Quaternion.Euler(frankenKalmanRot);
             frankenGravity = frankenFilteredRotation * frankenOriginalGravity;
             frankenTranslationalAccel = frankenAccel - frankenGravity;
 
-            rotatedGravityArray[0] = filteredRotationArray[0] * originalGravityArray[0];
-            rotatedGravityArray[1] = filteredRotationArray[1] * originalGravityArray[1];
-            rotatedGravityArray[2] = filteredRotationArray[2] * originalGravityArray[2];
+            rotatedGravities[0] = filteredRotations[0] * originalGravityArray[0];
+            rotatedGravities[1] = filteredRotations[1] * originalGravityArray[1];
+            rotatedGravities[2] = filteredRotations[2] * originalGravityArray[2];
 
-            translationalAccelArray[0] = convertedAccelArray[0] - rotatedGravityArray[0];
-            translationalAccelArray[1] = slave1RotatedAccel - rotatedGravityArray[1];
-            translationalAccelArray[2] = slave2RotatedAccel - rotatedGravityArray[2];
+            translationalAccels[0] = convertedAccels[0] - rotatedGravities[0];
+            translationalAccels[1] = slave1RotatedAccel - rotatedGravities[1];
+            translationalAccels[2] = slave2RotatedAccel - rotatedGravities[2];
 
             messageHasBeenProcessed = true;
+            serial.DiscardInBuffer();
         }
 
         public void readBytesFromSerial()
@@ -382,9 +379,7 @@ public class FrankenCurieSerialReader
 
         Quaternion getFrankenRot()
         {
-            // IDEA FOR IMPROVEMENT -- Use matrices instead of Vector3[] to manipulate estimated rotations
-            //                         and to remove inaccurate angles using only matrix operations.
-            //
+            // TODO
             Quaternion result = Quaternion.identity;
 
             return result;
@@ -446,30 +441,7 @@ public class FrankenCurieSerialReader
 
     public void UpdateValues()
     {
-        // ---------------------------------------------------------------------------------------------------
-        // Get Values From Serial Port
-        // ---------------------------------------------------------------------------------------------------
         curieData.UpdateDataAndProcess();
-
-        isZeroMotion = (curieData.opcode == curieData.zeromotion);
-
-        // ---------------------------------------------------------------------------------------------------
-        // Set "Info" String
-        // ---------------------------------------------------------------------------------------------------
-        info = "Received this statement: " + curieData.msgString + "\n";
-
-        info += ("Values interpreted: " + curieData.opcode + " | " + curieData.timestamp + " | " + 
-            curieData.rawAccelArray[0] + " | " + curieData.rawAccelArray[1] + " | " + curieData.rawAccelArray[2] + 
-            " | " + curieData.rawGyro + "\n");
-
-        // ---------------------------------------------------------------------------------------------------
-        // Calculate Averaged Franken Curie Acceleration
-        // ---------------------------------------------------------------------------------------------------
-
-        info += ("timestep: " + curieData.dt + "\nUnity delta time from last update: " + Time.deltaTime);
-        trackingInfo.text = info;
-
-        curieData.serial.DiscardInBuffer();
     }
 
     // **Calibration should only need to be run once per Curie unit
@@ -485,7 +457,6 @@ public class FrankenCurieSerialReader
                 Debug.Log("try: " + tries);
             }
             // ~~~ Request Calibration ~~~
-            curieData.serial.DiscardOutBuffer();
             curieData.RequestCalibration();
             while ((curieData.opcode != curieData.calibration) && (loops < 100))
             {

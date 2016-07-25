@@ -19,7 +19,7 @@ public class MovementTracker
     // Update is called once per frame
     public void UpdateValues(Vector3 acc, Quaternion rot)
     {
-        rigidbody.MoveRotation(rot);
+        rigidbody.rotation = rot;
         //rigidbody.AddForce(acc, ForceMode.Impulse);
     }
 }
