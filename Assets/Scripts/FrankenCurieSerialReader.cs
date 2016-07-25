@@ -5,36 +5,17 @@ using System.IO.Ports;
 using System.Threading;
 using System;
 
-// -----------------------------------------------------------------------------------------------------------
-// This Document is Normalized to 110 Columns Wide
-// -----------------------------------------------------------------------------------------------------------
-
 public class FrankenCurieSerialReader
 {
-    // -------------------------------------------------------------------------------------------------------
-    // Private Variable Declarations
-    // -------------------------------------------------------------------------------------------------------
-
     private bool debug = true;
 
     public SerialPort serial;
     private int baudRate = 38400;
     private int serialMessageSize = 34;
 
-    // -------------------------------------------------------------------------------------------------------
-    // Public Variable Declarations
-    // -------------------------------------------------------------------------------------------------------
-
     public CurieDataManager curieData;
 
     public bool isZeroMotion;
-
-    // -------------------------------------------------------------------------------------------------------
-    // Interior Class Definitions
-    // -------------------------------------------------------------------------------------------------------
-
-    // CurieDataManager Class for easy management of data from Curie
-    // ALL manipulation of data from Curie happens inside this class.
 
     public class CurieDataManager
     {
@@ -42,11 +23,9 @@ public class FrankenCurieSerialReader
         private int messageLength;
         private byte[] message;
 
-        // constant values for Opcodes
         public int normal = 0;
         public int zeromotion = 1;
         public int calibration = 2;
-        // constant values for Orientations
         public int FaceUp = 0;
         public int FaceDown = 1;
         public int DigitalUp = 2;
@@ -220,11 +199,6 @@ public class FrankenCurieSerialReader
                 frankenOriginalGravity = frankenAccel;
             }
 
-            // ---------------------------------------------------------------------------------------------------
-            // Calculate Accelerometer-Based Rotation of Franken Curie
-            // ---------------------------------------------------------------------------------------------------
-
-            // TODO
             frankenEstRotation = Quaternion.LookRotation(frankenAccel);
 
             dt = (timestamp - previousTime) / 1000000.0f;
@@ -371,44 +345,12 @@ public class FrankenCurieSerialReader
         float convertRawGyroRad(float gRaw)
         {
             float g = convertRawGyroDeg(gRaw);
-            // convert to radians/second
             g *= Mathf.PI;
             g /= 180.0f;
             return g;
         }
 
-        Quaternion getFrankenRot()
-        {
-            // TODO
-            Quaternion result = Quaternion.identity;
-
-            return result;
-        }
     }
-
-    public class BLEMessage
-    {
-        //~~~~**************~~~~
-        //~~~~****_TODO_****~~~~
-        //~~~~**************~~~~
-        // ********* DONT FORGET TO UPDATE USING COROUTINE TO AVOID LOSS OF DATA *****************************
-        public byte[] message;
-        short opcode;
-        ulong timestamp;
-        Vector3 rawAcc;
-        Vector3 rawGyro;
-
-        public BLEMessage(byte[] m, short op)
-        {
-            message = m;
-            opcode = op;
-            // do work to set other variables
-        }
-    }
-
-    // -------------------------------------------------------------------------------------------------------
-    // CurieSerialReader Class Function Definitions
-    // -------------------------------------------------------------------------------------------------------
 
     public FrankenCurieSerialReader(string port)
     {
@@ -444,7 +386,6 @@ public class FrankenCurieSerialReader
         curieData.UpdateDataAndProcess();
     }
 
-    // **Calibration should only need to be run once per Curie unit
     public bool Calibrate()
     {
         int loops = 0;
@@ -456,7 +397,6 @@ public class FrankenCurieSerialReader
             {
                 Debug.Log("try: " + tries);
             }
-            // ~~~ Request Calibration ~~~
             curieData.RequestCalibration();
             while ((curieData.opcode != curieData.calibration) && (loops < 100))
             {
