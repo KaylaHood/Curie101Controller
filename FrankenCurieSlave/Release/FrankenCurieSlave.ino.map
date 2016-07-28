@@ -791,8 +791,6 @@ Discarded input sections
                 0x00000000        0xc C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
  .text._ZNK7Message15debugPrintSlaveEv
                 0x00000000        0xc C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
- .text._ZNK7Message13debugPrintBLEEv
-                0x00000000        0xc C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
  .data.gyroSensitivity
                 0x00000000        0x2 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
  .data.gyroRange
@@ -828,10 +826,6 @@ Discarded input sections
                 0x00000000       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
  .text._ZN11BMI160Class20getGyroOffsetEnabledEv
                 0x00000000       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
- .text._ZN11BMI160Class20setGyroOffsetEnabledEb
-                0x00000000       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
- .text._ZN11BMI160Class23autoCalibrateGyroOffsetEv
-                0x00000000       0x44 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
  .text._ZN11BMI160Class14getXGyroOffsetEv
                 0x00000000       0x3c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
  .text._ZN11BMI160Class14getYGyroOffsetEv
@@ -982,8 +976,6 @@ Discarded input sections
                 0x00000000       0x28 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
  .text._ZN11BMI160Class14getTemperatureEv
                 0x00000000       0x34 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
- .text._ZN11BMI160Class11getRotationEPsS0_S0_
-                0x00000000       0x64 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
  .text._ZN11BMI160Class12getRotationXEv
                 0x00000000       0x34 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
  .text._ZN11BMI160Class14setXGyroOffsetEs
@@ -1012,8 +1004,6 @@ Discarded input sections
                 0x00000000       0x28 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
  .text._ZN13CurieIMUClass12setGyroRangeEi
                 0x00000000       0x38 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
- .text._ZN13CurieIMUClass23autoCalibrateGyroOffsetEv
-                0x00000000       0x28 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
  .text._ZN13CurieIMUClass32autoCalibrateAccelerometerOffsetEii
                 0x00000000       0x40 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
  .text._ZN13CurieIMUClass12noGyroOffsetEv
@@ -1072,8 +1062,6 @@ Discarded input sections
                 0x00000000       0x10 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
  .text._ZN13CurieIMUClass16readMotionSensorERiS0_S0_S0_S0_S0_
                 0x00000000       0x70 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
- .text._ZN13CurieIMUClass8readGyroERiS0_S0_
-                0x00000000       0x44 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
  .text._ZN13CurieIMUClass17readAccelerometerEi
                 0x00000000       0x2c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
  .text._ZN13CurieIMUClass8readGyroEi
@@ -2249,7 +2237,7 @@ LOAD C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_int
                 0x00002000                __HEAP_SIZE_MIN = 0x2000
                 0x00001000                __PAGE_SIZE = 0x1000
 
-text            0x40034000     0x670c
+text            0x40034000     0x68d4
                 0x40034000                __text_start = .
  *(.int_vector_table)
  .int_vector_table
@@ -2651,410 +2639,425 @@ text            0x40034000     0x670c
                 0x400388f8       0x38 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
                 0x400388f8                Message::send() const
  .text._Z12updateValuess
-                0x40038930      0x12c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
+                0x40038930      0x1a0 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
                 0x40038930                updateValues(short)
  .text._Z9calibratev
-                0x40038a5c       0x90 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
-                0x40038a5c                calibrate()
- .text.loop     0x40038aec      0x110 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
-                0x40038aec                loop
+                0x40038ad0       0x98 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
+                0x40038ad0                calibrate()
+ .text.loop     0x40038b68      0x130 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
+                0x40038b68                loop
  .text._ZN11BMI160Class8reg_readEh
-                0x40038bfc       0x2c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40038bfc                BMI160Class::reg_read(unsigned char)
+                0x40038c98       0x2c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40038c98                BMI160Class::reg_read(unsigned char)
  .text._ZN11BMI160Class9reg_writeEhh
-                0x40038c28       0x2c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40038c28                BMI160Class::reg_write(unsigned char, unsigned char)
+                0x40038cc4       0x2c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40038cc4                BMI160Class::reg_write(unsigned char, unsigned char)
  .text._ZN11BMI160Class14reg_write_bitsEhhjj
-                0x40038c54       0x58 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40038c54                BMI160Class::reg_write_bits(unsigned char, unsigned char, unsigned int, unsigned int)
+                0x40038cf0       0x58 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40038cf0                BMI160Class::reg_write_bits(unsigned char, unsigned char, unsigned int, unsigned int)
  .text._ZN11BMI160Class11getDeviceIDEv
-                0x40038cac       0x10 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40038cac                BMI160Class::getDeviceID()
+                0x40038d48       0x10 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40038d48                BMI160Class::getDeviceID()
  .text._ZN11BMI160Class12getAccelRateEv
-                0x40038cbc       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40038cbc                BMI160Class::getAccelRate()
+                0x40038d58       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40038d58                BMI160Class::getAccelRate()
  .text._ZN11BMI160Class12setAccelRateEh
-                0x40038cd4       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40038cd4                BMI160Class::setAccelRate(unsigned char)
+                0x40038d70       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40038d70                BMI160Class::setAccelRate(unsigned char)
  .text._ZN11BMI160Class16setAccelDLPFModeEh
-                0x40038cec       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40038cec                BMI160Class::setAccelDLPFMode(unsigned char)
+                0x40038d88       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40038d88                BMI160Class::setAccelDLPFMode(unsigned char)
  .text._ZN11BMI160Class21setFullScaleGyroRangeEh
-                0x40038d04       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40038d04                BMI160Class::setFullScaleGyroRange(unsigned char)
+                0x40038da0       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40038da0                BMI160Class::setFullScaleGyroRange(unsigned char)
  .text._ZN11BMI160Class22getFullScaleAccelRangeEv
-                0x40038d1c       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40038d1c                BMI160Class::getFullScaleAccelRange()
+                0x40038db8       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40038db8                BMI160Class::getFullScaleAccelRange()
  .text._ZN11BMI160Class22setFullScaleAccelRangeEh
-                0x40038d34       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40038d34                BMI160Class::setFullScaleAccelRange(unsigned char)
+                0x40038dd0       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40038dd0                BMI160Class::setFullScaleAccelRange(unsigned char)
  .text._ZN11BMI160Class10initializeEv
-                0x40038d4c       0xa4 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40038d4c                BMI160Class::initialize()
+                0x40038de8       0xa4 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40038de8                BMI160Class::initialize()
  .text._ZN11BMI160Class25autoCalibrateXAccelOffsetEi
-                0x40038df0       0x60 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40038df0                BMI160Class::autoCalibrateXAccelOffset(int)
+                0x40038e8c       0x60 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40038e8c                BMI160Class::autoCalibrateXAccelOffset(int)
  .text._ZN11BMI160Class25autoCalibrateYAccelOffsetEi
-                0x40038e50       0x60 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40038e50                BMI160Class::autoCalibrateYAccelOffset(int)
+                0x40038eec       0x60 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40038eec                BMI160Class::autoCalibrateYAccelOffset(int)
  .text._ZN11BMI160Class25autoCalibrateZAccelOffsetEi
-                0x40038eb0       0x60 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40038eb0                BMI160Class::autoCalibrateZAccelOffset(int)
+                0x40038f4c       0x60 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40038f4c                BMI160Class::autoCalibrateZAccelOffset(int)
+ .text._ZN11BMI160Class20setGyroOffsetEnabledEb
+                0x40038fac       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40038fac                BMI160Class::setGyroOffsetEnabled(bool)
+ .text._ZN11BMI160Class23autoCalibrateGyroOffsetEv
+                0x40038fc4       0x44 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40038fc4                BMI160Class::autoCalibrateGyroOffset()
  .text._ZN11BMI160Class29setFreefallDetectionThresholdEh
-                0x40038f10       0x14 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40038f10                BMI160Class::setFreefallDetectionThreshold(unsigned char)
+                0x40039008       0x14 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40039008                BMI160Class::setFreefallDetectionThreshold(unsigned char)
  .text._ZN11BMI160Class28setFreefallDetectionDurationEh
-                0x40038f24       0x14 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40038f24                BMI160Class::setFreefallDetectionDuration(unsigned char)
+                0x4003901c       0x14 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x4003901c                BMI160Class::setFreefallDetectionDuration(unsigned char)
  .text._ZN11BMI160Class26setShockDetectionThresholdEh
-                0x40038f38       0x14 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40038f38                BMI160Class::setShockDetectionThreshold(unsigned char)
+                0x40039030       0x14 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40039030                BMI160Class::setShockDetectionThreshold(unsigned char)
  .text._ZN11BMI160Class25setShockDetectionDurationEh
-                0x40038f4c       0x14 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40038f4c                BMI160Class::setShockDetectionDuration(unsigned char)
+                0x40039044       0x14 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40039044                BMI160Class::setShockDetectionDuration(unsigned char)
  .text._ZN11BMI160Class27setMotionDetectionThresholdEh
-                0x40038f60       0x14 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40038f60                BMI160Class::setMotionDetectionThreshold(unsigned char)
+                0x40039058       0x14 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40039058                BMI160Class::setMotionDetectionThreshold(unsigned char)
  .text._ZN11BMI160Class26setMotionDetectionDurationEh
-                0x40038f74       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40038f74                BMI160Class::setMotionDetectionDuration(unsigned char)
+                0x4003906c       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x4003906c                BMI160Class::setMotionDetectionDuration(unsigned char)
  .text._ZN11BMI160Class31setZeroMotionDetectionThresholdEh
-                0x40038f90       0x14 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40038f90                BMI160Class::setZeroMotionDetectionThreshold(unsigned char)
+                0x40039088       0x14 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40039088                BMI160Class::setZeroMotionDetectionThreshold(unsigned char)
  .text._ZN11BMI160Class24setTapDetectionThresholdEh
-                0x40038fa4       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40038fa4                BMI160Class::setTapDetectionThreshold(unsigned char)
+                0x4003909c       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x4003909c                BMI160Class::setTapDetectionThreshold(unsigned char)
  .text._ZN11BMI160Class19setTapShockDurationEb
-                0x40038fbc       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40038fbc                BMI160Class::setTapShockDuration(bool)
- .text._ZN11BMI160Class19setTapQuietDurationEb
-                0x40038fd4       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40038fd4                BMI160Class::setTapQuietDuration(bool)
- .text._ZN11BMI160Class29setDoubleTapDetectionDurationEh
-                0x40038fec       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40038fec                BMI160Class::setDoubleTapDetectionDuration(unsigned char)
- .text._ZN11BMI160Class21setIntFreefallEnabledEb
-                0x40039004       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40039004                BMI160Class::setIntFreefallEnabled(bool)
- .text._ZN11BMI160Class18setIntShockEnabledEb
-                0x4003901c       0x20 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x4003901c                BMI160Class::setIntShockEnabled(bool)
- .text._ZN11BMI160Class17setIntStepEnabledEb
-                0x4003903c       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x4003903c                BMI160Class::setIntStepEnabled(bool)
- .text._ZN11BMI160Class19setIntMotionEnabledEb
-                0x40039054       0x20 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40039054                BMI160Class::setIntMotionEnabled(bool)
- .text._ZN11BMI160Class23setIntZeroMotionEnabledEb
-                0x40039074       0x40 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40039074                BMI160Class::setIntZeroMotionEnabled(bool)
- .text._ZN11BMI160Class16setIntTapEnabledEb
                 0x400390b4       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x400390b4                BMI160Class::setIntTapEnabled(bool)
- .text._ZN11BMI160Class22setIntDoubleTapEnabledEb
+                0x400390b4                BMI160Class::setTapShockDuration(bool)
+ .text._ZN11BMI160Class19setTapQuietDurationEb
                 0x400390cc       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x400390cc                BMI160Class::setIntDoubleTapEnabled(bool)
- .text._ZN11BMI160Class27setIntFIFOBufferFullEnabledEb
+                0x400390cc                BMI160Class::setTapQuietDuration(bool)
+ .text._ZN11BMI160Class29setDoubleTapDetectionDurationEh
                 0x400390e4       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x400390e4                BMI160Class::setIntFIFOBufferFullEnabled(bool)
- .text._ZN11BMI160Class22setIntDataReadyEnabledEb
+                0x400390e4                BMI160Class::setDoubleTapDetectionDuration(unsigned char)
+ .text._ZN11BMI160Class21setIntFreefallEnabledEb
                 0x400390fc       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x400390fc                BMI160Class::setIntDataReadyEnabled(bool)
+                0x400390fc                BMI160Class::setIntFreefallEnabled(bool)
+ .text._ZN11BMI160Class18setIntShockEnabledEb
+                0x40039114       0x20 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40039114                BMI160Class::setIntShockEnabled(bool)
+ .text._ZN11BMI160Class17setIntStepEnabledEb
+                0x40039134       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40039134                BMI160Class::setIntStepEnabled(bool)
+ .text._ZN11BMI160Class19setIntMotionEnabledEb
+                0x4003914c       0x20 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x4003914c                BMI160Class::setIntMotionEnabled(bool)
+ .text._ZN11BMI160Class23setIntZeroMotionEnabledEb
+                0x4003916c       0x40 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x4003916c                BMI160Class::setIntZeroMotionEnabled(bool)
+ .text._ZN11BMI160Class16setIntTapEnabledEb
+                0x400391ac       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x400391ac                BMI160Class::setIntTapEnabled(bool)
+ .text._ZN11BMI160Class22setIntDoubleTapEnabledEb
+                0x400391c4       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x400391c4                BMI160Class::setIntDoubleTapEnabled(bool)
+ .text._ZN11BMI160Class27setIntFIFOBufferFullEnabledEb
+                0x400391dc       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x400391dc                BMI160Class::setIntFIFOBufferFullEnabled(bool)
+ .text._ZN11BMI160Class22setIntDataReadyEnabledEb
+                0x400391f4       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x400391f4                BMI160Class::setIntDataReadyEnabled(bool)
  .text._ZN11BMI160Class20getIntFreefallStatusEv
-                0x40039114       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40039114                BMI160Class::getIntFreefallStatus()
- .text._ZN11BMI160Class15getIntTapStatusEv
-                0x40039130       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40039130                BMI160Class::getIntTapStatus()
- .text._ZN11BMI160Class21getIntDoubleTapStatusEv
-                0x4003914c       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x4003914c                BMI160Class::getIntDoubleTapStatus()
- .text._ZN11BMI160Class17getIntShockStatusEv
-                0x40039168       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40039168                BMI160Class::getIntShockStatus()
- .text._ZN11BMI160Class16getIntStepStatusEv
-                0x40039184       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40039184                BMI160Class::getIntStepStatus()
- .text._ZN11BMI160Class18getIntMotionStatusEv
-                0x4003919c       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x4003919c                BMI160Class::getIntMotionStatus()
- .text._ZN11BMI160Class22getIntZeroMotionStatusEv
-                0x400391b8       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x400391b8                BMI160Class::getIntZeroMotionStatus()
- .text._ZN11BMI160Class26getIntFIFOBufferFullStatusEv
-                0x400391d4       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x400391d4                BMI160Class::getIntFIFOBufferFullStatus()
- .text._ZN11BMI160Class21getIntDataReadyStatusEv
-                0x400391f0       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x400391f0                BMI160Class::getIntDataReadyStatus()
- .text._ZN11BMI160Class16setInterruptModeEb
                 0x4003920c       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x4003920c                BMI160Class::setInterruptMode(bool)
+                0x4003920c                BMI160Class::getIntFreefallStatus()
+ .text._ZN11BMI160Class15getIntTapStatusEv
+                0x40039228       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40039228                BMI160Class::getIntTapStatus()
+ .text._ZN11BMI160Class21getIntDoubleTapStatusEv
+                0x40039244       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40039244                BMI160Class::getIntDoubleTapStatus()
+ .text._ZN11BMI160Class17getIntShockStatusEv
+                0x40039260       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40039260                BMI160Class::getIntShockStatus()
+ .text._ZN11BMI160Class16getIntStepStatusEv
+                0x4003927c       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x4003927c                BMI160Class::getIntStepStatus()
+ .text._ZN11BMI160Class18getIntMotionStatusEv
+                0x40039294       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40039294                BMI160Class::getIntMotionStatus()
+ .text._ZN11BMI160Class22getIntZeroMotionStatusEv
+                0x400392b0       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x400392b0                BMI160Class::getIntZeroMotionStatus()
+ .text._ZN11BMI160Class26getIntFIFOBufferFullStatusEv
+                0x400392cc       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x400392cc                BMI160Class::getIntFIFOBufferFullStatus()
+ .text._ZN11BMI160Class21getIntDataReadyStatusEv
+                0x400392e8       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x400392e8                BMI160Class::getIntDataReadyStatus()
+ .text._ZN11BMI160Class16setInterruptModeEb
+                0x40039304       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40039304                BMI160Class::setInterruptMode(bool)
  .text._ZN11BMI160Class17setInterruptDriveEb
-                0x40039228       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40039228                BMI160Class::setInterruptDrive(bool)
+                0x40039320       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40039320                BMI160Class::setInterruptDrive(bool)
  .text._ZN11BMI160Class17setInterruptLatchEh
-                0x40039240       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40039240                BMI160Class::setInterruptLatch(unsigned char)
+                0x40039338       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40039338                BMI160Class::setInterruptLatch(unsigned char)
  .text._ZN11BMI160Class13setIntEnabledEb
-                0x40039258       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40039258                BMI160Class::setIntEnabled(bool)
+                0x40039350       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40039350                BMI160Class::setIntEnabled(bool)
  .text._ZN11BMI160Class15getAccelerationEPsS0_S0_
-                0x40039270       0x64 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
-                0x40039270                BMI160Class::getAcceleration(short*, short*, short*)
+                0x40039368       0x64 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x40039368                BMI160Class::getAcceleration(short*, short*, short*)
+ .text._ZN11BMI160Class11getRotationEPsS0_S0_
+                0x400393cc       0x64 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x400393cc                BMI160Class::getRotation(short*, short*, short*)
  .text._ZN13CurieIMUClass22serial_buffer_transferEPhjj
-                0x400392d4       0x38 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x400392d4                CurieIMUClass::serial_buffer_transfer(unsigned char*, unsigned int, unsigned int)
+                0x40039430       0x38 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x40039430                CurieIMUClass::serial_buffer_transfer(unsigned char*, unsigned int, unsigned int)
  .text._Z15bmi160_pin1_isrv
-                0x4003930c       0x2c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x4003930c                bmi160_pin1_isr()
+                0x40039468       0x2c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x40039468                bmi160_pin1_isr()
  .text._ZN13CurieIMUClass5beginEv
-                0x40039338       0x7c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x40039338                CurieIMUClass::begin()
+                0x40039494       0x7c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x40039494                CurieIMUClass::begin()
  .text._ZN13CurieIMUClass20getAccelerometerRateEv
-                0x400393b4       0x30 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x400393b4                CurieIMUClass::getAccelerometerRate()
+                0x40039510       0x30 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x40039510                CurieIMUClass::getAccelerometerRate()
  .text._ZN13CurieIMUClass20setAccelerometerRateEf
-                0x400393e4       0xc8 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x400393e4                CurieIMUClass::setAccelerometerRate(float)
+                0x40039540       0xc8 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x40039540                CurieIMUClass::setAccelerometerRate(float)
  .text._ZN13CurieIMUClass21getAccelerometerRangeEv
-                0x400394ac       0x2c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x400394ac                CurieIMUClass::getAccelerometerRange()
+                0x40039608       0x2c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x40039608                CurieIMUClass::getAccelerometerRange()
  .text._ZN13CurieIMUClass21setAccelerometerRangeEi
-                0x400394d8       0x28 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x400394d8                CurieIMUClass::setAccelerometerRange(int)
+                0x40039634       0x28 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x40039634                CurieIMUClass::setAccelerometerRange(int)
+ .text._ZN13CurieIMUClass23autoCalibrateGyroOffsetEv
+                0x4003965c       0x28 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x4003965c                CurieIMUClass::autoCalibrateGyroOffset()
  .text._ZN13CurieIMUClass29setFreefallDetectionThresholdEf
-                0x40039500       0x58 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x40039500                CurieIMUClass::setFreefallDetectionThreshold(float)
+                0x40039684       0x58 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x40039684                CurieIMUClass::setFreefallDetectionThreshold(float)
  .text._ZN13CurieIMUClass26setShockDetectionThresholdEf
-                0x40039558       0xcc C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x40039558                CurieIMUClass::setShockDetectionThreshold(float)
+                0x400396dc       0xcc C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x400396dc                CurieIMUClass::setShockDetectionThreshold(float)
  .text._ZN13CurieIMUClass27setMotionDetectionThresholdEf
-                0x40039624       0x94 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x40039624                CurieIMUClass::setMotionDetectionThreshold(float)
+                0x400397a8       0x94 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x400397a8                CurieIMUClass::setMotionDetectionThreshold(float)
  .text._ZN13CurieIMUClass31setZeroMotionDetectionThresholdEf
-                0x400396b8       0x94 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x400396b8                CurieIMUClass::setZeroMotionDetectionThreshold(float)
+                0x4003983c       0x94 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x4003983c                CurieIMUClass::setZeroMotionDetectionThreshold(float)
  .text._ZN13CurieIMUClass24setTapDetectionThresholdEf
-                0x4003974c       0xb8 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x4003974c                CurieIMUClass::setTapDetectionThreshold(float)
+                0x400398d0       0xb8 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x400398d0                CurieIMUClass::setTapDetectionThreshold(float)
  .text._ZN13CurieIMUClass21setDetectionThresholdEif
-                0x40039804       0x54 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x40039804                CurieIMUClass::setDetectionThreshold(int, float)
+                0x40039988       0x54 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x40039988                CurieIMUClass::setDetectionThreshold(int, float)
  .text._ZN13CurieIMUClass28setFreefallDetectionDurationEf
-                0x40039858       0x50 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x40039858                CurieIMUClass::setFreefallDetectionDuration(float)
+                0x400399dc       0x50 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x400399dc                CurieIMUClass::setFreefallDetectionDuration(float)
  .text._ZN13CurieIMUClass25setShockDetectionDurationEi
-                0x400398a8       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x400398a8                CurieIMUClass::setShockDetectionDuration(int)
+                0x40039a2c       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x40039a2c                CurieIMUClass::setShockDetectionDuration(int)
  .text._ZN13CurieIMUClass26setMotionDetectionDurationEf
-                0x400398c0       0x40 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x400398c0                CurieIMUClass::setMotionDetectionDuration(float)
+                0x40039a44       0x40 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x40039a44                CurieIMUClass::setMotionDetectionDuration(float)
  .text._ZN13CurieIMUClass19setTapShockDurationEi
-                0x40039900       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x40039900                CurieIMUClass::setTapShockDuration(int)
+                0x40039a84       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x40039a84                CurieIMUClass::setTapShockDuration(int)
  .text._ZN13CurieIMUClass19setTapQuietDurationEi
-                0x40039918       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x40039918                CurieIMUClass::setTapQuietDuration(int)
+                0x40039a9c       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x40039a9c                CurieIMUClass::setTapQuietDuration(int)
  .text._ZN13CurieIMUClass29setDoubleTapDetectionDurationEi
-                0x40039930       0x54 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x40039930                CurieIMUClass::setDoubleTapDetectionDuration(int)
+                0x40039ab4       0x54 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x40039ab4                CurieIMUClass::setDoubleTapDetectionDuration(int)
  .text._ZN13CurieIMUClass20setDetectionDurationEif
-                0x40039984       0xe0 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x40039984                CurieIMUClass::setDetectionDuration(int, float)
+                0x40039b08       0xe0 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x40039b08                CurieIMUClass::setDetectionDuration(int, float)
  .text._ZN13CurieIMUClass15enableInterruptEib
-                0x40039a64       0x78 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x40039a64                CurieIMUClass::enableInterrupt(int, bool)
+                0x40039be8       0x78 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x40039be8                CurieIMUClass::enableInterrupt(int, bool)
  .text._ZN13CurieIMUClass10interruptsEi
-                0x40039adc       0x10 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x40039adc                CurieIMUClass::interrupts(int)
+                0x40039c60       0x10 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x40039c60                CurieIMUClass::interrupts(int)
  .text._ZN13CurieIMUClass18getInterruptStatusEi
-                0x40039aec       0x68 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x40039aec                CurieIMUClass::getInterruptStatus(int)
+                0x40039c70       0x68 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x40039c70                CurieIMUClass::getInterruptStatus(int)
  .text._ZN13CurieIMUClass17readAccelerometerERiS0_S0_
-                0x40039b54       0x44 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x40039b54                CurieIMUClass::readAccelerometer(int&, int&, int&)
+                0x40039cd8       0x44 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x40039cd8                CurieIMUClass::readAccelerometer(int&, int&, int&)
+ .text._ZN13CurieIMUClass8readGyroERiS0_S0_
+                0x40039d1c       0x44 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x40039d1c                CurieIMUClass::readGyro(int&, int&, int&)
  .text._ZN13CurieIMUClass15attachInterruptEPFvvE
-                0x40039b98       0x7c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x40039b98                CurieIMUClass::attachInterrupt(void (*)())
+                0x40039d60       0x7c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x40039d60                CurieIMUClass::attachInterrupt(void (*)())
  .text._GLOBAL__sub_I__ZN13CurieIMUClass5beginEv
-                0x40039c14       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x40039ddc       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
  .text.ss_spi_init
-                0x40039c30       0x68 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\internal\ss_spi.c.o
-                0x40039c30                ss_spi_init
+                0x40039df8       0x68 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\internal\ss_spi.c.o
+                0x40039df8                ss_spi_init
  .text.ss_spi_xfer
-                0x40039c98       0xec C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\internal\ss_spi.c.o
-                0x40039c98                ss_spi_xfer
- .text.delay    0x40039d84       0xc4 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(wiring.c.o)
-                0x40039d84                delay
- .text.micros   0x40039e48       0x3c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(wiring.c.o)
-                0x40039e48                micros
- .text.main     0x40039e84       0x28 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(main.cpp.o)
-                0x40039e84                main
- .text._Znaj    0x40039eac       0x10 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(new.cpp.o)
-                0x40039eac                operator new[](unsigned int)
- .text._ZdaPv   0x40039ebc       0x10 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(new.cpp.o)
-                0x40039ebc                operator delete[](void*)
+                0x40039e60       0xec C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\internal\ss_spi.c.o
+                0x40039e60                ss_spi_xfer
+ .text.delay    0x40039f4c       0xc4 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(wiring.c.o)
+                0x40039f4c                delay
+ .text.micros   0x4003a010       0x3c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(wiring.c.o)
+                0x4003a010                micros
+ .text.main     0x4003a04c       0x28 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(main.cpp.o)
+                0x4003a04c                main
+ .text._Znaj    0x4003a074       0x10 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(new.cpp.o)
+                0x4003a074                operator new[](unsigned int)
+ .text._ZdaPv   0x4003a084       0x10 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(new.cpp.o)
+                0x4003a084                operator delete[](void*)
  .text._ZN9UARTClasscvbEv
-                0x40039ecc       0x10 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
-                0x40039ecc                UARTClass::operator bool()
+                0x4003a094       0x10 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
+                0x4003a094                UARTClass::operator bool()
  .text._ZN9UARTClass9availableEv
-                0x40039edc       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
-                0x40039edc                UARTClass::available()
+                0x4003a0a4       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
+                0x4003a0a4                UARTClass::available()
  .text._ZN9UARTClass4peekEv
-                0x40039ef8       0x24 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
-                0x40039ef8                UARTClass::peek()
+                0x4003a0c0       0x24 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
+                0x4003a0c0                UARTClass::peek()
  .text._ZN9UARTClass4readEv
-                0x40039f1c       0x2c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
-                0x40039f1c                UARTClass::read()
+                0x4003a0e4       0x2c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
+                0x4003a0e4                UARTClass::read()
  .text._ZN9UARTClass3endEv
-                0x40039f48       0x54 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
-                0x40039f48                UARTClass::end()
+                0x4003a110       0x54 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
+                0x4003a110                UARTClass::end()
  .text._ZN9UARTClass5flushEv
-                0x40039f9c       0x28 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
-                0x40039f9c                UARTClass::flush()
+                0x4003a164       0x28 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
+                0x4003a164                UARTClass::flush()
  .text._ZN9UARTClass5writeEh
-                0x40039fc4       0x68 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
-                0x40039fc4                UARTClass::write(unsigned char)
+                0x4003a18c       0x68 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
+                0x4003a18c                UARTClass::write(unsigned char)
  .text._ZN9UARTClassC2EP14uart_init_infoP10RingBufferS3_
-                0x4003a02c       0x24 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
-                0x4003a02c                UARTClass::UARTClass(uart_init_info*, RingBuffer*, RingBuffer*)
-                0x4003a02c                UARTClass::UARTClass(uart_init_info*, RingBuffer*, RingBuffer*)
+                0x4003a1f4       0x24 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
+                0x4003a1f4                UARTClass::UARTClass(uart_init_info*, RingBuffer*, RingBuffer*)
+                0x4003a1f4                UARTClass::UARTClass(uart_init_info*, RingBuffer*, RingBuffer*)
  .text._ZN9UARTClass4initEmh
-                0x4003a050       0xc8 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
-                0x4003a050                UARTClass::init(unsigned long, unsigned char)
+                0x4003a218       0xc8 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
+                0x4003a218                UARTClass::init(unsigned long, unsigned char)
  .text._ZN9UARTClass5beginEmh
-                0x4003a118       0x28 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
-                0x4003a118                UARTClass::begin(unsigned long, unsigned char)
+                0x4003a2e0       0x28 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
+                0x4003a2e0                UARTClass::begin(unsigned long, unsigned char)
  .text._ZN9UARTClass5beginEm
-                0x4003a140       0x10 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
-                0x4003a140                UARTClass::begin(unsigned long)
+                0x4003a308       0x10 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
+                0x4003a308                UARTClass::begin(unsigned long)
  .text._ZN9UARTClass10IrqHandlerEv
-                0x4003a150       0x74 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
-                0x4003a150                UARTClass::IrqHandler()
+                0x4003a318       0x74 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
+                0x4003a318                UARTClass::IrqHandler()
  .text._Z17Serial0_availablev
-                0x4003a1c4       0x24 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
-                0x4003a1c4                Serial0_available()
+                0x4003a38c       0x24 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
+                0x4003a38c                Serial0_available()
  .text._Z14serialEventRunv
-                0x4003a1e8       0x20 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
-                0x4003a1e8                serialEventRun()
+                0x4003a3b0       0x20 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
+                0x4003a3b0                serialEventRun()
  .text._Z11serialEventv
-                0x4003a208        0xc C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
-                0x4003a208                serialEvent()
+                0x4003a3d0        0xc C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
+                0x4003a3d0                serialEvent()
  .text._Z12UART_Handlerv
-                0x4003a214       0x14 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
-                0x4003a214                UART_Handler()
+                0x4003a3dc       0x14 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
+                0x4003a3dc                UART_Handler()
  .text.variantGpioInit
-                0x4003a228       0xe0 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
-                0x4003a228                variantGpioInit
+                0x4003a3f0       0xe0 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
+                0x4003a3f0                variantGpioInit
  .text.variantPwmInit
-                0x4003a308       0x3c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
-                0x4003a308                variantPwmInit
+                0x4003a4d0       0x3c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
+                0x4003a4d0                variantPwmInit
  .text.variantAdcInit
-                0x4003a344       0xa8 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
-                0x4003a344                variantAdcInit
+                0x4003a50c       0xa8 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
+                0x4003a50c                variantAdcInit
  .text.initVariant
-                0x4003a3ec       0x30 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
-                0x4003a3ec                initVariant
+                0x4003a5b4       0x30 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
+                0x4003a5b4                initVariant
  .text._GLOBAL__sub_I_g_APinDescription
-                0x4003a41c       0x50 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
- .text.__empty  0x4003a46c        0xc C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(hooks.c.o)
-                0x4003a46c                yield
+                0x4003a5e4       0x50 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
+ .text.__empty  0x4003a634        0xc C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(hooks.c.o)
+                0x4003a634                yield
  .text._ZN14CDCSerialClass3endEv
-                0x4003a478       0x14 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
-                0x4003a478                CDCSerialClass::end()
+                0x4003a640       0x14 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
+                0x4003a640                CDCSerialClass::end()
  .text._ZN14CDCSerialClass4peekEv
-                0x4003a48c       0x28 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
-                0x4003a48c                CDCSerialClass::peek()
+                0x4003a654       0x28 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
+                0x4003a654                CDCSerialClass::peek()
  .text._ZN14CDCSerialClass4readEv
-                0x4003a4b4       0x48 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
-                0x4003a4b4                CDCSerialClass::read()
+                0x4003a67c       0x48 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
+                0x4003a67c                CDCSerialClass::read()
  .text._ZN14CDCSerialClasscvbEv
-                0x4003a4fc       0x34 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
-                0x4003a4fc                CDCSerialClass::operator bool()
+                0x4003a6c4       0x34 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
+                0x4003a6c4                CDCSerialClass::operator bool()
  .text._ZN14CDCSerialClass5flushEv
-                0x4003a530       0x2c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
-                0x4003a530                CDCSerialClass::flush()
+                0x4003a6f8       0x2c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
+                0x4003a6f8                CDCSerialClass::flush()
  .text._ZN14CDCSerialClass9availableEv
-                0x4003a55c       0x40 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
-                0x4003a55c                CDCSerialClass::available()
+                0x4003a724       0x40 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
+                0x4003a724                CDCSerialClass::available()
  .text._ZN14CDCSerialClass5writeEh
-                0x4003a59c       0x50 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
-                0x4003a59c                CDCSerialClass::write(unsigned char)
+                0x4003a764       0x50 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
+                0x4003a764                CDCSerialClass::write(unsigned char)
  .text._ZN14CDCSerialClassC2EP14uart_init_info
-                0x4003a5ec       0x20 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
-                0x4003a5ec                CDCSerialClass::CDCSerialClass(uart_init_info*)
-                0x4003a5ec                CDCSerialClass::CDCSerialClass(uart_init_info*)
+                0x4003a7b4       0x20 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
+                0x4003a7b4                CDCSerialClass::CDCSerialClass(uart_init_info*)
+                0x4003a7b4                CDCSerialClass::CDCSerialClass(uart_init_info*)
  .text._ZN14CDCSerialClass13setSharedDataEP19cdc_acm_shared_data
-                0x4003a60c       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
-                0x4003a60c                CDCSerialClass::setSharedData(cdc_acm_shared_data*)
+                0x4003a7d4       0x18 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
+                0x4003a7d4                CDCSerialClass::setSharedData(cdc_acm_shared_data*)
  .text._ZN14CDCSerialClass4initEmh
-                0x4003a624       0x38 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
-                0x4003a624                CDCSerialClass::init(unsigned long, unsigned char)
+                0x4003a7ec       0x38 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
+                0x4003a7ec                CDCSerialClass::init(unsigned long, unsigned char)
  .text._ZN14CDCSerialClass5beginEm
-                0x4003a65c       0x10 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
-                0x4003a65c                CDCSerialClass::begin(unsigned long)
+                0x4003a824       0x10 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
+                0x4003a824                CDCSerialClass::begin(unsigned long)
  .text._ZN5Print5writeEPKhj
-                0x4003a66c       0x38 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(Print.cpp.o)
-                0x4003a66c                Print::write(unsigned char const*, unsigned int)
+                0x4003a834       0x38 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(Print.cpp.o)
+                0x4003a834                Print::write(unsigned char const*, unsigned int)
  .text._ZN10RingBufferC2Ev
-                0x4003a6a4       0x30 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(RingBuffer.cpp.o)
-                0x4003a6a4                RingBuffer::RingBuffer()
-                0x4003a6a4                RingBuffer::RingBuffer()
+                0x4003a86c       0x30 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(RingBuffer.cpp.o)
+                0x4003a86c                RingBuffer::RingBuffer()
+                0x4003a86c                RingBuffer::RingBuffer()
  .text._ZN10RingBuffer10store_charEh
-                0x4003a6d4       0x38 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(RingBuffer.cpp.o)
-                0x4003a6d4                RingBuffer::store_char(unsigned char)
-                0x4003a70c                __text_end = .
+                0x4003a89c       0x38 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(RingBuffer.cpp.o)
+                0x4003a89c                RingBuffer::store_char(unsigned char)
+                0x4003a8d4                __text_end = .
 
-ctors           0x4003a70c       0x14
-                0x4003a70c                . = ALIGN (0x4)
-                0x4003a70c                __CTOR_LIST__ = .
-                0x4003a70c        0x4 LONG 0x3 (((__CTOR_END__ - __CTOR_LIST__) / 0x4) - 0x2)
+ctors           0x4003a8d4       0x14
+                0x4003a8d4                . = ALIGN (0x4)
+                0x4003a8d4                __CTOR_LIST__ = .
+                0x4003a8d4        0x4 LONG 0x3 (((__CTOR_END__ - __CTOR_LIST__) / 0x4) - 0x2)
  *(SORT(.ctors*))
- .ctors         0x4003a710        0x4 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
- .ctors         0x4003a714        0x4 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
- .ctors         0x4003a718        0x4 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
-                0x4003a71c        0x4 LONG 0x0
-                0x4003a720                __CTOR_END__ = .
+ .ctors         0x4003a8d8        0x4 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
+ .ctors         0x4003a8dc        0x4 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+ .ctors         0x4003a8e0        0x4 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
+                0x4003a8e4        0x4 LONG 0x0
+                0x4003a8e8                __CTOR_END__ = .
 
-rodata          0x4003a720      0x20c
+rodata          0x4003a8e8      0x20c
  *(.rodata)
- .rodata        0x4003a720        0x8 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3/../../../../arc-elf32/lib\libc.a(lib_a-impure.o)
-                0x4003a724                _global_impure_ptr
- .rodata        0x4003a728       0x10 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(fp-bit.o)
-                0x4003a728                __thenan_sf
- .rodata        0x4003a738       0x14 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(dp-bit.o)
-                0x4003a738                __thenan_df
+ .rodata        0x4003a8e8        0x8 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3/../../../../arc-elf32/lib\libc.a(lib_a-impure.o)
+                0x4003a8ec                _global_impure_ptr
+ .rodata        0x4003a8f0       0x10 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(fp-bit.o)
+                0x4003a8f0                __thenan_sf
+ .rodata        0x4003a900       0x14 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(dp-bit.o)
+                0x4003a900                __thenan_df
  *(.rodata.*)
  .rodata.str1.4
-                0x4003a74c       0x95 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(service_manager.o)
+                0x4003a914       0x95 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(service_manager.o)
                                  0x98 (size before relaxing)
- *fill*         0x4003a7e1        0x3 
+ *fill*         0x4003a9a9        0x3 
  .rodata.__func__.2670
-                0x4003a7e4       0x18 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(service_manager.o)
+                0x4003a9ac       0x18 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(service_manager.o)
  .rodata.str1.4
-                0x4003a7fc       0x73 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(ipc.o)
+                0x4003a9c4       0x73 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(ipc.o)
                                  0x74 (size before relaxing)
- *fill*         0x4003a86f        0x1 
+ *fill*         0x4003aa37        0x1 
  .rodata.str1.4
-                0x4003a870       0x34 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(port.o)
+                0x4003aa38       0x34 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(port.o)
  .rodata.CSWTCH.49
-                0x4003a8a4        0x6 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
- *fill*         0x4003a8aa        0x2 
+                0x4003aa6c        0x6 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+ *fill*         0x4003aa72        0x2 
  .rodata.CSWTCH.43
-                0x4003a8ac       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x4003aa74       0x1c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
  .rodata._ZTV13CurieIMUClass
-                0x4003a8c8        0xc C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
-                0x4003a8c8                vtable for CurieIMUClass
+                0x4003aa90        0xc C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x4003aa90                vtable for CurieIMUClass
  .rodata._ZTV9UARTClass
-                0x4003a8d4       0x2c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
-                0x4003a8d4                vtable for UARTClass
+                0x4003aa9c       0x2c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
+                0x4003aa9c                vtable for UARTClass
  .rodata._ZTV14CDCSerialClass
-                0x4003a900       0x2c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
-                0x4003a900                vtable for CDCSerialClass
-                0x4003a92c                __data_rom_start = ALIGN (0x4)
+                0x4003aac8       0x2c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
+                0x4003aac8                vtable for CDCSerialClass
+                0x4003aaf4                __data_rom_start = ALIGN (0x4)
 
-datas           0xa800e000      0xca4 load address 0x4003a92c
+datas           0xa800e000      0xca4 load address 0x4003aaf4
                 0xa800e000                __data_ram_start = .
  *(.data)
  .data          0xa800e000       0xd4 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(interrupt.o)
@@ -3086,16 +3089,24 @@ datas           0xa800e000      0xca4 load address 0x4003a92c
  .data.zeroMotionDetectedMicros
                 0xa800e950        0x8 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
                 0xa800e950                zeroMotionDetectedMicros
- .data.calibrationMsg
+ .data.updateMsg
                 0xa800e958        0x1 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
-                0xa800e958                calibrationMsg
- *fill*         0xa800e959        0x3 
+                0xa800e958                updateMsg
+ .data.connectMsg
+                0xa800e959        0x1 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
+                0xa800e959                connectMsg
+ .data.disconnectMsg
+                0xa800e95a        0x1 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
+                0xa800e95a                disconnectMsg
+ .data.calibrationMsg
+                0xa800e95b        0x1 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
+                0xa800e95b                calibrationMsg
  .data.g_APinDescription
                 0xa800e95c      0x348 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
                 0xa800e95c                g_APinDescription
                 0xa800eca4                __data_ram_end = .
 
-bss             0xa800eca4      0x840 load address 0x4003b5d0
+bss             0xa800eca4      0x840 load address 0x4003b798
                 0xa800eca4                . = ALIGN (0x4)
                 0xa800eca4                __bss_start = .
  *(.bss)
@@ -3203,14 +3214,14 @@ noinit
  *(.seg_rxtx)
  *(.seg_rxtx.*)
 
-heap            0xa800f4e4     0x2000 load address 0x4003be10
+heap            0xa800f4e4     0x2000 load address 0x4003bfd8
                 0xa800f4e4                . = ALIGN (0x4)
                 0xa800f4e4                __start_heap = .
                 0xa80114e4                . = (. + __HEAP_SIZE_MIN)
  *fill*         0xa800f4e4     0x2000 
                 0xa8012000                __end_heap = ALIGN (__PAGE_SIZE)
 
-stack           0xa80114e4      0xa00 load address 0x4003de10
+stack           0xa80114e4      0xa00 load address 0x4003dfd8
                 0xa80116e4                . = (. + __firq_stack_size)
  *fill*         0xa80114e4      0x200 
                 0xa80116e4                . = ALIGN (0x4)
@@ -3223,7 +3234,7 @@ stack           0xa80114e4      0xa00 load address 0x4003de10
 END GROUP
 OUTPUT(C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/FrankenCurieSlave.ino.elf elf32-littlearc)
 
-.debug_frame    0x00000000     0x5830
+.debug_frame    0x00000000     0x5810
  .debug_frame   0x00000000       0x44 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(c_init.o)
  .debug_frame   0x00000044       0xf0 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(interrupt.o)
  .debug_frame   0x00000134       0x5c C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(arcv2_timer0.o)
@@ -3243,26 +3254,26 @@ OUTPUT(C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_i
  .debug_frame   0x000018ec       0x50 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(uptime.o)
  .debug_frame   0x0000193c      0x16c C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(list.o)
  .debug_frame   0x00001aa8      0x254 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(os.o)
- .debug_frame   0x00001cfc      0x284 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
- .debug_frame   0x00001f80     0x17b4 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
- .debug_frame   0x00003734      0xba0 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
- .debug_frame   0x000042d4       0x50 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\internal\ss_spi.c.o
- .debug_frame   0x00004324       0x9c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(wiring.c.o)
- .debug_frame   0x000043c0       0x50 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(abi.cpp.o)
- .debug_frame   0x00004410       0x64 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(main.cpp.o)
- .debug_frame   0x00004474       0xd0 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(new.cpp.o)
- .debug_frame   0x00004544      0x2a8 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
- .debug_frame   0x000047ec      0x1ac C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
- .debug_frame   0x00004998       0x70 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(hooks.c.o)
- .debug_frame   0x00004a08      0x1d8 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
- .debug_frame   0x00004be0      0x5d4 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(Print.cpp.o)
- .debug_frame   0x000051b4       0x64 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(RingBuffer.cpp.o)
- .debug_frame   0x00005218      0x2a8 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(fp-bit.o)
- .debug_frame   0x000054c0      0x330 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(dp-bit.o)
- .debug_frame   0x000057f0       0x20 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_lshrdi3.o)
- .debug_frame   0x00005810       0x20 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_ashldi3.o)
+ .debug_frame   0x00001cfc      0x264 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
+ .debug_frame   0x00001f60     0x17b4 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+ .debug_frame   0x00003714      0xba0 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+ .debug_frame   0x000042b4       0x50 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\internal\ss_spi.c.o
+ .debug_frame   0x00004304       0x9c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(wiring.c.o)
+ .debug_frame   0x000043a0       0x50 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(abi.cpp.o)
+ .debug_frame   0x000043f0       0x64 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(main.cpp.o)
+ .debug_frame   0x00004454       0xd0 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(new.cpp.o)
+ .debug_frame   0x00004524      0x2a8 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
+ .debug_frame   0x000047cc      0x1ac C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
+ .debug_frame   0x00004978       0x70 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(hooks.c.o)
+ .debug_frame   0x000049e8      0x1d8 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
+ .debug_frame   0x00004bc0      0x5d4 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(Print.cpp.o)
+ .debug_frame   0x00005194       0x64 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(RingBuffer.cpp.o)
+ .debug_frame   0x000051f8      0x2a8 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(fp-bit.o)
+ .debug_frame   0x000054a0      0x330 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(dp-bit.o)
+ .debug_frame   0x000057d0       0x20 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_lshrdi3.o)
+ .debug_frame   0x000057f0       0x20 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_ashldi3.o)
 
-.debug_info     0x00000000    0x1f47d
+.debug_info     0x00000000    0x1f685
  .debug_info    0x00000000      0x1e7 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(c_init.o)
  .debug_info    0x000001e7      0x329 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(interrupt.o)
  .debug_info    0x00000510      0x15a C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(version.o)
@@ -3290,27 +3301,27 @@ OUTPUT(C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_i
  .debug_info    0x00009a37       0xc9 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_millicodethunk_st.o)
  .debug_info    0x00009b00       0xc9 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_millicodethunk_ld.o)
  .debug_info    0x00009bc9       0xc9 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_millicodethunk_ret.o)
- .debug_info    0x00009c92     0x11bb C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
- .debug_info    0x0000ae4d     0x556a C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
- .debug_info    0x000103b7     0x3da0 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
- .debug_info    0x00014157      0x2c3 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\internal\ss_spi.c.o
- .debug_info    0x0001441a      0x4fd C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(wiring.c.o)
- .debug_info    0x00014917       0xab C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(abi.cpp.o)
- .debug_info    0x000149c2      0x25a C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(main.cpp.o)
- .debug_info    0x00014c1c      0x1ee C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(new.cpp.o)
- .debug_info    0x00014e0a     0x2382 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
- .debug_info    0x0001718c      0xaee C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
- .debug_info    0x00017c7a       0x60 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(hooks.c.o)
- .debug_info    0x00017cda     0x20e6 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
- .debug_info    0x00019dc0     0x2aa5 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(Print.cpp.o)
- .debug_info    0x0001c865      0x208 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(RingBuffer.cpp.o)
- .debug_info    0x0001ca6d     0x1260 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(fp-bit.o)
- .debug_info    0x0001dccd     0x13a5 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(dp-bit.o)
- .debug_info    0x0001f072       0xc9 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_clzsi2.o)
- .debug_info    0x0001f13b      0x1a0 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_lshrdi3.o)
- .debug_info    0x0001f2db      0x1a2 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_ashldi3.o)
+ .debug_info    0x00009c92     0x13c3 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
+ .debug_info    0x0000b055     0x556a C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+ .debug_info    0x000105bf     0x3da0 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+ .debug_info    0x0001435f      0x2c3 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\internal\ss_spi.c.o
+ .debug_info    0x00014622      0x4fd C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(wiring.c.o)
+ .debug_info    0x00014b1f       0xab C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(abi.cpp.o)
+ .debug_info    0x00014bca      0x25a C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(main.cpp.o)
+ .debug_info    0x00014e24      0x1ee C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(new.cpp.o)
+ .debug_info    0x00015012     0x2382 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
+ .debug_info    0x00017394      0xaee C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
+ .debug_info    0x00017e82       0x60 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(hooks.c.o)
+ .debug_info    0x00017ee2     0x20e6 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
+ .debug_info    0x00019fc8     0x2aa5 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(Print.cpp.o)
+ .debug_info    0x0001ca6d      0x208 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(RingBuffer.cpp.o)
+ .debug_info    0x0001cc75     0x1260 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(fp-bit.o)
+ .debug_info    0x0001ded5     0x13a5 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(dp-bit.o)
+ .debug_info    0x0001f27a       0xc9 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_clzsi2.o)
+ .debug_info    0x0001f343      0x1a0 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_lshrdi3.o)
+ .debug_info    0x0001f4e3      0x1a2 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_ashldi3.o)
 
-.debug_abbrev   0x00000000     0x59d9
+.debug_abbrev   0x00000000     0x59f4
  .debug_abbrev  0x00000000      0x145 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(c_init.o)
  .debug_abbrev  0x00000145      0x176 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(interrupt.o)
  .debug_abbrev  0x000002bb       0x7b C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(version.o)
@@ -3338,27 +3349,27 @@ OUTPUT(C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_i
  .debug_abbrev  0x000029d7       0x14 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_millicodethunk_st.o)
  .debug_abbrev  0x000029eb       0x14 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_millicodethunk_ld.o)
  .debug_abbrev  0x000029ff       0x14 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_millicodethunk_ret.o)
- .debug_abbrev  0x00002a13      0x56d C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
- .debug_abbrev  0x00002f80      0x3ad C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
- .debug_abbrev  0x0000332d      0x497 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
- .debug_abbrev  0x000037c4      0x14b C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\internal\ss_spi.c.o
- .debug_abbrev  0x0000390f      0x1e0 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(wiring.c.o)
- .debug_abbrev  0x00003aef       0x56 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(abi.cpp.o)
- .debug_abbrev  0x00003b45       0xfb C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(main.cpp.o)
- .debug_abbrev  0x00003c40      0x11d C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(new.cpp.o)
- .debug_abbrev  0x00003d5d      0x4ce C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
- .debug_abbrev  0x0000422b      0x39f C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
- .debug_abbrev  0x000045ca       0x47 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(hooks.c.o)
- .debug_abbrev  0x00004611      0x482 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
- .debug_abbrev  0x00004a93      0x4cc C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(Print.cpp.o)
- .debug_abbrev  0x00004f5f      0x18f C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(RingBuffer.cpp.o)
- .debug_abbrev  0x000050ee      0x368 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(fp-bit.o)
- .debug_abbrev  0x00005456      0x37e c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(dp-bit.o)
- .debug_abbrev  0x000057d4       0x14 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_clzsi2.o)
- .debug_abbrev  0x000057e8       0xf1 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_lshrdi3.o)
- .debug_abbrev  0x000058d9      0x100 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_ashldi3.o)
+ .debug_abbrev  0x00002a13      0x588 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
+ .debug_abbrev  0x00002f9b      0x3ad C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+ .debug_abbrev  0x00003348      0x497 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+ .debug_abbrev  0x000037df      0x14b C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\internal\ss_spi.c.o
+ .debug_abbrev  0x0000392a      0x1e0 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(wiring.c.o)
+ .debug_abbrev  0x00003b0a       0x56 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(abi.cpp.o)
+ .debug_abbrev  0x00003b60       0xfb C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(main.cpp.o)
+ .debug_abbrev  0x00003c5b      0x11d C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(new.cpp.o)
+ .debug_abbrev  0x00003d78      0x4ce C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
+ .debug_abbrev  0x00004246      0x39f C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
+ .debug_abbrev  0x000045e5       0x47 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(hooks.c.o)
+ .debug_abbrev  0x0000462c      0x482 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
+ .debug_abbrev  0x00004aae      0x4cc C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(Print.cpp.o)
+ .debug_abbrev  0x00004f7a      0x18f C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(RingBuffer.cpp.o)
+ .debug_abbrev  0x00005109      0x368 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(fp-bit.o)
+ .debug_abbrev  0x00005471      0x37e c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(dp-bit.o)
+ .debug_abbrev  0x000057ef       0x14 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_clzsi2.o)
+ .debug_abbrev  0x00005803       0xf1 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_lshrdi3.o)
+ .debug_abbrev  0x000058f4      0x100 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_ashldi3.o)
 
-.debug_loc      0x00000000     0xddac
+.debug_loc      0x00000000     0xdf84
  .debug_loc     0x00000000       0x45 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(c_init.o)
  .debug_loc     0x00000045       0xab C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(interrupt.o)
  .debug_loc     0x000000f0      0x46d C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(ipc_uart_ns16550.o)
@@ -3376,23 +3387,23 @@ OUTPUT(C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_i
  .debug_loc     0x00003456      0x48e C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(port.o)
  .debug_loc     0x000038e4      0x2ce C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(list.o)
  .debug_loc     0x00003bb2      0x42f C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(os.o)
- .debug_loc     0x00003fe1      0x48f C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
- .debug_loc     0x00004470     0x2a5e C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
- .debug_loc     0x00006ece     0x2621 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
- .debug_loc     0x000094ef      0x12a C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\internal\ss_spi.c.o
- .debug_loc     0x00009619      0x128 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(wiring.c.o)
- .debug_loc     0x00009741       0xac C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(new.cpp.o)
- .debug_loc     0x000097ed      0x414 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
- .debug_loc     0x00009c01      0x131 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
- .debug_loc     0x00009d32      0x3cc C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
- .debug_loc     0x0000a0fe     0x15ff C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(Print.cpp.o)
- .debug_loc     0x0000b6fd       0x4d C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(RingBuffer.cpp.o)
- .debug_loc     0x0000b74a     0x10b4 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(fp-bit.o)
- .debug_loc     0x0000c7fe     0x1404 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(dp-bit.o)
- .debug_loc     0x0000dc02       0xd9 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_lshrdi3.o)
- .debug_loc     0x0000dcdb       0xd1 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_ashldi3.o)
+ .debug_loc     0x00003fe1      0x667 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
+ .debug_loc     0x00004648     0x2a5e C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+ .debug_loc     0x000070a6     0x2621 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+ .debug_loc     0x000096c7      0x12a C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\internal\ss_spi.c.o
+ .debug_loc     0x000097f1      0x128 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(wiring.c.o)
+ .debug_loc     0x00009919       0xac C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(new.cpp.o)
+ .debug_loc     0x000099c5      0x414 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
+ .debug_loc     0x00009dd9      0x131 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
+ .debug_loc     0x00009f0a      0x3cc C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
+ .debug_loc     0x0000a2d6     0x15ff C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(Print.cpp.o)
+ .debug_loc     0x0000b8d5       0x4d C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(RingBuffer.cpp.o)
+ .debug_loc     0x0000b922     0x10b4 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(fp-bit.o)
+ .debug_loc     0x0000c9d6     0x1404 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(dp-bit.o)
+ .debug_loc     0x0000ddda       0xd9 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_lshrdi3.o)
+ .debug_loc     0x0000deb3       0xd1 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_ashldi3.o)
 
-.debug_aranges  0x00000000     0x1448
+.debug_aranges  0x00000000     0x1440
  .debug_aranges
                 0x00000000       0x20 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(c_init.o)
  .debug_aranges
@@ -3448,43 +3459,43 @@ OUTPUT(C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_i
  .debug_aranges
                 0x00000810       0x20 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_millicodethunk_ret.o)
  .debug_aranges
-                0x00000830       0x90 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
+                0x00000830       0x88 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
  .debug_aranges
-                0x000008c0      0x4b8 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+                0x000008b8      0x4b8 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
  .debug_aranges
-                0x00000d78      0x240 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+                0x00000d70      0x240 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
  .debug_aranges
-                0x00000fb8       0x28 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\internal\ss_spi.c.o
+                0x00000fb0       0x28 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\internal\ss_spi.c.o
  .debug_aranges
-                0x00000fe0       0x30 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(wiring.c.o)
+                0x00000fd8       0x30 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(wiring.c.o)
  .debug_aranges
-                0x00001010       0x28 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(abi.cpp.o)
+                0x00001008       0x28 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(abi.cpp.o)
  .debug_aranges
-                0x00001038       0x28 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(main.cpp.o)
+                0x00001030       0x28 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(main.cpp.o)
  .debug_aranges
-                0x00001060       0x48 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(new.cpp.o)
+                0x00001058       0x48 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(new.cpp.o)
  .debug_aranges
-                0x000010a8       0xa0 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
+                0x000010a0       0xa0 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
  .debug_aranges
-                0x00001148       0x70 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
+                0x00001140       0x70 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
  .debug_aranges
-                0x000011b8       0x30 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(hooks.c.o)
+                0x000011b0       0x30 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(hooks.c.o)
  .debug_aranges
-                0x000011e8       0x80 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
+                0x000011e0       0x80 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
  .debug_aranges
-                0x00001268      0x118 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(Print.cpp.o)
+                0x00001260      0x118 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(Print.cpp.o)
  .debug_aranges
-                0x00001380       0x28 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(RingBuffer.cpp.o)
+                0x00001378       0x28 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(RingBuffer.cpp.o)
  .debug_aranges
-                0x000013a8       0x20 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(fp-bit.o)
+                0x000013a0       0x20 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(fp-bit.o)
  .debug_aranges
-                0x000013c8       0x20 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(dp-bit.o)
+                0x000013c0       0x20 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(dp-bit.o)
  .debug_aranges
-                0x000013e8       0x20 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_clzsi2.o)
+                0x000013e0       0x20 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_clzsi2.o)
  .debug_aranges
-                0x00001408       0x20 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_lshrdi3.o)
+                0x00001400       0x20 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_lshrdi3.o)
  .debug_aranges
-                0x00001428       0x20 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_ashldi3.o)
+                0x00001420       0x20 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_ashldi3.o)
 
 .debug_ranges   0x00000000     0x2210
  .debug_ranges  0x00000000       0x10 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(c_init.o)
@@ -3523,7 +3534,7 @@ OUTPUT(C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_i
  .debug_ranges  0x00001fb8      0x120 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(fp-bit.o)
  .debug_ranges  0x000020d8      0x138 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(dp-bit.o)
 
-.debug_line     0x00000000     0x8450
+.debug_line     0x00000000     0x84c5
  .debug_line    0x00000000      0x148 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(c_init.o)
  .debug_line    0x00000148      0x17b C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(interrupt.o)
  .debug_line    0x000002c3       0xf7 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(version.o)
@@ -3551,27 +3562,27 @@ OUTPUT(C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_i
  .debug_line    0x000033ec       0x93 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_millicodethunk_st.o)
  .debug_line    0x0000347f       0x93 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_millicodethunk_ld.o)
  .debug_line    0x00003512       0x95 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_millicodethunk_ret.o)
- .debug_line    0x000035a7      0x637 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
- .debug_line    0x00003bde     0x10ba C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
- .debug_line    0x00004c98      0xc76 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
- .debug_line    0x0000590e      0x2ff C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\internal\ss_spi.c.o
- .debug_line    0x00005c0d      0x328 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(wiring.c.o)
- .debug_line    0x00005f35       0xa1 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(abi.cpp.o)
- .debug_line    0x00005fd6      0x1c6 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(main.cpp.o)
- .debug_line    0x0000619c      0x1d2 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(new.cpp.o)
- .debug_line    0x0000636e      0x486 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
- .debug_line    0x000067f4      0x520 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
- .debug_line    0x00006d14       0xb1 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(hooks.c.o)
- .debug_line    0x00006dc5      0x52f C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
- .debug_line    0x000072f4      0x602 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(Print.cpp.o)
- .debug_line    0x000078f6      0x1d2 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(RingBuffer.cpp.o)
- .debug_line    0x00007ac8      0x391 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(fp-bit.o)
- .debug_line    0x00007e59      0x43b c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(dp-bit.o)
- .debug_line    0x00008294       0x94 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_clzsi2.o)
- .debug_line    0x00008328       0x95 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_lshrdi3.o)
- .debug_line    0x000083bd       0x93 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_ashldi3.o)
+ .debug_line    0x000035a7      0x6ac C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
+ .debug_line    0x00003c53     0x10ba C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+ .debug_line    0x00004d0d      0xc76 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+ .debug_line    0x00005983      0x2ff C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\internal\ss_spi.c.o
+ .debug_line    0x00005c82      0x328 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(wiring.c.o)
+ .debug_line    0x00005faa       0xa1 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(abi.cpp.o)
+ .debug_line    0x0000604b      0x1c6 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(main.cpp.o)
+ .debug_line    0x00006211      0x1d2 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(new.cpp.o)
+ .debug_line    0x000063e3      0x486 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
+ .debug_line    0x00006869      0x520 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
+ .debug_line    0x00006d89       0xb1 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(hooks.c.o)
+ .debug_line    0x00006e3a      0x52f C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
+ .debug_line    0x00007369      0x602 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(Print.cpp.o)
+ .debug_line    0x0000796b      0x1d2 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(RingBuffer.cpp.o)
+ .debug_line    0x00007b3d      0x391 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(fp-bit.o)
+ .debug_line    0x00007ece      0x43b c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(dp-bit.o)
+ .debug_line    0x00008309       0x94 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_clzsi2.o)
+ .debug_line    0x0000839d       0x95 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_lshrdi3.o)
+ .debug_line    0x00008432       0x93 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_ashldi3.o)
 
-.debug_str      0x00000000     0x9854
+.debug_str      0x00000000     0x9870
  .debug_str     0x00000000      0x276 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(c_init.o)
                                 0x2b4 (size before relaxing)
  .debug_str     0x00000276      0x133 C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(interrupt.o)
@@ -3612,41 +3623,41 @@ OUTPUT(C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_i
                                 0x338 (size before relaxing)
  .debug_str     0x000027c0       0xdf C:\Users\kehood\AppData\Local\arduino15\packages\Intel\hardware\arc32\1.0.5\variants\arduino_101\libarc32drv_arduino101.a(os.o)
                                 0x4b4 (size before relaxing)
- .debug_str     0x0000289f      0xbe6 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
-                                0xdf9 (size before relaxing)
- .debug_str     0x00003485     0x2398 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
+ .debug_str     0x0000289f      0xcb6 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\FrankenCurieSlave.cpp.o
+                                0xed4 (size before relaxing)
+ .debug_str     0x00003555     0x2380 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\BMI160.cpp.o
                                0x2805 (size before relaxing)
- .debug_str     0x0000581d     0x1c54 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
+ .debug_str     0x000058d5     0x1bf8 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\CurieIMU.cpp.o
                                0x4340 (size before relaxing)
- .debug_str     0x00007471      0x282 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\internal\ss_spi.c.o
+ .debug_str     0x000074cd      0x282 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101\CurieIMU\internal\ss_spi.c.o
                                 0x383 (size before relaxing)
- .debug_str     0x000076f3       0xb9 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(wiring.c.o)
+ .debug_str     0x0000774f       0xb9 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(wiring.c.o)
                                 0x369 (size before relaxing)
- .debug_str     0x000077ac       0x8b C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(abi.cpp.o)
+ .debug_str     0x00007808       0x8b C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(abi.cpp.o)
                                 0x24b (size before relaxing)
- .debug_str     0x00007837       0x92 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(main.cpp.o)
+ .debug_str     0x00007893       0x92 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(main.cpp.o)
                                 0x355 (size before relaxing)
- .debug_str     0x000078c9       0xbc C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(new.cpp.o)
+ .debug_str     0x00007925       0xbc C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(new.cpp.o)
                                 0x2b7 (size before relaxing)
- .debug_str     0x00007985     0x1042 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
+ .debug_str     0x000079e1     0x1042 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(UARTClass.cpp.o)
                                0x159c (size before relaxing)
- .debug_str     0x000089c7      0x214 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
+ .debug_str     0x00008a23      0x214 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(variant.cpp.o)
                                 0x852 (size before relaxing)
- .debug_str     0x00008bdb       0x79 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(hooks.c.o)
+ .debug_str     0x00008c37       0x79 C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(hooks.c.o)
                                 0x173 (size before relaxing)
- .debug_str     0x00008c54      0x20c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
+ .debug_str     0x00008cb0      0x1cc C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(CDCSerialClass.cpp.o)
                                0x1449 (size before relaxing)
- .debug_str     0x00008e60      0x47c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(Print.cpp.o)
+ .debug_str     0x00008e7c      0x47c C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(Print.cpp.o)
                                0x10cc (size before relaxing)
- .debug_str     0x000092dc       0x7d C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(RingBuffer.cpp.o)
+ .debug_str     0x000092f8       0x7d C:\Users\kehood\AppData\Local\Temp\VMicroBuilds\FrankenCurieSlave\Intel_intel_arc32_arduino_101/core.a(RingBuffer.cpp.o)
                                 0x2db (size before relaxing)
- .debug_str     0x00009359      0x338 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(fp-bit.o)
+ .debug_str     0x00009375      0x338 c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(fp-bit.o)
                                 0x3fb (size before relaxing)
- .debug_str     0x00009691      0x11f c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(dp-bit.o)
+ .debug_str     0x000096ad      0x11f c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(dp-bit.o)
                                 0x436 (size before relaxing)
- .debug_str     0x000097b0       0x9a c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_lshrdi3.o)
+ .debug_str     0x000097cc       0x9a c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_lshrdi3.o)
                                 0x1fe (size before relaxing)
- .debug_str     0x0000984a        0xa c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_ashldi3.o)
+ .debug_str     0x00009866        0xa c:/users/kehood/appdata/local/arduino15/packages/intel/tools/arc-elf32/1.6.4+1.0/bin/../lib/gcc/arc-elf32/4.8.3\libgcc.a(_ashldi3.o)
                                 0x1fe (size before relaxing)
 
 .comment        0x00000000       0x76

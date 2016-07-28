@@ -86,7 +86,7 @@
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties debug.local.portname="COM7" arduino.upload.port="COM7" debug.local.portspeed="14400" />
+      <UserProperties debug.local.portname="COM7" arduino.upload.port="COM4" debug.local.portspeed="14400" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

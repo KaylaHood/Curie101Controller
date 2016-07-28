@@ -7,15 +7,19 @@
 #include "FrankenCurieMaster.h"
 
 #if SERIAL_ENABLED
-enum Opcodes { Normal, ZeroMotion, Calibration };
+enum Opcodes { Normal, ZeroMotion, Calibration, Slave1Calibration, Slave2Calibration };
 
 bool serialIsConnected = false;
 
-Message masterMsg = Message(34);
-Message slave1Msg = Message(8);
-Message slave2Msg = Message(8);
+Message masterMsg = Message(46);
+Message slave1Msg = Message(14);
+Message slave2Msg = Message(14);
 
-char calibrationMsg = 'c';
+char calibrationMsg = 'a';
+char slave1CalibrationMsg = 'b';
+char slave2CalibrationMsg = 'c';
+char disconnectMsg = 'd';
+char connectMsg = 'y';
 #endif
 
 SoftwareSerial Slave1(3,2); // 3 = INPUT, 2 = OUTPUT
@@ -36,7 +40,9 @@ int16_t gyroSensitivity = 1;
 
 uint64_t microsPrevious;
 uint64_t microsPerUpdate = (1000000 / (sampleRate / 4));
-bool calibrateAgain = false;
+bool calibrateMasterAgain = false;
+bool calibrateSlave1Again = false;
+bool calibrateSlave2Again = false;
 
 void setup() {
 #if SERIAL_ENABLED
@@ -98,49 +104,99 @@ void loop() {
 				microsNow = micros();
 				calibrate();
 			}
-			else if (cmd == 'd') {
+			else if (cmd == slave1CalibrationMsg) {
+#if CURIE_CALIBRATION_DEBUG
+				Serial.print("Received \"");
+				Serial.print(slave1CalibrationMsg);
+				Serial.print("\".");
+				Serial.println();
+#endif
+				calibrateSlave1();
+			}
+			else if (cmd == slave2CalibrationMsg) {
+#if CURIE_CALIBRATION_DEBUG
+				Serial.print("Received \"");
+				Serial.print(slave2CalibrationMsg);
+				Serial.print("\".");
+				Serial.println();
+#endif
+				calibrateSlave2();
+			}
+			else if (cmd == disconnectMsg) {
 #if CURIE_MASTER_DEBUG
 				Serial.print("Received \"d\". Sending to slaves.");
 				Serial.println();
 #endif
-				Slave1.write('d');
-				Slave2.write('d');
+				Slave1.write(disconnectMsg);
+				Slave2.write(disconnectMsg);
 				serialIsConnected = false;
 			}
-			else if (calibrateAgain) {
+			else if (calibrateMasterAgain) {
 #if CURIE_CALIBRATION_DEBUG
-				Serial.print("calibrateAgain");
+				Serial.print("calibrateMasterAgain");
 				Serial.println();
 #endif
-				calibrateAgain = false;
+				calibrateMasterAgain = false;
 				zMT = zeroMotionDetectedMicros;
 				microsNow = micros();
 				calibrate();
+			}
+			else if (calibrateSlave1Again) {
+#if CURIE_CALIBRATION_DEBUG
+				Serial.print("calibrateSlave1Again");
+				Serial.println();
+#endif
+				calibrateSlave1Again = false;
+				calibrateSlave1();
+			}
+			else if (calibrateSlave2Again) {
+#if CURIE_CALIBRATION_DEBUG
+				Serial.print("calibrateSlave2Again");
+				Serial.println();
+#endif
+				calibrateSlave2Again = false;
+				calibrateSlave2();
 			}
 			else {
 				updateValues(Normal);
 			}
 		}
-		else if (cmd == 'y') {
+		else if (cmd == connectMsg) {
 #if CURIE_MASTER_DEBUG
 			Serial.print("Received \"y\". Sending to slaves.");
 			Serial.println();
 #endif
-			Slave1.write('y');
-			Slave2.write('y');
+			Slave1.write(connectMsg);
+			Slave2.write(connectMsg);
 			serialIsConnected = true;
 		}
 	}
 	else if (serialIsConnected) {
-		if (calibrateAgain) {
+		if (calibrateMasterAgain) {
 #if CURIE_CALIBRATION_DEBUG
-			Serial.print("calibrateAgain");
+			Serial.print("calibrateMasterAgain");
 			Serial.println();
 #endif
-			calibrateAgain = false;
+			calibrateMasterAgain = false;
 			zMT = zeroMotionDetectedMicros;
 			microsNow = micros();
 			calibrate();
+		}
+		else if (calibrateSlave1Again) {
+#if CURIE_CALIBRATION_DEBUG
+			Serial.print("calibrateSlave1Again");
+			Serial.println();
+#endif
+			calibrateSlave1Again = false;
+			calibrateSlave1();
+		}
+		else if (calibrateSlave2Again) {
+#if CURIE_CALIBRATION_DEBUG
+			Serial.print("calibrateSlave2Again");
+			Serial.println();
+#endif
+			calibrateSlave2Again = false;
+			calibrateSlave2();
 		}
 		else {
 #if CURIE_MASTER_DEBUG
@@ -180,8 +236,10 @@ void updateValues(int16_t opcode) {
 	zMT = zeroMotionDetectedMicros;
 	microsNow = micros();
 
-	Slave1.listen();
-	Slave1.write('u');
+	if (opcode != Slave1Calibration) {
+		Slave1.listen();
+		Slave1.write('u');
+	}
 
 	CurieIMU.readMotionSensor(
 		rawAx32,
@@ -192,23 +250,27 @@ void updateValues(int16_t opcode) {
 		rawGz32
 	);
 	
+	if (opcode != Slave1Calibration) {
 #if CURIE_MASTER_DEBUG
-	Serial.print("Getting data from Slave 1.");
-	Serial.println();
-#endif
-	while (Slave1.available() < slave1Msg.size) {
-#if CURIE_MASTER_DEBUG
-		Serial.print("Waiting for full message. Available now: ");
-		Serial.print(Slave1.available());
+		Serial.print("Getting data from Slave 1.");
 		Serial.println();
 #endif
-	}
-	for (int i = 0; i < slave1Msg.size; i++) {
-		slave1Msg.setValue<uint8_t>((uint8_t)Slave1.read(), i);
+		while (Slave1.available() < slave1Msg.size) {
+#if CURIE_MASTER_DEBUG
+			Serial.print("Waiting for full message. Available now: ");
+			Serial.print(Slave1.available());
+			Serial.println();
+#endif
+		}
+		for (int i = 0; i < slave1Msg.size; i++) {
+			slave1Msg.setValue<uint8_t>((uint8_t)Slave1.read(), i);
+		}
 	}
 
-	Slave2.listen();
-	Slave2.write('u');
+	if (opcode != Slave2Calibration) {
+		Slave2.listen();
+		Slave2.write('u');
+	}
 
 	rawGx32 /= gyroSensitivity;
 	rawGy32 /= gyroSensitivity;
@@ -221,32 +283,35 @@ void updateValues(int16_t opcode) {
 	rawGy16 = rawGy32;
 	rawGz16 = rawGz32;
 
+	if (opcode != Slave2Calibration) {
 #if CURIE_MASTER_DEBUG
-	Serial.print("Getting data from Slave 2.");
-	Serial.println();
-#endif
-	while (Slave2.available() < slave2Msg.size) {
-#if CURIE_MASTER_DEBUG
-		Serial.print("Waiting for full message. Available now: ");
-		Serial.print(Slave2.available());
+		Serial.print("Getting data from Slave 2.");
 		Serial.println();
 #endif
-	}
-	for (int i = 0; i < slave2Msg.size; i++) {
-		slave2Msg.setValue<uint8_t>((uint8_t)Slave2.read(), i);
+		while (Slave2.available() < slave2Msg.size) {
+#if CURIE_MASTER_DEBUG
+			Serial.print("Waiting for full message. Available now: ");
+			Serial.print(Slave2.available());
+			Serial.println();
+#endif
+		}
+		for (int i = 0; i < slave2Msg.size; i++) {
+			slave2Msg.setValue<uint8_t>((uint8_t)Slave2.read(), i);
+		}
 	}
 
-	if ((isZeroMotion(microsNow, zMT) || slave1Msg.getValue<int16_t>(0) == ZeroMotion || slave2Msg.getValue<int16_t>(0) == ZeroMotion) && opcode != Calibration) {
+	if ((isZeroMotion(microsNow, zMT) || slave1Msg.getValue<int16_t>(0) == ZeroMotion || slave2Msg.getValue<int16_t>(0) == ZeroMotion) && opcode < Calibration) {
 		opcode = ZeroMotion;
 	}
 
-	else if (opcode == Calibration) {
-		rawGx16 = accelRange;
-		rawGy16 = gyroRange;
-	}
-
 	masterMsg.setValue<int16_t>(opcode, 0);
-	masterMsg.setValue<uint64_t>(microsNow, 2);
+	if (opcode == Calibration) {
+		masterMsg.setValue<int16_t>(accelRange, 2);
+		masterMsg.setValue<int16_t>(gyroRange, 4);
+	}
+	else {
+		masterMsg.setValue<uint64_t>(microsNow, 2);
+	}
 	masterMsg.setValue<int16_t>(rawAx16, 10);
 	masterMsg.setValue<int16_t>(rawAy16, 12);
 	masterMsg.setValue<int16_t>(rawAz16, 14);
@@ -259,9 +324,16 @@ void updateValues(int16_t opcode) {
 	masterMsg.setValue<int16_t>(rawGx16, 28);
 	masterMsg.setValue<int16_t>(rawGy16, 30);
 	masterMsg.setValue<int16_t>(rawGz16, 32);
+	masterMsg.setValue<int16_t>(slave1Msg.getValue<int16_t>(8), 34);
+	masterMsg.setValue<int16_t>(slave1Msg.getValue<int16_t>(10), 36);
+	masterMsg.setValue<int16_t>(slave1Msg.getValue<int16_t>(12), 38);
+	masterMsg.setValue<int16_t>(slave2Msg.getValue<int16_t>(8), 40);
+	masterMsg.setValue<int16_t>(slave2Msg.getValue<int16_t>(10), 42);
+	masterMsg.setValue<int16_t>(slave2Msg.getValue<int16_t>(12), 44);
 
 #if CURIE_SERIAL_DEBUG == 0
-	if (Serial.peek() == calibrationMsg && opcode != Calibration) {
+	char peek = Serial.peek();
+	if (opcode < Calibration && (peek == calibrationMsg || peek == slave1CalibrationMsg || peek == slave2CalibrationMsg)) {
 		Serial.flush();
 		return;
 	}
@@ -295,6 +367,18 @@ void updateValues(int16_t opcode) {
 	Serial.print(rawGy16);
 	Serial.print("|");
 	Serial.print(rawGz16);
+	Serial.print("|");
+	Serial.print(slave1Msg.getValue<int16_t>(8));
+	Serial.print("|");
+	Serial.print(slave1Msg.getValue<int16_t>(10));
+	Serial.print("|");
+	Serial.print(slave1Msg.getValue<int16_t>(12));
+	Serial.print("|");
+	Serial.print(slave2Msg.getValue<int16_t>(8));
+	Serial.print("|");
+	Serial.print(slave2Msg.getValue<int16_t>(10));
+	Serial.print("|");
+	Serial.print(slave2Msg.getValue<int16_t>(12));
 	Serial.println();
 	masterMsg.debugPrintMaster();
 #endif
@@ -318,50 +402,56 @@ void calibrate() {
 		CurieIMU.autoCalibrateYAccelOffset(0);
 		CurieIMU.autoCalibrateZAccelOffset(1);
 
-		Slave1.listen();
-		Slave1.write((uint8_t)calibrationMsg);
-		while (Slave1.available() < slave1Msg.size); // wait for slave to send calibration message
-		int tries = 0;
+		updateValues(Calibration);
+	}
+	else {
+		calibrateMasterAgain = true;
+	}
+}
+
+void calibrateSlave1() {
+	Slave1.listen();
+	Slave1.write((uint8_t)calibrationMsg);
+	int tries = 0;
+	while (Slave1.available() < slave1Msg.size); // wait for slave to send calibration message
+	for (int i = 0; i < slave1Msg.size; i++) {
+		slave1Msg.setValue<uint8_t>((uint8_t)Slave1.read(), i);
+	}
+	while ((slave1Msg.getValue<int16_t>(0) != Calibration) && tries < 10) {
+		while (Slave1.available() < slave1Msg.size);
 		for (int i = 0; i < slave1Msg.size; i++) {
 			slave1Msg.setValue<uint8_t>((uint8_t)Slave1.read(), i);
 		}
-		while ((slave1Msg.getValue<int16_t>(0) != Calibration) && tries < 10) {
-			Slave1.flush();
-			Slave1.print(calibrationMsg);
-			while (Slave1.available() < slave1Msg.size);
-			for (int i = 0; i < slave1Msg.size; i++) {
-				slave1Msg.setValue<uint8_t>((uint8_t)Slave1.read(), i);
-			}
-			tries += 1;
-		}
+		tries += 1;
+	}
+	if (tries >= 10) {
+		calibrateSlave1Again = true;
+	}
+	else {
+		updateValues(Slave1Calibration);
+	}
+}
 
-		Slave2.listen();
-		Slave2.write((uint8_t)calibrationMsg);
-		while (Slave2.available() < slave2Msg.size); // wait for slave to send calibration message
-		tries = 0;
+void calibrateSlave2() {
+	Slave2.listen();
+	Slave2.write((uint8_t)calibrationMsg);
+	int tries = 0;
+	while (Slave2.available() < slave2Msg.size); // wait for slave to send calibration message
+	for (int i = 0; i < slave2Msg.size; i++) {
+		slave2Msg.setValue<uint8_t>((uint8_t)Slave2.read(), i);
+	}
+	while ((slave2Msg.getValue<int16_t>(0) != Calibration) && tries < 20) {
+		while (Slave2.available() < slave2Msg.size);
 		for (int i = 0; i < slave2Msg.size; i++) {
 			slave2Msg.setValue<uint8_t>((uint8_t)Slave2.read(), i);
 		}
-		
-		while ((slave2Msg.getValue<int16_t>(0) != Calibration) && tries < 10) {
-			Slave2.flush();
-			Slave2.print(calibrationMsg);
-			while (Slave2.available() < slave2Msg.size);
-			for (int i = 0; i < slave2Msg.size; i++) {
-				slave2Msg.setValue<uint8_t>((uint8_t)Slave2.read(), i);
-			}
-			tries += 1;
-		}
-		
-		if (tries >= 10) {
-			calibrateAgain = true;
-		}
-		else {
-			updateValues(Calibration);
-		}
+		tries += 1;
+	}
+	if (tries >= 10) {
+		calibrateSlave2Again = true;
 	}
 	else {
-		calibrateAgain = true;
+		updateValues(Slave2Calibration);
 	}
 }
 

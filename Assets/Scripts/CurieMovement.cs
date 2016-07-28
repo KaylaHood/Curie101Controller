@@ -7,14 +7,22 @@ using System;
 
 public class CurieMovement : MonoBehaviour, IDisposable
 {
+    private int LineMultiplier = 250;
+    public UnityEngine.LineRenderer MasterLine;
+    public UnityEngine.LineRenderer Slave1Line;
+    public UnityEngine.LineRenderer Slave2Line;
 
     private Rigidbody[] boardRigidBodies;
     private MovementTracker[] movementTrackers;
     private FrankenCurieSerialReader monitor;
     private SerialPort port;
     private int baudRate = 38400;
-    private bool curieIsCalibrated = false;
-    private bool didStartCoroutine = false;
+    private bool masterIsCalibrated = false;
+    private bool slave1IsCalibrated = false;
+    private bool slave2IsCalibrated = false;
+    private bool didStartCoroutineMaster = false;
+    private bool didStartCoroutineSlave1 = false;
+    private bool didStartCoroutineSlave2 = false;
     private bool setupCompleted = false;
     private float timeCalibrated;
 
@@ -24,8 +32,12 @@ public class CurieMovement : MonoBehaviour, IDisposable
     public UnityEngine.UI.Text slave1Info;
     public UnityEngine.UI.Text slave2Info;
 
-    public event Action<CurieMovement> OnCalibrationComplete;
-    public event Action<CurieMovement> OnCalibrationFailed;
+    public event Action<CurieMovement> OnMasterCalibrationComplete;
+    public event Action<CurieMovement> OnMasterCalibrationFailed;
+    public event Action<CurieMovement> OnSlave1CalibrationComplete;
+    public event Action<CurieMovement> OnSlave1CalibrationFailed;
+    public event Action<CurieMovement> OnSlave2CalibrationComplete;
+    public event Action<CurieMovement> OnSlave2CalibrationFailed;
     void Start()
     {
         port = new SerialPort(
@@ -53,47 +65,38 @@ public class CurieMovement : MonoBehaviour, IDisposable
     {
         if (setupCompleted)
         {
-            if (!curieIsCalibrated && !didStartCoroutine)
+            if (!masterIsCalibrated && !didStartCoroutineMaster)
             {
-                didStartCoroutine = true;
-                StartCoroutine(CoroutineCalibrate());
+                didStartCoroutineMaster = true;
+                StartCoroutine(CoroutineCalibrateMaster());
             }
-            else if (curieIsCalibrated)
+            else if(masterIsCalibrated && !slave1IsCalibrated && !didStartCoroutineSlave1)
+            {
+                didStartCoroutineSlave1 = true;
+                StartCoroutine(CoroutineCalibrateSlave1());
+            }
+            else if(slave1IsCalibrated && !slave2IsCalibrated && !didStartCoroutineSlave2)
+            {
+                didStartCoroutineSlave2 = true;
+                StartCoroutine(CoroutineCalibrateSlave2());
+            }
+            else if (masterIsCalibrated && slave1IsCalibrated && slave2IsCalibrated)
             {
                 monitor.UpdateValues();
-                movementTrackers[0].UpdateValues(monitor.curieData.frankenAccel, monitor.curieData.frankenFilteredRotation);
-                movementTrackers[1].UpdateValues(monitor.curieData.translationalAccels[0], monitor.curieData.filteredRotations[0]);
-                movementTrackers[2].UpdateValues(monitor.curieData.translationalAccels[1], monitor.curieData.filteredRotations[1]);
-                movementTrackers[3].UpdateValues(monitor.curieData.translationalAccels[2], monitor.curieData.filteredRotations[2]);
+                movementTrackers[0].UpdateValues(monitor.curieData.frankenTranslationalAccel, monitor.curieData.frankenFilteredRotation);
                 frankenCurieInfo.text = "Unfiltered Euler Rotation:\n " + monitor.curieData.frankenEstRotation.eulerAngles + 
                     "\nFiltered Euler Rotation:\n " + monitor.curieData.frankenFilteredRotation.eulerAngles +
                     "\nAcceleration Vector With Gravity:\n " + monitor.curieData.frankenAccel +
-                    "\nGravity Non-Rotated:\n" + monitor.curieData.frankenOriginalGravity +
+                    "\nGravity Non-Rotated:\n" + monitor.curieData.frankenAccelAtCalibration +
                     "\nGravity Rotated:\n" + monitor.curieData.frankenGravity +
                     "\nAcceleration Vector W/O Gravity:\n " + monitor.curieData.frankenTranslationalAccel;
-                masterInfo.text = "Unfiltered Euler Rotation:\n " + monitor.curieData.estRotations[0].eulerAngles + 
-                    "\nFiltered Euler Rotation:\n " + monitor.curieData.filteredRotations[0].eulerAngles +
-                    "\nAcceleration Vector:\n " + monitor.curieData.convertedAccels[0] +
-                    "\nGravity Non-Rotated:\n" + monitor.curieData.convertedAccelsAtCalibration[0] +
-                    "\nGravity Rotated:\n" + monitor.curieData.rotatedGravities[0] +
-                    "\nAcceleration Vector W/O Gravity:\n " + monitor.curieData.translationalAccels[0];
-                slave1Info.text = "Unfiltered Euler Rotation:\n " + monitor.curieData.estRotations[1].eulerAngles +
-                    "\nFiltered Euler Rotation:\n " + monitor.curieData.filteredRotations[1].eulerAngles +
-                    "\nNon-Rotated Acceleration Vector:\n" + monitor.curieData.convertedAccels[1] +
-                    "\nRotation from Master:\n" + monitor.curieData.slave1RotationFromMaster.eulerAngles +
-                    "\nRotated Acceleration Vector:\n " + monitor.curieData.slave1RotatedAccel +
-                    "\nGravity Non-Rotated:\n" + monitor.curieData.convertedAccelsAtCalibration[1] +
-                    "\nGravity Rotated:\n" + monitor.curieData.rotatedGravities[1] +
-                    "\nAcceleration Vector W/O Gravity:\n " + monitor.curieData.translationalAccels[1];
-                slave2Info.text = "Unfiltered Euler Rotation:\n " + monitor.curieData.estRotations[2].eulerAngles + 
-                    "\nFiltered Euler Rotation:\n " + monitor.curieData.filteredRotations[2].eulerAngles +
-                    "\nNon-Rotated Acceleration Vector:\n" + monitor.curieData.convertedAccels[2] +
-                    "\nRotation from Master:\n" + monitor.curieData.slave2RotationFromMaster.eulerAngles +
-                    "\nRotated Acceleration Vector:\n " + monitor.curieData.slave2RotatedAccel +
-                    "\nGravity Non-Rotated:\n" + monitor.curieData.convertedAccelsAtCalibration[2] +
-                    "\nGravity Rotated:\n" + monitor.curieData.rotatedGravities[2] +
-                    "\nAcceleration Vector W/O Gravity:\n " + monitor.curieData.translationalAccels[2];
                 calibrationMessage.text = "Sample Run Time: " + (Time.time - timeCalibrated);
+                MasterLine.SetPosition(1, monitor.curieData.convertedAccels[0] * LineMultiplier);
+                Slave1Line.SetPosition(1, monitor.curieData.convertedAccels[1] * LineMultiplier);
+                Slave2Line.SetPosition(1, monitor.curieData.convertedAccels[2] * LineMultiplier);
+                masterInfo.text = "Master Accel: " + monitor.curieData.convertedAccels[0];
+                slave1Info.text = "Slave 1 Accel: " + monitor.curieData.convertedAccels[1];
+                slave2Info.text = "Slave 2 Accel: " + monitor.curieData.convertedAccels[2];
             }
         }
         else
@@ -102,44 +105,105 @@ public class CurieMovement : MonoBehaviour, IDisposable
         }
     }
 
-    public IEnumerator CoroutineCalibrate()
+    public IEnumerator CoroutineCalibrateMaster()
     {
-        OnCalibrationComplete += (CurieMovement a) => {
-            Debug.Log("Calibration finished sucessfully");
-            timeCalibrated = Time.time;
-            calibrationMessage.text = "Sample Run Time: " + (Time.time - timeCalibrated);
-            curieIsCalibrated = true;
+        calibrationMessage.text = "Hold Master flat, the press a.";
+        OnMasterCalibrationComplete += (CurieMovement a) => {
+            masterIsCalibrated = true;
         };
-        OnCalibrationFailed += (CurieMovement a) => {
-            Debug.Log("Calibration failed");
+        OnMasterCalibrationFailed += (CurieMovement a) => {
+            calibrationMessage.text = ("Master Calibration failed");
+            a.enabled = false;
         };
-        calibrationMessage.text = "Make sure that Curie is held flat for calibration. Hold y when ready.";
-        Debug.Log("Make sure that Curie is held flat for calibration. Hold y when ready.");
         while(true)
         {
-            if(Input.GetKeyDown("y"))
+            if(Input.GetKeyDown("a"))
             {
-                calibrationMessage.text = "Now Calibrating... hold Curie still";
-                Debug.Log("Now Calibrating... hold Curie still");
-                Calibrate();
+                CalibrateMaster();
                 break;
             }
             yield return null;
         }
     }
 
-    public void Calibrate()
+    public IEnumerator CoroutineCalibrateSlave1()
     {
-        if (monitor.Calibrate())
+        calibrationMessage.text = "Hold Slave 1 flat, the press b.";
+        OnSlave1CalibrationComplete += (CurieMovement a) => {
+            slave1IsCalibrated = true;
+        };
+        OnSlave1CalibrationFailed += (CurieMovement a) => {
+            calibrationMessage.text = ("Slave 1 Calibration failed");
+            a.enabled = false;
+        };
+        while(true)
         {
-            OnCalibrationComplete(this);
-        }
-        else
-        {
-            OnCalibrationFailed(this);
+            if(Input.GetKeyDown("b"))
+            {
+                CalibrateSlave1();
+                break;
+            }
+            yield return null;
         }
     }
 
+    public IEnumerator CoroutineCalibrateSlave2()
+    {
+        calibrationMessage.text = "Hold Slave 2 flat, the press c.";
+        OnSlave2CalibrationComplete += (CurieMovement a) => {
+            slave2IsCalibrated = true;
+            timeCalibrated = Time.time;
+        };
+        OnSlave2CalibrationFailed += (CurieMovement a) => {
+            calibrationMessage.text = ("Master Calibration failed");
+            a.enabled = false;
+        };
+        while(true)
+        {
+            if(Input.GetKeyDown("c"))
+            {
+                CalibrateSlave2();
+                break;
+            }
+            yield return null;
+        }
+    }
+
+    public void CalibrateMaster()
+    {
+        if (monitor.CalibrateMaster())
+        {
+            OnMasterCalibrationComplete(this);
+        }
+        else
+        {
+            OnMasterCalibrationFailed(this);
+        }
+    }
+
+    public void CalibrateSlave1()
+    {
+        if (monitor.CalibrateSlave1())
+        {
+            OnSlave1CalibrationComplete(this);
+        }
+        else
+        {
+            OnSlave1CalibrationFailed(this);
+        }
+    }
+
+    public void CalibrateSlave2()
+    {
+        if (monitor.CalibrateSlave2())
+        {
+            OnSlave2CalibrationComplete(this);
+        }
+        else
+        {
+            OnSlave2CalibrationFailed(this);
+        }
+    }
 
     public void Dispose()
     {

@@ -9,7 +9,10 @@ enum Opcodes { Normal, ZeroMotion, Calibration };
 
 bool serialIsConnected = false;
 
-char calibrationMsg = 'c';
+char calibrationMsg = 'a';
+char disconnectMsg = 'd';
+char connectMsg = 'y';
+char updateMsg = 'u';
 
 uint64_t microsNow;
 uint64_t zeroMotionDetectedMicros = 100000000; // large to prevent unintentional trigger
@@ -26,7 +29,7 @@ int16_t gyroSensitivity = 1;
 
 bool calibrateAgain = false;
 
-Message slaveMsg = Message(8);
+Message slaveMsg = Message(14);
 
 void setup() {
 	Serial1.begin(38400);
@@ -54,10 +57,11 @@ void loop() {
 				microsNow = micros();
 				calibrate();
 			}
-			else if (cmd == 'd') {
+			else if (cmd == disconnectMsg) {
 				serialIsConnected = false;
 			}
-			else if (cmd == 'u') {
+			else if (cmd == updateMsg) {
+				delayMicroseconds(100);
 				updateValues(Normal);
 			}
 			else if (calibrateAgain) {
@@ -67,7 +71,7 @@ void loop() {
 				calibrate();
 			}
 		}
-		else if (cmd == 'y') {
+		else if (cmd == connectMsg) {
 			serialIsConnected = true;
 		}
 	}
@@ -80,14 +84,18 @@ void loop() {
 }
 
 void updateValues(int16_t opcode) {
-	int rawAx32, rawAy32, rawAz32;
-	int16_t rawAx16 = 0, rawAy16 = 0, rawAz16 = 0;
+	int rawAx32, rawAy32, rawAz32, rawGx32, rawGy32, rawGz32;
+	int16_t rawAx16 = 0, rawAy16 = 0, rawAz16 = 0, rawGx16 = 0, rawGy16 = 0, rawGz16 = 0;
 
 	CurieIMU.readAccelerometer(rawAx32, rawAy32, rawAz32);
+	CurieIMU.readGyro(rawGx32, rawGy32, rawGz32);
 
 	rawAx16 = rawAx32;
 	rawAy16 = rawAy32;
 	rawAz16 = rawAz32;
+	rawGx16 = rawGx32;
+	rawGy16 = rawGy32;
+	rawGz16 = rawGz32;
 
 	if (isZeroMotion(microsNow, zMT) && opcode != Calibration) {
 		opcode = ZeroMotion;
@@ -97,6 +105,9 @@ void updateValues(int16_t opcode) {
 	slaveMsg.setValue<int16_t>(rawAx16, 2);
 	slaveMsg.setValue<int16_t>(rawAy16, 4);
 	slaveMsg.setValue<int16_t>(rawAz16, 6);
+	slaveMsg.setValue<int16_t>(rawGx16, 8);
+	slaveMsg.setValue<int16_t>(rawGy16, 10);
+	slaveMsg.setValue<int16_t>(rawGz16, 12);
 
 	if (Serial1.peek() == calibrationMsg && opcode != Calibration) {
 		Serial1.flush();
@@ -108,6 +119,8 @@ void updateValues(int16_t opcode) {
 
 void calibrate() {
 	if (isZeroMotion(microsNow, zMT)) {
+		CurieIMU.autoCalibrateGyroOffset();
+
 		CurieIMU.autoCalibrateXAccelOffset(0);
 		CurieIMU.autoCalibrateYAccelOffset(0);
 		CurieIMU.autoCalibrateZAccelOffset(1);
