@@ -11,6 +11,7 @@ public class CurieMovement : MonoBehaviour, IDisposable
     public UnityEngine.LineRenderer MasterLine;
     public UnityEngine.LineRenderer Slave1Line;
     public UnityEngine.LineRenderer Slave2Line;
+    public UnityEngine.LineRenderer FrankenCurieLine;
 
     private Rigidbody[] boardRigidBodies;
     private MovementTracker[] movementTrackers;
@@ -28,9 +29,10 @@ public class CurieMovement : MonoBehaviour, IDisposable
 
     public UnityEngine.UI.Text calibrationMessage;
     public UnityEngine.UI.Text frankenCurieInfo;
-    public UnityEngine.UI.Text masterInfo;
-    public UnityEngine.UI.Text slave1Info;
-    public UnityEngine.UI.Text slave2Info;
+    public UnityEngine.UI.Text frankenCurieAccelText;
+    public UnityEngine.UI.Text masterAccelText;
+    public UnityEngine.UI.Text slave1AccelText;
+    public UnityEngine.UI.Text slave2AccelText;
 
     public event Action<CurieMovement> OnMasterCalibrationComplete;
     public event Action<CurieMovement> OnMasterCalibrationFailed;
@@ -91,12 +93,14 @@ public class CurieMovement : MonoBehaviour, IDisposable
                     "\nGravity Rotated:\n" + monitor.curieData.frankenGravity +
                     "\nAcceleration Vector W/O Gravity:\n " + monitor.curieData.frankenTranslationalAccel;
                 calibrationMessage.text = "Sample Run Time: " + (Time.time - timeCalibrated);
+                FrankenCurieLine.SetPosition(1, monitor.curieData.frankenAccel * LineMultiplier);
                 MasterLine.SetPosition(1, monitor.curieData.convertedAccels[0] * LineMultiplier);
                 Slave1Line.SetPosition(1, monitor.curieData.convertedAccels[1] * LineMultiplier);
                 Slave2Line.SetPosition(1, monitor.curieData.convertedAccels[2] * LineMultiplier);
-                masterInfo.text = "Master Accel: " + monitor.curieData.convertedAccels[0];
-                slave1Info.text = "Slave 1 Accel: " + monitor.curieData.convertedAccels[1];
-                slave2Info.text = "Slave 2 Accel: " + monitor.curieData.convertedAccels[2];
+                frankenCurieAccelText.text = "FrankenCurie Accel: " + monitor.curieData.frankenAccel;
+                masterAccelText.text = "Master Accel: " + monitor.curieData.convertedAccels[0];
+                slave1AccelText.text = "Slave 1 Accel: " + monitor.curieData.convertedAccels[1];
+                slave2AccelText.text = "Slave 2 Accel: " + monitor.curieData.convertedAccels[2];
             }
         }
         else
