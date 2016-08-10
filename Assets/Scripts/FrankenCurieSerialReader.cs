@@ -70,6 +70,7 @@ public class FrankenCurieSerialReader
         public Quaternion frankenFilteredRotation;
 
         private bool messageHasBeenProcessed = false;
+        public bool isConnected;
 
         public int timesRead = 0;
 
@@ -97,37 +98,76 @@ public class FrankenCurieSerialReader
             frankenTranslationalAccel = Vector3.zero;
             frankenEstRotation = Quaternion.identity;
             frankenFilteredRotation = Quaternion.identity;
+
+            isConnected = false;
         }
 
         public void RequestMasterCalibration()
         {
-            serial.DiscardInBuffer();
-            serial.DiscardOutBuffer();
-            serial.Write(calibrationMsg);
+            if (isConnected)
+            {
+                serial.DiscardInBuffer();
+                serial.DiscardOutBuffer();
+                serial.Write(calibrationMsg);
+            }
+            else
+            {
+                Debug.Log("Cannot calibrate master when disconnected.");
+            }
         }
         public void RequestSlave1Calibration()
         {
-            serial.DiscardInBuffer();
-            serial.DiscardOutBuffer();
-            serial.Write(slave1CalibrationMsg);
+            if (isConnected)
+            {
+                serial.DiscardInBuffer();
+                serial.DiscardOutBuffer();
+                serial.Write(slave1CalibrationMsg);
+            }
+            else
+            {
+                Debug.Log("Cannot calibrate slave 1 when disconnected.");
+            }
         }
         public void RequestSlave2Calibration()
         {
-            serial.DiscardInBuffer();
-            serial.DiscardOutBuffer();
-            serial.Write(slave2CalibrationMsg);
+            if (isConnected)
+            {
+                serial.DiscardInBuffer();
+                serial.DiscardOutBuffer();
+                serial.Write(slave2CalibrationMsg);
+            }
+            else
+            {
+                Debug.Log("Cannot calibrate slave 2 when disconnected.");
+            }
         }
         public void Begin()
         {
-            serial.DiscardInBuffer();
-            serial.DiscardOutBuffer();
-            serial.Write(beginMsg);
+            if (!isConnected)
+            {
+                serial.DiscardInBuffer();
+                serial.DiscardOutBuffer();
+                serial.Write(beginMsg);
+                isConnected = true;
+            }
+            else
+            {
+                Debug.Log("Cannot begin transmission when already connected.");
+            }
         }
         public void Disconnect()
         {
-            serial.DiscardInBuffer();
-            serial.DiscardOutBuffer();
-            serial.Write(disconnectionMsg);
+            if (isConnected)
+            {
+                serial.DiscardInBuffer();
+                serial.DiscardOutBuffer();
+                serial.Write(disconnectionMsg);
+                isConnected = false;
+            }
+            else
+            {
+                Debug.Log("Cannot disconnect when already disconnected.");
+            }
         }
 
         public void UpdateData(bool forceRead = false)
@@ -245,12 +285,19 @@ public class FrankenCurieSerialReader
 
         public void readBytesFromSerial()
         {
-            for (int i = 0; i < messageLength; i++)
+            if (isConnected)
             {
-                message[i] = (byte)serial.ReadByte();
+                for (int i = 0; i < messageLength; i++)
+                {
+                    message[i] = (byte)serial.ReadByte();
+                }
+                timesRead += 1;
+                messageHasBeenProcessed = false;
             }
-            timesRead += 1;
-            messageHasBeenProcessed = false;
+            else
+            {
+                Debug.Log("Cannot read data from Serial Port when disconnected.");
+            }
         }
 
         public short getOpcode()
@@ -503,6 +550,11 @@ public class FrankenCurieSerialReader
     public void Disconnect()
     {
         curieData.Disconnect();
+    }
+
+    public void Reconnect()
+    {
+        curieData.Begin();
     }
 
 

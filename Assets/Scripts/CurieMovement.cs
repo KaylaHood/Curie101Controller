@@ -3,6 +3,7 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.IO.Ports;
 using System.Threading;
+using UnityEngine.Events;
 using System;
 
 public class CurieMovement : MonoBehaviour, IDisposable
@@ -27,6 +28,9 @@ public class CurieMovement : MonoBehaviour, IDisposable
     private bool setupCompleted = false;
     private float timeCalibrated;
 
+    public UnityEngine.UI.Button disconnectButton;
+    public UnityEngine.UI.Button reconnectButton;
+
     public UnityEngine.UI.Text calibrationMessage;
     public UnityEngine.UI.Text frankenCurieInfo;
     public UnityEngine.UI.Text frankenCurieAccelText;
@@ -47,6 +51,8 @@ public class CurieMovement : MonoBehaviour, IDisposable
         );
         port.Open();
 
+        reconnectButton.enabled = false;
+
         boardRigidBodies = gameObject.GetComponentsInChildren<Rigidbody>();
 
         movementTrackers = new MovementTracker[boardRigidBodies.Length];
@@ -65,7 +71,7 @@ public class CurieMovement : MonoBehaviour, IDisposable
 
     void Update()
     {
-        if (setupCompleted)
+        if (setupCompleted && port.IsOpen)
         {
             if (!masterIsCalibrated && !didStartCoroutineMaster)
             {
@@ -208,10 +214,20 @@ public class CurieMovement : MonoBehaviour, IDisposable
             OnSlave2CalibrationFailed(this);
         }
     }
+    
+    public void ReconnectButtonClick()
+    {
+        port.Open();
+        monitor.Reconnect();
+        disconnectButton.enabled = true;
+        reconnectButton.enabled = false;
+    }
 
     public void Dispose()
     {
         monitor.Disconnect();
         port.Close();
+        disconnectButton.enabled = false;
+        reconnectButton.enabled = true;
     }
 }
