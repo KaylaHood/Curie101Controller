@@ -12,7 +12,6 @@ public class CurieMovement : MonoBehaviour, IDisposable
     public UnityEngine.LineRenderer MasterLine;
     public UnityEngine.LineRenderer Slave1Line;
     public UnityEngine.LineRenderer Slave2Line;
-    public UnityEngine.LineRenderer FrankenCurieLine;
 
     private Rigidbody[] boardRigidBodies;
     private MovementTracker[] movementTrackers;
@@ -33,7 +32,6 @@ public class CurieMovement : MonoBehaviour, IDisposable
 
     public UnityEngine.UI.Text calibrationMessage;
     public UnityEngine.UI.Text frankenCurieInfo;
-    public UnityEngine.UI.Text frankenCurieAccelText;
     public UnityEngine.UI.Text masterAccelText;
     public UnityEngine.UI.Text slave1AccelText;
     public UnityEngine.UI.Text slave2AccelText;
@@ -90,7 +88,10 @@ public class CurieMovement : MonoBehaviour, IDisposable
             }
             else if (masterIsCalibrated && slave1IsCalibrated && slave2IsCalibrated)
             {
-                monitor.UpdateValues();
+                if(!monitor.UpdateValues())
+                {
+                    return;
+                }
                 movementTrackers[0].UpdateValues(monitor.curieData.frankenTranslationalAccel, monitor.curieData.frankenFilteredRotation);
                 frankenCurieInfo.text = "Unfiltered Euler Rotation:\n " + monitor.curieData.frankenEstRotation.eulerAngles + 
                     "\nFiltered Euler Rotation:\n " + monitor.curieData.frankenFilteredRotation.eulerAngles +
@@ -99,11 +100,9 @@ public class CurieMovement : MonoBehaviour, IDisposable
                     "\nGravity Rotated:\n" + monitor.curieData.frankenGravity +
                     "\nAcceleration Vector W/O Gravity:\n " + monitor.curieData.frankenTranslationalAccel;
                 calibrationMessage.text = "Sample Run Time: " + (Time.time - timeCalibrated);
-                FrankenCurieLine.SetPosition(1, monitor.curieData.frankenAccel * LineMultiplier);
                 MasterLine.SetPosition(1, monitor.curieData.convertedAccels[0] * LineMultiplier);
                 Slave1Line.SetPosition(1, monitor.curieData.convertedAccels[1] * LineMultiplier);
                 Slave2Line.SetPosition(1, monitor.curieData.convertedAccels[2] * LineMultiplier);
-                frankenCurieAccelText.text = "FrankenCurie Accel: " + monitor.curieData.frankenAccel;
                 masterAccelText.text = "Master Accel: " + monitor.curieData.convertedAccels[0];
                 slave1AccelText.text = "Slave 1 Accel: " + monitor.curieData.convertedAccels[1];
                 slave2AccelText.text = "Slave 2 Accel: " + monitor.curieData.convertedAccels[2];

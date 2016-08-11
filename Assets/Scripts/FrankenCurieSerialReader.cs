@@ -170,23 +170,34 @@ public class FrankenCurieSerialReader
             }
         }
 
-        public void UpdateData(bool forceRead = false)
+        public bool UpdateData(bool forceRead = false)
         {
-            if(messageHasBeenProcessed || forceRead)
+            if (messageHasBeenProcessed || forceRead)
             {
-                readBytesFromSerial();
+                if (!readBytesFromSerial())
+                {
+                    return false;
+                }
                 opcode = getOpcode();
                 timestamp = getTimestamp();
                 rawAccels = getAccels();
                 rawGyros = getGyros();
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
-        public void UpdateDataAndProcess(bool forceRead = false)
+        public bool UpdateDataAndProcess(bool forceRead = false)
         {
             if(messageHasBeenProcessed || forceRead)
             {
-                readBytesFromSerial();
+                if(!readBytesFromSerial())
+                {
+                    return false;
+                }
                 opcode = getOpcode();
                 timestamp = getTimestamp();
                 rawAccels = getAccels();
@@ -249,15 +260,15 @@ public class FrankenCurieSerialReader
             estimatedRotations[1] = Quaternion.LookRotation(convertedAccels[1]);
             estimatedRotations[2] = Quaternion.LookRotation(convertedAccels[2]);
 
-            frankenAccel = (convertedAccels[0] + convertedAccels[1] + convertedAccels[2]) / 3.0f;
-            frankenGyro = (convertedGyros[0] + convertedGyros[1] + convertedGyros[2]) / 3.0f;
+            frankenAccel = convertedAccels[0];
+            frankenGyro = convertedGyros[0];
 
             if (opcode == calibration)
             {
                 frankenAccelAtCalibration = frankenAccel;
             }
 
-            frankenEstRotation = Quaternion.FromToRotation(frankenAccelAtCalibration, frankenAccel);
+            frankenEstRotation = Quaternion.LookRotation(frankenAccel);
 
             Vector3 frankenEulerEstRotation = frankenEstRotation.eulerAngles;
 
@@ -281,22 +292,33 @@ public class FrankenCurieSerialReader
 
             messageHasBeenProcessed = true;
             serial.DiscardInBuffer();
+            return true;
         }
 
-        public void readBytesFromSerial()
+        public bool readBytesFromSerial()
         {
             if (isConnected)
             {
                 for (int i = 0; i < messageLength; i++)
                 {
-                    message[i] = (byte)serial.ReadByte();
+                    try
+                    {
+                        message[i] = (byte)serial.ReadByte();
+                    }
+                    catch(TimeoutException)
+                    {
+                        Debug.Log("Curie is non-repsonsive.");
+                        return false;
+                    }
                 }
                 timesRead += 1;
                 messageHasBeenProcessed = false;
+                return true;
             }
             else
             {
                 Debug.Log("Cannot read data from Serial Port when disconnected.");
+                return false;
             }
         }
 
@@ -422,9 +444,9 @@ public class FrankenCurieSerialReader
         curieData.Begin();
     }
 
-    public void UpdateValues()
+    public bool UpdateValues()
     {
-        curieData.UpdateDataAndProcess();
+        return curieData.UpdateDataAndProcess();
     }
 
     public bool CalibrateMaster()
@@ -446,7 +468,10 @@ public class FrankenCurieSerialReader
                     Debug.Log("loop: " + loops);
                     Debug.Log("Not calibration: " + curieData.getString());
                 }
-                curieData.UpdateData(true);
+                if(!curieData.UpdateData(true))
+                {
+                    return false;
+                }
                 loops += 1;
             }
             tries += 1;
@@ -462,8 +487,7 @@ public class FrankenCurieSerialReader
             {
                 Debug.Log("Calibration: " + curieData.getString());
             }
-            curieData.UpdateDataAndProcess();
-            return true;
+            return curieData.UpdateDataAndProcess();
         }
     }
 
@@ -486,7 +510,10 @@ public class FrankenCurieSerialReader
                     Debug.Log("loop: " + loops);
                     Debug.Log("Not calibration: " + curieData.getString());
                 }
-                curieData.UpdateData(true);
+                if(!curieData.UpdateData(true))
+                {
+                    return false;
+                }
                 loops += 1;
             }
             tries += 1;
@@ -502,8 +529,7 @@ public class FrankenCurieSerialReader
             {
                 Debug.Log("Calibration: " + curieData.getString());
             }
-            curieData.UpdateDataAndProcess();
-            return true;
+            return curieData.UpdateDataAndProcess();
         }
     }
 
@@ -526,7 +552,10 @@ public class FrankenCurieSerialReader
                     Debug.Log("loop: " + loops);
                     Debug.Log("Not calibration: " + curieData.getString());
                 }
-                curieData.UpdateData(true);
+                if(!curieData.UpdateData(true))
+                {
+                    return false;
+                }
                 loops += 1;
             }
             tries += 1;
@@ -542,8 +571,7 @@ public class FrankenCurieSerialReader
             {
                 Debug.Log("Calibration: " + curieData.getString());
             }
-            curieData.UpdateDataAndProcess();
-            return true;
+            return curieData.UpdateDataAndProcess();
         }
     }
 
@@ -556,7 +584,5 @@ public class FrankenCurieSerialReader
     {
         curieData.Begin();
     }
-
-
 
 }
